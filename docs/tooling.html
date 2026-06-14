@@ -4,7 +4,7 @@
 <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2032%2032'%3E%3Crect%20width='32'%20height='32'%20fill='%23f7f4ee'/%3E%3Cpath%20d='M9%206V26H27'%20stroke='%231a1a1a'%20stroke-width='2.4'%20fill='none'/%3E%3Ccircle%20cx='20'%20cy='13'%20r='3.4'%20fill='%23a9c39c'%20stroke='%231a1a1a'%20stroke-width='1.2'/%3E%3C/svg%3E">
 <link rel="stylesheet" href="assets/ckc.css">
 </head><body>
-<nav class="nav"><div class="wrap"><a class="home" href="index.html">CKC</a><span class="sp"></span><details class="menu"><summary>Profiles</summary><div class="menu-panel"><a href="proof-profile.html"><b>Proof</b><span>mathematics &amp; formal proving</span></a><a href="science-profile.html"><b>Science</b><span>empirical research</span></a></div></details><a href="spec.html">Spec</a><a href="impact-graph.html">ClaimGraph</a><a href="identifiers.html">Identifiers</a><a href="examples.html">Examples</a><a class="here" href="tooling.html">Tooling</a><a href="faq.html">FAQ</a><a class="ext" href="https://www.conventionalcommits.org/en/v1.0.0/">Conventional Commits ↗</a></div></nav>
+<nav class="nav"><div class="wrap"><a class="home" href="index.html">CKC</a><span class="sp"></span><div class="menu"><button class="menu-trigger" type="button" aria-haspopup="true" aria-expanded="false">Profiles</button><div class="menu-panel"><a href="proof-profile.html"><b>Proof</b><span>mathematics &amp; formal proving</span></a><a href="science-profile.html"><b>Science</b><span>empirical research</span></a></div></div><a href="spec.html">Spec</a><a href="impact-graph.html">ClaimGraph</a><a href="identifiers.html">Identifiers</a><a href="examples.html">Examples</a><a class="here" href="tooling.html">Tooling</a><a href="faq.html">FAQ</a><a class="ext" href="https://www.conventionalcommits.org/en/v1.0.0/">Conventional Commits ↗</a></div></nav>
 <main class="doc"><div class="wrap">
 <h1 id="tooling">Tooling</h1>
 <p>Hooks and configs that validate CKC commit messages live in a
@@ -56,20 +56,36 @@ framework</h2>
 <pre class="yaml"><code># .pre-commit-config.yaml
 repos:
   - repo: https://github.com/hotherio/ckc-tools
-    rev: v0.1.1
+    rev: v0.1.2
     hooks:
       - id: ckc</code></pre>
 <pre class="bash"><code>pre-commit install --hook-type commit-msg</code></pre>
-<h3 id="keeping-conventional-pre-commit">Keeping
+<p><code>ckc</code> is a drop-in superset of
+<code>conventional-pre-commit</code>: it accepts the same interface
+(positional types, <code>--strict</code>, <code>--force-scope</code>,
+<code>--scopes</code>, <code>--no-color</code>, <code>--verbose</code>,
+exit codes 0 and 1, and <code>fixup!</code>/merge commits passing unless
+<code>--strict</code>), and additionally allows the CKC vocabulary and
+runs the CKC checks. You have two options.</p>
+<h3 id="migrate-to-ckc-only">Migrate to ckc only</h3>
+<p>Drop <code>conventional-pre-commit</code> and keep your existing
+<code>args</code>: change the <code>repo</code> and <code>id</code>, and
+the rest carries over (a pinned type list is still honoured exactly;
+remove it to allow the full CKC vocabulary).</p>
+<pre class="yaml"><code>- repo: https://github.com/hotherio/ckc-tools
+  rev: v0.1.2
+  hooks:
+    - id: ckc
+      stages: [commit-msg]
+      args: [--strict, --scopes, &quot;api,client&quot;]   # the same args you gave conventional-pre-commit</code></pre>
+<h3 id="or-keep-conventional-pre-commit">Or keep
 conventional-pre-commit</h3>
-<p>You do <strong>not</strong> have to remove <a
-href="https://github.com/compilerla/conventional-pre-commit"><code>conventional-pre-commit</code></a>.
-Keep it and run <code>ckc</code> next to it. The only change is to widen
+<p>If you prefer to keep it, run <code>ckc</code> next to it and widen
 <code>conventional-pre-commit</code>'s allowed types so it stops
-rejecting CKC types; <code>ckc</code> then adds the CKC-specific checks.
-Generate the list with <code>ckc-lint --print-types</code> (it respects
-the active profiles) and paste it into the hook's <code>args</code>.
-Both hooks run on <code>commit-msg</code>; neither is replaced.</p>
+rejecting CKC types. Generate the list with
+<code>ckc-lint --print-types</code> (it respects the active profiles)
+and paste it into the hook's <code>args</code>. Both hooks run on
+<code>commit-msg</code>; neither is replaced.</p>
 <h2 id="with-lefthook">With lefthook</h2>
 <pre class="yaml"><code># lefthook.yml
 commit-msg:
@@ -105,4 +121,5 @@ the full readme and the single-source vocabulary
 commitlint config.</p>
 </div></main>
 <footer><div class="wrap">Part of <a href="index.html">Conventional Knowledge Commits</a> · extends <a href="https://www.conventionalcommits.org/en/v1.0.0/">Conventional Commits 1.0.0</a> · spec licensed <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>.</div></footer>
+<script src="assets/nav.js" defer></script>
 </body></html>

@@ -32,19 +32,24 @@ h3{font-size:18px;margin:26px 0 8px}
 .nav a.ext{color:var(--slate);border-bottom:1px solid var(--rule-2)}
 .nav a.ext:hover{color:var(--ink);border-color:var(--ink)}
 
-/* Profiles overlay dropdown (CC versions/languages analog) */
+/* Profiles hover dropdown (CC versions/languages analog) */
 .nav .menu{position:relative}
-.nav .menu>summary{list-style:none;cursor:pointer;color:var(--muted);
-  display:inline-flex;align-items:center;gap:5px;padding-bottom:1px}
-.nav .menu>summary::-webkit-details-marker{display:none}
-.nav .menu>summary::after{content:"\25be";font-size:10px;color:var(--rule-2);transition:transform .15s}
-.nav .menu>summary:hover{color:var(--ink)}
-.nav .menu[open]>summary{color:var(--ink)}
-.nav .menu[open]>summary::after{transform:rotate(180deg);color:var(--ochre)}
-.nav .menu.here>summary{color:var(--ink);border-bottom:1.5px solid var(--ochre)}
+.nav .menu-trigger{font:inherit;cursor:pointer;color:var(--muted);background:none;border:0;
+  padding:0 0 1px;display:inline-flex;align-items:center;gap:5px}
+.nav .menu-trigger::after{content:"\25be";font-size:10px;color:var(--rule-2);transition:transform .15s}
+.nav .menu:hover .menu-trigger,.nav .menu.open .menu-trigger{color:var(--ink)}
+.nav .menu:hover .menu-trigger::after,.nav .menu.open .menu-trigger::after{
+  transform:rotate(180deg);color:var(--ochre)}
+.nav .menu.here .menu-trigger{color:var(--ink);border-bottom:1.5px solid var(--ochre)}
 .nav .menu-panel{position:absolute;top:calc(100% + 11px);left:0;z-index:40;
   min-width:240px;background:var(--panel);border:1px solid var(--rule-2);border-radius:4px;
-  box-shadow:0 12px 30px rgba(60,50,30,.13);padding:6px}
+  box-shadow:0 12px 30px rgba(60,50,30,.13);padding:6px;
+  opacity:0;visibility:hidden;transform:translateY(-4px);
+  transition:opacity .14s ease,transform .14s ease,visibility .14s}
+/* transparent bridge so the gap above the panel doesn't drop the hover */
+.nav .menu-panel::before{content:"";position:absolute;top:-11px;left:0;right:0;height:11px}
+.nav .menu:hover .menu-panel,.nav .menu.open .menu-panel,.nav .menu:focus-within .menu-panel{
+  opacity:1;visibility:visible;transform:none}
 .nav .menu-panel a{display:block;border:0;padding:8px 11px;border-radius:3px;color:var(--ink)}
 .nav .menu-panel a:hover{background:var(--paper)}
 .nav .menu-panel a b{font-weight:500;display:block}
