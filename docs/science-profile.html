@@ -4,29 +4,30 @@
 <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2032%2032'%3E%3Crect%20width='32'%20height='32'%20fill='%23f7f4ee'/%3E%3Cpath%20d='M9%206V26H27'%20stroke='%231a1a1a'%20stroke-width='2.4'%20fill='none'/%3E%3Ccircle%20cx='20'%20cy='13'%20r='3.4'%20fill='%23a9c39c'%20stroke='%231a1a1a'%20stroke-width='1.2'/%3E%3C/svg%3E">
 <link rel="stylesheet" href="assets/ckc.css">
 </head><body>
-<nav class="nav"><div class="wrap"><a class="home" href="index.html">CKC</a><span class="sp"></span><a href="spec.html">Spec</a><a href="proof-profile.html">Proof</a><a class="here" href="science-profile.html">Science</a><a href="impact-graph.html">Impact graph</a><a href="identifiers.html">Identifiers</a><a href="examples.html">Examples</a><a href="faq.html">FAQ</a></div></nav>
+<nav class="nav"><div class="wrap"><a class="home" href="index.html">CKC</a><span class="sp"></span><a href="spec.html">Spec</a><a href="proof-profile.html">Proof</a><a class="here" href="science-profile.html">Science</a><a href="impact-graph.html">ClaimGraph</a><a href="identifiers.html">Identifiers</a><a href="examples.html">Examples</a><a href="faq.html">FAQ</a><a class="ext" href="https://www.conventionalcommits.org/en/v1.0.0/">Conventional Commits ↗</a></div></nav>
 <main class="doc"><div class="wrap">
-<h1 id="ckc--science-profile">CKC — <code>science</code> profile</h1>
-<p>For empirical discovery: experiments, measurements, datasets, and
-replication. The trusted base here is softer than in the
-<code>proof</code> profile — there is no kernel — so honesty rests on
-<strong>provenance</strong> (what data, protocol, code, seed) and
-<strong>uncertainty</strong> (effect size, interval, replication), and
-on keeping a code-correction (<code>repro-fix</code>) distinct from a
-genuine new finding.</p>
+<h1 id="ckc-the-science-profile">CKC: the <code>science</code>
+profile</h1>
+<p>The <code>science</code> profile is for empirical discovery:
+experiments, measurements, datasets, and replication. The trusted base
+here is softer than in the proof profile, because there is no kernel. So
+honesty rests on two things instead: provenance (what data, protocol,
+code, and seed produced the number) and uncertainty (effect size,
+interval, replication). It also keeps a code correction
+(<code>repro-fix</code>) separate from a genuine new finding.</p>
 <h2 id="types">Types</h2>
 <table>
 <thead>
 <tr>
 <th>Type</th>
-<th>Use it when you…</th>
-<th>Typical Axis 1</th>
+<th>Use it when you</th>
+<th>Typical impact</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td><code>conjecture</code></td>
-<td>register a hypothesis / prediction (ideally pre-registered)</td>
+<td>register a hypothesis or prediction, ideally pre-registered</td>
 <td>additive</td>
 </tr>
 <tr>
@@ -41,49 +42,48 @@ genuine new finding.</p>
 </tr>
 <tr>
 <td><code>replicate</code></td>
-<td>report an independent reproduction (success <strong>or</strong>
-failure)</td>
+<td>report an independent reproduction, whether it succeeds or
+fails</td>
 <td>additive</td>
 </tr>
 <tr>
 <td><code>null</code></td>
-<td>report a null / negative result</td>
+<td>report a null or negative result</td>
 <td>additive</td>
 </tr>
 <tr>
 <td><code>data</code></td>
 <td>add, curate, clean, or version a dataset</td>
-<td>additive¹</td>
+<td>additive, see note</td>
 </tr>
 <tr>
-<td><code>protocol</code> / <code>method</code></td>
-<td>add or change an experimental/analysis protocol</td>
-<td>additive¹</td>
+<td><code>protocol</code>, <code>method</code></td>
+<td>add or change an experimental or analysis protocol</td>
+<td>additive, see note</td>
 </tr>
 <tr>
 <td><code>analysis</code></td>
-<td>add or revise a statistical/computational analysis</td>
-<td>additive¹</td>
+<td>add or revise a statistical or computational analysis</td>
+<td>additive, see note</td>
 </tr>
 <tr>
 <td><code>repro-fix</code></td>
-<td>fix a bug in analysis/code that changes the numbers</td>
+<td>fix a bug in analysis or code that changes the numbers</td>
 <td>patch, or <code>!</code> if conclusions flip</td>
 </tr>
 <tr>
 <td><code>retract</code></td>
 <td>withdraw a previously reported finding</td>
-<td>breaking <code>!</code></td>
+<td>breaking, <code>!</code></td>
 </tr>
 </tbody>
 </table>
-<p>¹ A <code>data</code>, <code>protocol</code>, or
-<code>analysis</code> change that alters earlier conclusions is
-<strong>Axis-1 breaking</strong> (<code>!</code> +
-<code>Invalidates:</code>), exactly like a
-<code>data correction</code>.</p>
-<h2 id="status-axis-2">Status (Axis 2)</h2>
-<p><code>Status:</code> values, namespaced <code>sci.*</code>:</p>
+<p>Note: a <code>data</code>, <code>protocol</code>, or
+<code>analysis</code> change that alters earlier conclusions is breaking
+(<code>!</code> plus <code>Invalidates:</code>), the same as a data
+correction.</p>
+<h2 id="status">Status</h2>
+<p><code>Status:</code> values use the <code>sci.*</code> namespace:</p>
 <table>
 <thead>
 <tr>
@@ -98,15 +98,15 @@ failure)</td>
 </tr>
 <tr>
 <td><code>sci.piloted</code></td>
-<td>preliminary / underpowered evidence</td>
+<td>preliminary or underpowered evidence</td>
 </tr>
 <tr>
 <td><code>sci.measured</code></td>
-<td>a result from a single, adequately-run study</td>
+<td>a result from a single, adequately run study</td>
 </tr>
 <tr>
 <td><code>sci.supported</code></td>
-<td>corroborated across analyses/conditions</td>
+<td>corroborated across analyses or conditions</td>
 </tr>
 <tr>
 <td><code>sci.replicated</code></td>
@@ -124,43 +124,43 @@ failure)</td>
 </table>
 <h2 id="trusted-base-footers">Trusted-base footers</h2>
 <ul>
-<li><code>ASSUMES: &lt;untested assumption&gt;</code> — a
-modelling/identification assumption the result rests on.</li>
-<li><code>UNREPLICATED: &lt;scope&gt;</code> — a single, un-replicated
-run (e.g. one machine, one cohort).</li>
+<li><code>ASSUMES: &lt;untested assumption&gt;</code>: a modelling or
+identification assumption the result rests on.</li>
+<li><code>UNREPLICATED: &lt;scope&gt;</code>: a single, un-replicated
+run, for example one machine or one cohort.</li>
 </ul>
-<h2 id="provenance--uncertainty-footers">Provenance &amp; uncertainty
+<h2 id="provenance-and-uncertainty-footers">Provenance and uncertainty
 footers</h2>
 <ul>
-<li><code>Dataset: &lt;id|doi&gt; [sha256:…]</code> ·
-<code>Raw-Data: &lt;uri&gt; sha256:…</code></li>
-<li><code>Protocol: &lt;id&gt;</code> ·
-<code>Method: &lt;one-line&gt;</code> ·
-<code>Pre-Registration: &lt;osf|registry url&gt;</code></li>
-<li><code>Sample-Size: n=…</code> ·
-<code>Replicates: biological=… technical=…</code></li>
-<li><code>Effect-Size: …</code> · <code>CI: 95% […, …]</code> ·
-<code>P-Value: …</code></li>
-<li><code>Code: git:&lt;sha&gt;</code> ·
-<code>Environment: &lt;container sha256&gt;</code> ·
-<code>Seed: …</code> · <code>Hardware: …</code> ·
-<code>Metric: …</code></li>
-<li><code>Ethics-Approval: &lt;id&gt;</code> where applicable.</li>
+<li><code>Dataset: &lt;id|doi&gt; [sha256:...]</code>,
+<code>Raw-Data: &lt;uri&gt; sha256:...</code></li>
+<li><code>Protocol: &lt;id&gt;</code>,
+<code>Method: &lt;one line&gt;</code>,
+<code>Pre-Registration: &lt;registry url&gt;</code></li>
+<li><code>Sample-Size: n=...</code>,
+<code>Replicates: biological=... technical=...</code></li>
+<li><code>Effect-Size: ...</code>, <code>CI: 95% [..., ...]</code>,
+<code>P-Value: ...</code></li>
+<li><code>Code: git:&lt;sha&gt;</code>,
+<code>Environment: &lt;container sha256&gt;</code>,
+<code>Seed: ...</code>, <code>Hardware: ...</code>,
+<code>Metric: ...</code></li>
+<li><code>Ethics-Approval: &lt;id&gt;</code> where it applies.</li>
 </ul>
 <h2 id="identity">Identity</h2>
-<p>Empirical claims do <strong>not</strong> get an identifier for free
-(no canonical formal statement). Each referenced claim/hypothesis
-<strong>MUST</strong> be a curated slug (e.g.
-<code>conjecture:tensor-rank-helps</code>) registered in the claims
-registry, optionally bound to a DOI / pre-registration once published.
-See <a href="identifiers.html"><code>../identifiers.md</code></a>.</p>
+<p>Empirical claims do not get an identifier for free, because there is
+no canonical formal statement. Each referenced claim or hypothesis MUST
+be a curated slug, for example
+<code>conjecture:tensor-rank-helps</code>, registered in the claims
+registry and optionally bound to a DOI or pre-registration once
+published. See <a href="identifiers.html">Identifiers</a>.</p>
 <h2 id="examples">Examples</h2>
 <pre><code>conjecture(tensor-rank): tensor rank K&gt;1 beats K=1 on non-additive targets
 
 Claim-ID: conjecture:tensor-rank-helps
 Status: sci.hypothesis
 Pre-Registration: osf.io/abcd1</code></pre>
-<pre><code>experiment(non-additive): K=1 vs K&gt;1 on XOR/radial/multiplicative targets
+<pre><code>experiment(non-additive): K=1 vs K&gt;1 on XOR, radial, and multiplicative targets
 
 Status: sci.measured
 Metric: MSE
@@ -168,19 +168,19 @@ Sample-Size: n=1000
 Seed: 0..4
 Hardware: M4 (MPS)
 Effect-Size: ΔMSE −0.41 (K=8 vs K=1)
-UNREPLICATED: single machine, 5 seeds — needs an independent run
+UNREPLICATED: single machine, 5 seeds; needs an independent run
 Closes: conjecture:tensor-rank-helps</code></pre>
-<pre><code>replicate(non-additive): independent run fails to reproduce the K&gt;1 advantage
+<pre><code>replicate(non-additive): an independent run fails to reproduce the K&gt;1 advantage
 
 Status: sci.not-replicated
-Dataset: D-2026-014 sha256:aa80…
+Dataset: D-2026-014 sha256:aa80...
 Sample-Size: n=1200
 Effect-Size: ΔMSE −0.03
 CI: 95% [−0.09, 0.04]
 Refutes: conjecture:tensor-rank-helps</code></pre>
-<pre><code>repro-fix(scaling): correct off-by-one in the epoch windowing
+<pre><code>repro-fix(scaling): correct an off-by-one in the epoch windowing
 
-Direction unchanged, effect size revised down — not a new finding.
+The direction is unchanged and the effect size is revised down. This is not a new finding.
 
 Affects: result:igl-linear-scaling
 Effect-Size: +6.8pp → +5.1pp

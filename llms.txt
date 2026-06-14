@@ -1,0 +1,117 @@
+# Conventional Knowledge Commits (CKC) v0.1.0
+
+> CKC is a convention for commit messages that record knowledge work: mathematical claims and
+> proofs, and empirical scientific findings. It is a strict superset of Conventional Commits 1.0.0
+> (https://www.conventionalcommits.org/en/v1.0.0/): every CKC commit is a valid Conventional Commit.
+> It adds research commit types, an epistemic status recorded in a footer, and structured footers
+> (git trailers) that let tooling build a dependency graph of claims (the ClaimGraph) and track what
+> is conjectured, proved, assumed, open, or refuted, and what a refutation or a closed gap implies
+> for everything that depended on it. This file is a condensed reference; the full spec is linked at
+> the end.
+
+## Grammar
+
+```
+<type>[(scope)][~][!]: <description>
+
+[body]
+
+[footers]
+```
+
+- `!` or a `BREAKING CHANGE:` footer marks a change that invalidates dependents (axis 1).
+- `~` (before the `:`) optionally flags that the commit carries a trusted-base caveat; the footer is
+  the canonical record.
+- Footers are git trailers: `Token: value`, the token using `-` for spaces, repeatable.
+
+## The two axes
+
+Knowledge change has two independent scales; CKC keeps them apart.
+
+- Axis 1, dependency impact: does this invalidate things built on it? It lives in the `type` and `!`,
+  is immutable (a fact about history), and is the SemVer analog (repair = PATCH-like, additive =
+  MINOR-like, breaking such as refute/retract/restate/redefine = MAJOR-like).
+- Axis 2, epistemic status: how strongly is the claim established now? It lives in the `Status:`
+  footer, is mutable, and is advanced by later commits, never by rewriting an earlier one. Closing a
+  `sorry` is a new `formalize` commit that moves `Status: math.open` to `math.machine-checked`.
+
+## Profiles
+
+A profile is a domain vocabulary on top of the shared core. The type implies the profile.
+
+- proof: mathematics and formal proving. Reference assistant is Lean 4 / Mathlib; Rocq, Coq,
+  Isabelle, and Agda also work. The assumption check is `#print axioms` (Lean), `Print Assumptions`
+  (Rocq/Coq), `thm_deps` (Isabelle), `--safe` with no postulates (Agda).
+- science: empirical work (experiments, data, replication).
+
+## Types
+
+- shared: `conjecture`, `lit`, `review`, `refute` (usually `!`), `retract` (`!`), `expose`, `meta`.
+  Conventional Commits types (`feat`, `fix`, `chore`, `build`, `ci`, `docs`, `refactor`, `test`) are
+  available for tooling and prose.
+- proof: `state`, `proof`, `formalize`, `axiomatize`, `strengthen`, `generalize`, `weaken` (`!`),
+  `port`.
+- science: `experiment`, `result`, `replicate`, `null`, `data`, `protocol`, `method`, `analysis`,
+  `repro-fix`.
+
+## Status values (axis 2, namespaced)
+
+- math: `math.conjectured`, `math.proved-informal`, `math.open` (sorryAx), `math.axiomatised` (cited
+  axiom), `math.machine-checked` (clean: only `propext`, `Classical.choice`, `Quot.sound`),
+  `math.disproved`.
+- sci: `sci.hypothesis`, `sci.piloted`, `sci.measured`, `sci.supported`, `sci.replicated`,
+  `sci.not-replicated`, `sci.falsified`.
+
+## Trusted-base markers (uppercase footers, like BREAKING CHANGE)
+
+- proof: `AXIOM: <name> (<what it is>)` for a cited or added axiom; `OPEN: <what is unproven>` for a
+  `sorry`, `admit`, or `sorryAx`.
+- science: `ASSUMES: <untested assumption>`; `UNREPLICATED: <scope>` for a single, un-replicated run.
+
+A trusted-base marker sets the status (`axiomatised`, `open`, `unreplicated`). It is breaking on
+axis 1 only if it also invalidates an existing dependent.
+
+## Footers
+
+- relations (build the ClaimGraph, repeatable): `Depends-On`, `Assumes`, `Proves`, `Refutes`,
+  `Disproves`, `Supersedes`, `Retracts`, `Invalidates`, `Closes`.
+- provenance: `Claim-ID`, `Status`, `Impact` (`patch|minor|major`), `Lean`, `Formal-Statement`
+  (`lean:`/`rocq:`/`coq:`/`isabelle:`/`agda:` prefix), `Axioms` (the literal assumption check),
+  `Verified-By`, `Proof-Hash`, `Cites`, `Phase`, `Gate`.
+- science provenance: `Dataset`, `Protocol`, `Method`, `Sample-Size`, `Effect-Size`, `CI`,
+  `P-Value`, `Seed`, `Hardware`, `Metric`, `Pre-Registration`.
+
+## The ClaimGraph
+
+Nodes are claims, named by a stable identifier (the assistant's fully-qualified name for proofs, a
+registered slug for science). Edges come from the relation footers. Breakage: refuting or retracting
+a node marks every dependent (via `Depends-On`/`Assumes`) as in question (the blast radius).
+Promotion: closing a gap advances a node's status, and a node's effective status is the minimum over
+its dependency closure, the way a cited axiom surfaces downstream. The status report and an optional
+Semantic Versioning (SemVer) release version derive from the graph.
+
+## Identifiers
+
+- proof: the assistant's fully-qualified name (and an optional blueprint label). Rename-aware.
+- science: a curated slug in `claims.toml`, optionally bound to a DOI on publication.
+- Commit hashes are not used as claim ids: a hash identifies a change, not a claim.
+
+## Rules of thumb
+
+- A CKC commit MUST be a valid Conventional Commit.
+- One claim, theorem, or finding per commit, so the graph has well-defined nodes.
+- Negative results (counterexamples, null results, failed replications) are normal commits, never
+  hidden or relabelled as a `fix`.
+- For a formalized result, the `Axioms:` footer should be the literal assumption-check output. Do not
+  claim `machine-checked` while a `sorry` or a non-standard axiom is present.
+- Status changes by adding a new commit, never by editing an old one.
+
+## Full documents
+
+- Specification: https://hotherio.github.io/conventional-knowledge-commits/spec.html
+- Proof profile: https://hotherio.github.io/conventional-knowledge-commits/proof-profile.html
+- Science profile: https://hotherio.github.io/conventional-knowledge-commits/science-profile.html
+- ClaimGraph: https://hotherio.github.io/conventional-knowledge-commits/impact-graph.html
+- Identifiers: https://hotherio.github.io/conventional-knowledge-commits/identifiers.html
+- Examples: https://hotherio.github.io/conventional-knowledge-commits/examples.html
+- Repository: https://github.com/hotherio/conventional-knowledge-commits

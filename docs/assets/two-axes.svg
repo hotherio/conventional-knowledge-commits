@@ -58,11 +58,11 @@
   <!-- plane frame (rounded rect, inked) -->
   <path d="M 182 130 L 828 130 A 14 14 0 0 1 842 144 L 842 438 A 14 14 0 0 1 828 452 L 182 452 A 14 14 0 0 1 168 438 L 168 144 A 14 14 0 0 1 182 130 Z" fill="none" stroke="#9aa0a8" stroke-width="1.3" filter="url(#ink-a)"/>
 
-  <!-- column dividers (impact zones) — wavy polylines, no filter -->
+  <!-- column dividers (impact zones): wavy polylines, no filter -->
   <path d="M 393 130 L 393.6 170 L 392.4 210 L 393.5 250 L 392.5 290 L 393.4 330 L 392.5 370 L 393.6 410 L 393 452" fill="none" stroke="#b9bec5" stroke-width="1.3" stroke-linecap="round"/>
   <path d="M 617 130 L 617.6 170 L 616.4 210 L 617.5 250 L 616.5 290 L 617.4 330 L 616.5 370 L 617.6 410 L 617 452" fill="none" stroke="#b9bec5" stroke-width="1.3" stroke-linecap="round"/>
 
-  <!-- status rungs (ladder) — faint wavy horizontals, no filter -->
+  <!-- status rungs (ladder): faint wavy horizontals, no filter -->
   <path d="M 168 245 L 236 245.5 L 304 244.5 L 372 245.4 L 440 244.6 L 508 245.5 L 576 244.6 L 644 245.4 L 712 244.6 L 780 245.5 L 842 245" fill="none" stroke="#ced2d8" stroke-width="1.1" stroke-linecap="round"/>
   <path d="M 168 347 L 236 347.5 L 304 346.5 L 372 347.4 L 440 346.6 L 508 347.5 L 576 346.6 L 644 347.4 L 712 346.6 L 780 347.5 L 842 347" fill="none" stroke="#ced2d8" stroke-width="1.1" stroke-linecap="round"/>
 

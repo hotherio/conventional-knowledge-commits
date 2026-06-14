@@ -4,29 +4,82 @@
 <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2032%2032'%3E%3Crect%20width='32'%20height='32'%20fill='%23f7f4ee'/%3E%3Cpath%20d='M9%206V26H27'%20stroke='%231a1a1a'%20stroke-width='2.4'%20fill='none'/%3E%3Ccircle%20cx='20'%20cy='13'%20r='3.4'%20fill='%23a9c39c'%20stroke='%231a1a1a'%20stroke-width='1.2'/%3E%3C/svg%3E">
 <link rel="stylesheet" href="assets/ckc.css">
 </head><body>
-<nav class="nav"><div class="wrap"><a class="home" href="index.html">CKC</a><span class="sp"></span><a href="spec.html">Spec</a><a class="here" href="proof-profile.html">Proof</a><a href="science-profile.html">Science</a><a href="impact-graph.html">Impact graph</a><a href="identifiers.html">Identifiers</a><a href="examples.html">Examples</a><a href="faq.html">FAQ</a></div></nav>
+<nav class="nav"><div class="wrap"><a class="home" href="index.html">CKC</a><span class="sp"></span><a href="spec.html">Spec</a><a class="here" href="proof-profile.html">Proof</a><a href="science-profile.html">Science</a><a href="impact-graph.html">ClaimGraph</a><a href="identifiers.html">Identifiers</a><a href="examples.html">Examples</a><a href="faq.html">FAQ</a><a class="ext" href="https://www.conventionalcommits.org/en/v1.0.0/">Conventional Commits ↗</a></div></nav>
 <main class="doc"><div class="wrap">
-<h1 id="ckc--proof-profile">CKC — <code>proof</code> profile</h1>
-<p>For mathematics and formal proving. Designed to couple to a proof
-assistant (Lean 4 / Mathlib in the reference implementation), where the
-<strong>trusted base</strong> is precise: a result is either
-kernel-checked, depends on a cited axiom, or has an open
+<h1 id="ckc-the-proof-profile">CKC: the <code>proof</code> profile</h1>
+<p>The <code>proof</code> profile is for mathematics and formal proving.
+It is designed to couple to a proof assistant (Lean 4 and Mathlib in the
+reference implementation), where the trusted base is precise: a result
+is either kernel-checked, depends on a cited axiom, or has an open
 <code>sorry</code>. <code>#print axioms</code> is the ground truth, and
-CKC commits report it rather than asserting status by hand.</p>
+CKC commits report it rather than asserting a status by hand.</p>
+<h2 id="proof-assistants">Proof assistants</h2>
+<p>The profile is not specific to Lean. It works with any proof
+assistant that can name a declaration and report the assumptions a proof
+depends on. Lean is the reference because its <code>#print axioms</code>
+makes the trusted base explicit, but the same three states
+(machine-checked, depends on a cited axiom, has an open hole) exist in
+every system. Use the <code>Verified-By:</code> footer to name the
+assistant and version, and prefix the formal name with the system in
+<code>Formal-Statement:</code>.</p>
+<table>
+<thead>
+<tr>
+<th>Assistant</th>
+<th>Stable name</th>
+<th>Trusted-base check</th>
+<th>"Machine-checked" footers</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Lean 4 / Mathlib</td>
+<td><code>Ns.thm</code></td>
+<td><code>#print axioms</code></td>
+<td><code>Formal-Statement: lean:Ns.thm</code> ·
+<code>Verified-By: Lean 4.30.0</code></td>
+</tr>
+<tr>
+<td>Rocq / Coq</td>
+<td><code>Module.thm</code></td>
+<td><code>Print Assumptions thm</code></td>
+<td><code>Formal-Statement: rocq:Module.thm</code> ·
+<code>Verified-By: Rocq 9.0</code></td>
+</tr>
+<tr>
+<td>Isabelle/HOL</td>
+<td><code>Theory.thm</code></td>
+<td><code>thm_deps</code> / <code>unused_thms</code></td>
+<td><code>Formal-Statement: isabelle:Theory.thm</code></td>
+</tr>
+<tr>
+<td>Agda</td>
+<td><code>Module.name</code></td>
+<td><code>--safe</code> flag, no postulates</td>
+<td><code>Formal-Statement: agda:Module.name</code></td>
+</tr>
+</tbody>
+</table>
+<p>The status mapping is the same everywhere: a clean trusted base is
+<code>math.machine-checked</code>, a cited axiom or
+<code>Axiom</code>/<code>Parameter</code>/<code>postulate</code>/<code>sorry</code>
+is <code>math.axiomatised</code> or <code>math.open</code>. The
+<code>Axioms:</code> footer carries whatever the system's assumption
+check prints.</p>
 <h2 id="types">Types</h2>
 <table>
 <thead>
 <tr>
 <th>Type</th>
-<th>Use it when you…</th>
-<th>Typical Axis 1</th>
+<th>Use it when you</th>
+<th>Typical impact</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td><code>state</code></td>
-<td>add a definition or the formal statement of a result (no proof
-yet)</td>
+<td>add a definition or the formal statement of a result, with no proof
+yet</td>
 <td>additive</td>
 </tr>
 <tr>
@@ -36,24 +89,24 @@ yet)</td>
 </tr>
 <tr>
 <td><code>proof</code></td>
-<td>give or complete an <strong>informal</strong> (paper) proof</td>
+<td>give or complete an informal (paper) proof</td>
 <td>additive</td>
 </tr>
 <tr>
 <td><code>formalize</code></td>
-<td>write/advance a machine-checkable proof: stubs → tactics → closing
+<td>write or advance a machine-checkable proof: stubs, tactics, closing
 goals</td>
 <td>additive</td>
 </tr>
 <tr>
 <td><code>axiomatize</code></td>
-<td>deliberately posit a <strong>cited</strong> axiom (theory absent
-from the library)</td>
-<td>additive¹</td>
+<td>deliberately posit a cited axiom (theory absent from the
+library)</td>
+<td>additive, see note</td>
 </tr>
 <tr>
 <td><code>strengthen</code></td>
-<td>weaken hypotheses or strengthen the conclusion; old form still
+<td>weaken hypotheses or strengthen the conclusion; the old form still
 follows</td>
 <td>additive</td>
 </tr>
@@ -64,18 +117,18 @@ follows</td>
 </tr>
 <tr>
 <td><code>weaken</code></td>
-<td>strengthen hypotheses / narrow the conclusion</td>
-<td>usually breaking <code>!</code></td>
+<td>strengthen hypotheses or narrow the conclusion</td>
+<td>usually breaking, <code>!</code></td>
 </tr>
 <tr>
 <td><code>refute</code></td>
-<td>give a counterexample / disproof of a prior claim</td>
-<td>breaking <code>!</code></td>
+<td>give a counterexample or disproof of a prior claim</td>
+<td>breaking, <code>!</code></td>
 </tr>
 <tr>
 <td><code>retract</code></td>
 <td>withdraw a previously asserted result or proof</td>
-<td>breaking <code>!</code></td>
+<td>breaking, <code>!</code></td>
 </tr>
 <tr>
 <td><code>port</code></td>
@@ -84,34 +137,34 @@ follows</td>
 </tr>
 </tbody>
 </table>
-<p>¹ <code>axiomatize</code> is <strong>additive on Axis 1</strong> (it
-introduces a new object), but it is a <strong>trusted-base</strong>
-event on Axis 2 — it MUST carry an <code>AXIOM:</code> footer and sets
-<code>Status: math.axiomatised</code>. It becomes Axis-1 breaking only
-if it <em>replaces</em> a previously proved result with an assumed
-one.</p>
-<h2 id="status-axis-2--bound-to-print-axioms">Status (Axis 2) — bound to
+<p>Note on <code>axiomatize</code>: it is additive on the
+dependency-impact axis, because it introduces a new object. On the
+status axis it is a trusted-base event, so it MUST carry an
+<code>AXIOM:</code> footer and sets
+<code>Status: math.axiomatised</code>. It becomes a breaking change only
+if it replaces a previously proved result with an assumed one.</p>
+<h2 id="status-bound-to-print-axioms">Status, bound to
 <code>#print axioms</code></h2>
-<p><code>Status:</code> values, namespaced <code>math.*</code>:</p>
+<p><code>Status:</code> values use the <code>math.*</code>
+namespace:</p>
 <table>
 <thead>
 <tr>
 <th><code>Status:</code></th>
 <th>Meaning</th>
-<th>Ground truth (<code>axiom-report</code> /
-<code>#print axioms</code>)</th>
+<th>Ground truth (<code>#print axioms</code>)</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td><code>math.conjectured</code></td>
 <td>asserted, unproven</td>
-<td>—</td>
+<td>none</td>
 </tr>
 <tr>
 <td><code>math.proved-informal</code></td>
 <td>paper proof, not formalized</td>
-<td>—</td>
+<td>none</td>
 </tr>
 <tr>
 <td><code>math.open</code></td>
@@ -120,19 +173,19 @@ one.</p>
 </tr>
 <tr>
 <td><code>math.axiomatised</code></td>
-<td>formalized <strong>modulo</strong> a cited axiom</td>
-<td>depends on a cited/added <code>axiom</code></td>
+<td>formalized assuming a cited axiom</td>
+<td>depends on a cited or added <code>axiom</code></td>
 </tr>
 <tr>
 <td><code>math.machine-checked</code></td>
 <td>kernel-checked, no gaps, no added axioms</td>
-<td><strong>clean</strong> (only <code>propext</code>,
-<code>Classical.choice</code>, <code>Quot.sound</code>)</td>
+<td>clean: only <code>propext</code>, <code>Classical.choice</code>,
+<code>Quot.sound</code></td>
 </tr>
 <tr>
 <td><code>math.disproved</code></td>
-<td>shown false (counterexample/disproof)</td>
-<td>—</td>
+<td>shown false by a counterexample or disproof</td>
+<td>none</td>
 </tr>
 </tbody>
 </table>
@@ -140,68 +193,63 @@ one.</p>
 the actual <code>Axioms:</code> line, and that line SHOULD show only the
 standard three. Claiming <code>machine-checked</code> while the kernel
 reports a <code>sorryAx</code> or a non-standard axiom is a CKC
-violation (it is exactly the dishonesty the convention exists to
-prevent).</p>
+violation. That dishonesty is the thing the convention exists to
+prevent.</p>
 <h2 id="trusted-base-footers">Trusted-base footers</h2>
 <ul>
-<li><code>AXIOM: &lt;Name&gt; — &lt;what it is / why cited&gt;</code> —
-a cited or added axiom widens the trusted base.</li>
-<li><code>OPEN: &lt;what is unproven&gt;</code> — a remaining
-<code>sorry</code> / <code>admit</code> / <code>sorryAx</code>.</li>
+<li><code>AXIOM: &lt;Name&gt; (&lt;what it is, why cited&gt;)</code>: a
+cited or added axiom widens the trusted base.</li>
+<li><code>OPEN: &lt;what is unproven&gt;</code>: a remaining
+<code>sorry</code>, <code>admit</code>, or <code>sorryAx</code>.</li>
 </ul>
 <h2 id="provenance-footers">Provenance footers</h2>
 <ul>
-<li><code>Lean: &lt;Fully.Qualified.Name&gt;[, …]</code> — the
-declaration(s) this commit touches (the stable ID).</li>
-<li><code>Formal-Statement: lean:&lt;FQN&gt;</code> — alternative
-spelling binding a claim id to its Lean name.</li>
-<li><code>Axioms: &lt;name&gt;[, …]</code> — the literal
+<li><code>Lean: &lt;Fully.Qualified.Name&gt;[, ...]</code>: the
+declaration(s) this commit touches, which is the stable id.</li>
+<li><code>Formal-Statement: lean:&lt;FQN&gt;</code>: an alternative
+spelling that binds a claim id to its Lean name.</li>
+<li><code>Axioms: &lt;name&gt;[, ...]</code>: the literal
 <code>#print axioms</code> result
 (<code>propext, Classical.choice, Quot.sound</code> for a clean
 result).</li>
-<li><code>Verified-By: &lt;assistant + library version&gt;</code> — e.g.
-<code>Lean 4.30.0; Mathlib v4.30.0</code>.</li>
-<li><code>Proof-Hash: sha256:…</code> — optional content hash of the
+<li><code>Verified-By: &lt;assistant and library version&gt;</code>, for
+example <code>Lean 4.30.0; Mathlib v4.30.0</code>.</li>
+<li><code>Proof-Hash: sha256:...</code>: an optional content hash of the
 proof artifact.</li>
-<li><code>Cites: &lt;doi|arXiv|ref&gt;</code> — for
-<code>axiomatize</code>/<code>lit</code>: where the cited fact comes
+<li><code>Cites: &lt;doi|arXiv|ref&gt;</code>: for
+<code>axiomatize</code> and <code>lit</code>, where the cited fact comes
 from.</li>
-<li><code>Phase: &lt;A..H&gt;</code>, <code>Gate: &lt;…&gt;</code> —
-optional link to the research pipeline ledger
-(<code>RESEARCH.md</code>).</li>
+<li><code>Phase: &lt;A..H&gt;</code>, <code>Gate: &lt;...&gt;</code>: an
+optional link to a research pipeline ledger.</li>
 </ul>
 <h2 id="identity">Identity</h2>
-<p>The stable identifier of a formal result is its <strong>Lean
-fully-qualified name</strong> (and/or its blueprint label, e.g.
-<code>thm:master-formula</code>). These survive rephrasing of the prose
-and are what <code>Depends-On:</code> / <code>Proves:</code> /
+<p>The stable identifier of a formal result is its Lean fully-qualified
+name, optionally with a blueprint label such as
+<code>thm:master-formula</code>. These survive a rewrite of the prose
+and are what <code>Depends-On:</code>, <code>Proves:</code>, and
 <code>Refutes:</code> reference. See <a
-href="identifiers.html"><code>../identifiers.md</code></a>.</p>
+href="identifiers.html">Identifiers</a>.</p>
 <h2 id="examples">Examples</h2>
 <pre><code>state(green-kernel): define the elliptic Green&#39;s kernel operator
 
 Lean: IGL.greensKernel
 Status: math.conjectured</code></pre>
-<pre><code>formalize(fubini): close the d-fold separable factorization (Master Formula)
-
-Mirror MeasureTheory.integral_fintype_prod_eq_prod over Fin d.
+<pre><code>formalize(fubini): close the d-fold separable factorization
 
 Lean: IGL.fubini_dfold, IGL.fubini_factorization
 Status: math.machine-checked
 Axioms: propext, Classical.choice, Quot.sound
 Verified-By: Lean 4.30.0; Mathlib v4.30.0
 Closes: conjecture:master-formula</code></pre>
-<pre><code>axiomatize~(exp-sum): cite the Braess–Hackbusch logarithmic rank bound
+<pre><code>axiomatize~(exp-sum): cite the logarithmic exponential-sum rank bound
 
-Mathlib v4.30.0 has no elliptic-Green&#39;s exponential-sum theory; posit it as a Tier-3 citation.
+The target library has no elliptic-Green&#39;s exponential-sum theory, so posit it as a citation.
 
 Lean: IGL.expSumRank_logBound
 Status: math.axiomatised
-AXIOM: IGL.expSumRank_logBound — separable rank K = O(log 1/ε), dimension-independent
+AXIOM: IGL.expSumRank_logBound (separable rank K = O(log 1/ε), dimension-independent)
 Cites: Braess &amp; Hackbusch 2005, Numer. Math.</code></pre>
-<pre><code>refute(separability)!: the metric factor √|g| blocks naive separable factorization
-
-A radial counterexample shows the kernel does not factor under the affine-invariant metric.
+<pre><code>refute(separability)!: a counterexample blocks naive separable factorization
 
 Disproves: conjecture:naive-separable
 Status: math.disproved
