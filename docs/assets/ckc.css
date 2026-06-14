@@ -79,6 +79,7 @@ h3{font-size:18px;margin:26px 0 8px}
 /* header / hero */
 header{border-bottom:1px solid var(--rule);background:linear-gradient(180deg,#fbf9f3,transparent)}
 .head{padding:40px 0 28px;text-align:center}
+.head .hero-logo{height:104px;width:auto;display:block;margin:0 auto 22px}
 .badge{display:inline-block;font-size:12px;letter-spacing:2px;color:var(--slate);
   border:1px solid var(--rule-2);border-radius:2px;padding:3px 10px;margin-bottom:18px}
 h1{font-size:40px;margin:0 0 8px;letter-spacing:-0.5px}
