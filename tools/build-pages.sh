@@ -19,10 +19,10 @@ render_nav(){ # $1 = current href
   case "$cur" in proof-profile.html|science-profile.html) pcls=" here";; esac
   printf '<nav class="nav"><div class="wrap">'
   printf '<a class="home" href="index.html">CKC</a><span class="sp"></span>'
-  printf '<details class="menu%s"><summary>Profiles</summary><div class="menu-panel">' "$pcls"
+  printf '<div class="menu%s"><button class="menu-trigger" type="button" aria-haspopup="true" aria-expanded="false">Profiles</button><div class="menu-panel">' "$pcls"
   printf '<a href="proof-profile.html"><b>Proof</b><span>mathematics &amp; formal proving</span></a>'
   printf '<a href="science-profile.html"><b>Science</b><span>empirical research</span></a>'
-  printf '</div></details>'
+  printf '</div></div>'
   for item in "${NAV[@]:1}"; do
     label="${item%%|*}"; href="${item##*|}"
     cls=""; [ "$href" = "$cur" ] && cls=" class=\"here\""
@@ -60,7 +60,7 @@ $(render_nav "$out")
 <main class="doc${extra:+ $extra}"><div class="wrap">
 EOF
     pandoc -f gfm -t html --no-highlight "$src" | rewrite
-    printf '</div></main>\n%s\n</body></html>\n' "$FOOTER"
+    printf '</div></main>\n%s\n<script src="assets/nav.js" defer></script>\n</body></html>\n' "$FOOTER"
   } > "docs/$out"
   echo "  wrote docs/$out"
 }

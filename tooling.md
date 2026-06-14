@@ -44,7 +44,7 @@ Commits and CKC:
 # .pre-commit-config.yaml
 repos:
   - repo: https://github.com/hotherio/ckc-tools
-    rev: v0.1.1
+    rev: v0.1.2
     hooks:
       - id: ckc
 ```
@@ -53,14 +53,31 @@ repos:
 pre-commit install --hook-type commit-msg
 ```
 
-### Keeping conventional-pre-commit
+`ckc` is a drop-in superset of `conventional-pre-commit`: it accepts the same interface (positional
+types, `--strict`, `--force-scope`, `--scopes`, `--no-color`, `--verbose`, exit codes 0 and 1, and
+`fixup!`/merge commits passing unless `--strict`), and additionally allows the CKC vocabulary and runs
+the CKC checks. You have two options.
 
-You do **not** have to remove
-[`conventional-pre-commit`](https://github.com/compilerla/conventional-pre-commit). Keep it and run
-`ckc` next to it. The only change is to widen `conventional-pre-commit`'s allowed types so it stops
-rejecting CKC types; `ckc` then adds the CKC-specific checks. Generate the list with
-`ckc-lint --print-types` (it respects the active profiles) and paste it into the hook's `args`. Both
-hooks run on `commit-msg`; neither is replaced.
+### Migrate to ckc only
+
+Drop `conventional-pre-commit` and keep your existing `args`: change the `repo` and `id`, and the rest
+carries over (a pinned type list is still honoured exactly; remove it to allow the full CKC
+vocabulary).
+
+```yaml
+- repo: https://github.com/hotherio/ckc-tools
+  rev: v0.1.2
+  hooks:
+    - id: ckc
+      stages: [commit-msg]
+      args: [--strict, --scopes, "api,client"]   # the same args you gave conventional-pre-commit
+```
+
+### Or keep conventional-pre-commit
+
+If you prefer to keep it, run `ckc` next to it and widen `conventional-pre-commit`'s allowed types so
+it stops rejecting CKC types. Generate the list with `ckc-lint --print-types` (it respects the active
+profiles) and paste it into the hook's `args`. Both hooks run on `commit-msg`; neither is replaced.
 
 ## With lefthook
 
