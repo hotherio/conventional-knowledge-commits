@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# build-pages.sh — render the CKC markdown docs into styled HTML pages.
+# build-pages.sh: render the CKC markdown docs into styled HTML pages.
 # Pages live under a /<version>/<language>/ path (e.g. docs/0.1.0/en/spec.html);
 # the site root and /<version>/ redirect to the current version + default language.
 # No CI (the org disables Actions); run locally, commit the generated files.
@@ -56,7 +56,7 @@ render_nav(){ # $1 = current page filename (e.g. spec.html)
   printf '</div></div>'
   navlink "faq.html" "FAQ" "$cur"
   printf '<span class="navsep"></span>'
-  # version selector — entries point to the same page under each version
+  # version selector: entries point to the same page under each version
   printf '<div class="menu sel"><button class="menu-trigger" type="button" aria-haspopup="true" aria-expanded="false">v%s</button><div class="menu-panel">' "$VERSION"
   for v in "${VERSIONS[@]}"; do
     vlabel="${v%%|*}"; vsub="${v##*|}"
@@ -64,7 +64,7 @@ render_nav(){ # $1 = current page filename (e.g. spec.html)
     printf '<a%s href="../../%s/%s/%s"><b>v%s</b><span>%s</span></a>' "$cls" "$vlabel" "$LANG_CODE" "$cur" "$vlabel" "$vsub"
   done
   printf '</div></div>'
-  # language selector — entries point to the same page under each language
+  # language selector: entries point to the same page under each language
   printf '<div class="menu sel"><button class="menu-trigger" type="button" aria-haspopup="true" aria-expanded="false">%s</button><div class="menu-panel">' "$(echo "$LANG_CODE" | tr '[:lower:]' '[:upper:]')"
   for l in "${LANGS[@]}"; do
     lcode="${l%%|*}"; lname="${l##*|}"

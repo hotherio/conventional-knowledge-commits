@@ -1,4 +1,4 @@
-// nav.js — hover-driven nav dropdowns (the Profiles overlay).
+// nav.js: hover-driven nav dropdowns (the Profiles overlay).
 // Hover opens; a short close delay lets the cursor cross the gap into the
 // panel without it snapping shut. Click and keyboard work too, for touch and
 // accessibility. No dependencies.

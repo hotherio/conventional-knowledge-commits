@@ -1,9 +1,9 @@
-# claims.toml — the CKC claim registry (science profile, and proof claims that want a slug).
+# claims.toml: the CKC claim registry (science profile, and proof claims that want a slug).
 #
 # One entry per claim/hypothesis/finding. The slug (the table key) is what commit footers
 # reference as `conjecture:<slug>` / `claim:<slug>` / `result:<slug>`. The `status` field is a
-# CACHE of the effective status computed from the commit graph — regenerate it, don't treat it as
-# the source of truth. See identifiers.md and impact-graph.md.
+# CACHE of the effective status computed from the commit graph. Regenerate it, don't treat it as
+# the source of truth. See identifiers.md and claimgraph.md.
 #
 # This file is an EXAMPLE seeded with the IGL claims used throughout the spec.
 
