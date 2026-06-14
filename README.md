@@ -25,7 +25,7 @@ it is established, what it rests on, and what it breaks.
 A CKC commit is still a valid Conventional Commit:
 
 ```
-<type>[(scope)][~][!]: <description>
+<type>[~][(scope)][!]: <description>
 
 [body]
 
@@ -100,6 +100,7 @@ More in [Examples](EXAMPLES.md).
 - [Science profile](spec/science-profile.md), empirical discovery
 - [ClaimGraph](impact-graph.md), the dependency graph CKC builds
 - [Identifiers](identifiers.md), stable claim and theorem ids
+- [Tooling](tooling.md), commit-message hooks and configs ([hotherio/ckc-tools](https://github.com/hotherio/ckc-tools))
 - [FAQ](FAQ.md), [Contributing](CONTRIBUTING.md)
 - [llms.txt](llms.txt), a condensed version for AI tools
 

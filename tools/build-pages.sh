@@ -10,7 +10,8 @@ ICON="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='
 
 # nav: label|href  (Home first)
 NAV=( "Home|index.html" "Spec|spec.html" "Proof|proof-profile.html" "Science|science-profile.html" \
-      "ClaimGraph|impact-graph.html" "Identifiers|identifiers.html" "Examples|examples.html" "FAQ|faq.html" )
+      "ClaimGraph|impact-graph.html" "Identifiers|identifiers.html" "Examples|examples.html" \
+      "Tooling|tooling.html" "FAQ|faq.html" )
 CC_URL="https://www.conventionalcommits.org/en/v1.0.0/"
 
 render_nav(){ # $1 = current href
@@ -66,6 +67,7 @@ page spec/science-profile.md science-profile.html "Science profile"
 page impact-graph.md       impact-graph.html     "The ClaimGraph"
 page identifiers.md        identifiers.html      "Stable identifiers"
 page EXAMPLES.md           examples.html         "Examples"
+page tooling.md            tooling.html          "Tooling"
 page FAQ.md                faq.html              "FAQ"            faq
 # llms.txt: condensed spec for AI tools, served at the site root
 cp -f llms.txt docs/llms.txt 2>/dev/null && echo "  copied docs/llms.txt"

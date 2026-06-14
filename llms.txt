@@ -12,7 +12,7 @@
 ## Grammar
 
 ```
-<type>[(scope)][~][!]: <description>
+<type>[~][(scope)][!]: <description>
 
 [body]
 
@@ -114,4 +114,6 @@ Semantic Versioning (SemVer) release version derive from the graph.
 - ClaimGraph: https://hotherio.github.io/conventional-knowledge-commits/impact-graph.html
 - Identifiers: https://hotherio.github.io/conventional-knowledge-commits/identifiers.html
 - Examples: https://hotherio.github.io/conventional-knowledge-commits/examples.html
-- Repository: https://github.com/hotherio/conventional-knowledge-commits
+- Tooling: https://hotherio.github.io/conventional-knowledge-commits/tooling.html
+- Spec repository: https://github.com/hotherio/conventional-knowledge-commits
+- Hooks and configs (ckc-tools): https://github.com/hotherio/ckc-tools
