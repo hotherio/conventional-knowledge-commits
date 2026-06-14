@@ -32,6 +32,33 @@ h3{font-size:18px;margin:26px 0 8px}
 .nav a.ext{color:var(--slate);border-bottom:1px solid var(--rule-2)}
 .nav a.ext:hover{color:var(--ink);border-color:var(--ink)}
 
+/* Profiles overlay dropdown (CC versions/languages analog) */
+.nav .menu{position:relative}
+.nav .menu>summary{list-style:none;cursor:pointer;color:var(--muted);
+  display:inline-flex;align-items:center;gap:5px;padding-bottom:1px}
+.nav .menu>summary::-webkit-details-marker{display:none}
+.nav .menu>summary::after{content:"\25be";font-size:10px;color:var(--rule-2);transition:transform .15s}
+.nav .menu>summary:hover{color:var(--ink)}
+.nav .menu[open]>summary{color:var(--ink)}
+.nav .menu[open]>summary::after{transform:rotate(180deg);color:var(--ochre)}
+.nav .menu.here>summary{color:var(--ink);border-bottom:1.5px solid var(--ochre)}
+.nav .menu-panel{position:absolute;top:calc(100% + 11px);left:0;z-index:40;
+  min-width:240px;background:var(--panel);border:1px solid var(--rule-2);border-radius:4px;
+  box-shadow:0 12px 30px rgba(60,50,30,.13);padding:6px}
+.nav .menu-panel a{display:block;border:0;padding:8px 11px;border-radius:3px;color:var(--ink)}
+.nav .menu-panel a:hover{background:var(--paper)}
+.nav .menu-panel a b{font-weight:500;display:block}
+.nav .menu-panel a span{display:block;font-size:12px;color:var(--muted)}
+
+/* primary actions (CC-style Quick Summary / Full Specification / Contribute) */
+.cta{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin-top:22px}
+.cta .btn{border:1px solid var(--rule-2);background:var(--panel);color:var(--ink);
+  padding:9px 18px;border-radius:3px;font-size:14px;
+  transition:border-color .15s,background .15s}
+.cta .btn:hover{border-color:var(--ink);background:#fff}
+.cta .btn.primary{background:var(--sage);border-color:#8fae82}
+.cta .btn.primary:hover{background:#9bba8d;border-color:var(--ink)}
+
 /* header / hero */
 header{border-bottom:1px solid var(--rule);background:linear-gradient(180deg,#fbf9f3,transparent)}
 .head{padding:40px 0 28px;text-align:center}
