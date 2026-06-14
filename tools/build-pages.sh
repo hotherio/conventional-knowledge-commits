@@ -8,16 +8,21 @@ command -v pandoc >/dev/null || { echo "pandoc required"; exit 127; }
 
 ICON="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2032%2032'%3E%3Crect%20width='32'%20height='32'%20fill='%23f7f4ee'/%3E%3Cpath%20d='M9%206V26H27'%20stroke='%231a1a1a'%20stroke-width='2.4'%20fill='none'/%3E%3Ccircle%20cx='20'%20cy='13'%20r='3.4'%20fill='%23a9c39c'%20stroke='%231a1a1a'%20stroke-width='1.2'/%3E%3C/svg%3E"
 
-# nav: label|href  (Home first)
-NAV=( "Home|index.html" "Spec|spec.html" "Proof|proof-profile.html" "Science|science-profile.html" \
-      "ClaimGraph|impact-graph.html" "Identifiers|identifiers.html" "Examples|examples.html" \
+# nav: label|href  (Home first; Proof/Science live in the Profiles dropdown)
+NAV=( "Home|index.html" "Spec|spec.html" "ClaimGraph|impact-graph.html" \
+      "Identifiers|identifiers.html" "Examples|examples.html" \
       "Tooling|tooling.html" "FAQ|faq.html" )
 CC_URL="https://www.conventionalcommits.org/en/v1.0.0/"
 
 render_nav(){ # $1 = current href
-  local cur="$1" item label href cls
+  local cur="$1" item label href cls pcls=""
+  case "$cur" in proof-profile.html|science-profile.html) pcls=" here";; esac
   printf '<nav class="nav"><div class="wrap">'
   printf '<a class="home" href="index.html">CKC</a><span class="sp"></span>'
+  printf '<details class="menu%s"><summary>Profiles</summary><div class="menu-panel">' "$pcls"
+  printf '<a href="proof-profile.html"><b>Proof</b><span>mathematics &amp; formal proving</span></a>'
+  printf '<a href="science-profile.html"><b>Science</b><span>empirical research</span></a>'
+  printf '</div></details>'
   for item in "${NAV[@]:1}"; do
     label="${item%%|*}"; href="${item##*|}"
     cls=""; [ "$href" = "$cur" ] && cls=" class=\"here\""

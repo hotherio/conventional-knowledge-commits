@@ -14,9 +14,13 @@
 
 <nav class="nav"><div class="wrap">
   <a class="home" href="index.html">CKC</a><span class="sp"></span>
-  <a href="spec.html">Spec</a><a href="proof-profile.html">Proof</a><a href="science-profile.html">Science</a>
-  <a href="impact-graph.html">ClaimGraph</a><a href="identifiers.html">Identifiers</a>
-  <a href="examples.html">Examples</a><a href="tooling.html">Tooling</a><a href="faq.html">FAQ</a>
+  <details class="menu"><summary>Profiles</summary><div class="menu-panel">
+    <a href="proof-profile.html"><b>Proof</b><span>mathematics &amp; formal proving</span></a>
+    <a href="science-profile.html"><b>Science</b><span>empirical research</span></a>
+  </div></details>
+  <a href="spec.html">Spec</a><a href="impact-graph.html">ClaimGraph</a>
+  <a href="identifiers.html">Identifiers</a><a href="examples.html">Examples</a>
+  <a href="tooling.html">Tooling</a><a href="faq.html">FAQ</a>
   <a class="ext" href="https://www.conventionalcommits.org/en/v1.0.0/">Conventional Commits ↗</a>
 </div></nav>
 
@@ -28,6 +32,11 @@
     <p class="lede">A specification for adding human- and machine-readable meaning to commits that
       record <b>mathematical proofs</b> and <b>scientific findings</b>.</p>
     <div class="super">structured commits for claims, proofs, and evidence</div>
+    <div class="cta">
+      <a class="btn primary" href="#summary">Quick Summary</a>
+      <a class="btn" href="spec.html">Full Specification</a>
+      <a class="btn" href="https://github.com/hotherio/conventional-knowledge-commits/blob/main/CONTRIBUTING.md">Contribute</a>
+    </div>
   </div>
 </header>
 
@@ -38,7 +47,7 @@
   </div>
 </section>
 
-<section>
+<section id="summary">
   <div class="wrap">
     <h2>The one idea: two axes</h2>
     <p class="muted">Software change has one scale, backward compatibility. Knowledge change has
