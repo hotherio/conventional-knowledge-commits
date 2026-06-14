@@ -54,6 +54,12 @@ h3{font-size:18px;margin:26px 0 8px}
 .nav .menu-panel a:hover{background:var(--paper)}
 .nav .menu-panel a b{font-weight:500;display:block}
 .nav .menu-panel a span{display:block;font-size:12px;color:var(--muted)}
+.nav .menu-panel a.cur b::after{content:" \2713";color:var(--sage)}
+
+/* version / language selectors (right side of the nav) */
+.nav .navsep{width:1px;height:15px;background:var(--rule-2)}
+.nav .menu.sel .menu-trigger{color:var(--slate);letter-spacing:.3px}
+.nav .menu.sel .menu-panel{left:auto;right:0;min-width:170px}
 
 /* primary actions (CC-style Quick Summary / Full Specification / Contribute) */
 .cta{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin-top:22px}
