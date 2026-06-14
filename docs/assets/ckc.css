@@ -29,6 +29,8 @@ h3{font-size:18px;margin:26px 0 8px}
 .nav a{border:0;color:var(--muted)}
 .nav a:hover{color:var(--ink)}
 .nav a.here{color:var(--ink);border-bottom:1.5px solid var(--ochre)}
+.nav a.ext{color:var(--slate);border-bottom:1px solid var(--rule-2)}
+.nav a.ext:hover{color:var(--ink);border-color:var(--ink)}
 
 /* header / hero */
 header{border-bottom:1px solid var(--rule);background:linear-gradient(180deg,#fbf9f3,transparent)}
@@ -101,6 +103,14 @@ footer{padding:30px 0 50px;color:var(--muted);font-size:13px;text-align:center}
 .doc table code{background:none;border:0;padding:0}
 .doc hr{border:0;border-top:1px solid var(--rule);margin:26px 0}
 .doc .subtitle{color:var(--muted);font-size:14px;margin:0 0 18px}
+
+/* FAQ: make each question stand out from its answer */
+.doc.faq h1{margin-bottom:22px}
+.doc.faq h2{display:none}
+.doc.faq h3{font-size:18px;color:var(--ink);font-weight:500;margin:30px 0 6px;
+  padding:2px 0 2px 14px;border-left:3px solid var(--ochre);border-top:0}
+.doc.faq h3:first-of-type{margin-top:8px}
+.doc.faq p{margin:0 0 4px;color:var(--slate)}
 
 @media(max-width:720px){
   h1{font-size:30px}.gallery,.cols{grid-template-columns:1fr}

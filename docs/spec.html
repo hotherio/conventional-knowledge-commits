@@ -4,210 +4,228 @@
 <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2032%2032'%3E%3Crect%20width='32'%20height='32'%20fill='%23f7f4ee'/%3E%3Cpath%20d='M9%206V26H27'%20stroke='%231a1a1a'%20stroke-width='2.4'%20fill='none'/%3E%3Ccircle%20cx='20'%20cy='13'%20r='3.4'%20fill='%23a9c39c'%20stroke='%231a1a1a'%20stroke-width='1.2'/%3E%3C/svg%3E">
 <link rel="stylesheet" href="assets/ckc.css">
 </head><body>
-<nav class="nav"><div class="wrap"><a class="home" href="index.html">CKC</a><span class="sp"></span><a class="here" href="spec.html">Spec</a><a href="proof-profile.html">Proof</a><a href="science-profile.html">Science</a><a href="impact-graph.html">Impact graph</a><a href="identifiers.html">Identifiers</a><a href="examples.html">Examples</a><a href="faq.html">FAQ</a></div></nav>
+<nav class="nav"><div class="wrap"><a class="home" href="index.html">CKC</a><span class="sp"></span><a class="here" href="spec.html">Spec</a><a href="proof-profile.html">Proof</a><a href="science-profile.html">Science</a><a href="impact-graph.html">ClaimGraph</a><a href="identifiers.html">Identifiers</a><a href="examples.html">Examples</a><a href="faq.html">FAQ</a><a class="ext" href="https://www.conventionalcommits.org/en/v1.0.0/">Conventional Commits ↗</a></div></nav>
 <main class="doc"><div class="wrap">
 <h1 id="conventional-knowledge-commits-v010">Conventional Knowledge
 Commits v0.1.0</h1>
 <h2 id="summary">Summary</h2>
-<p>Conventional Knowledge Commits (CKC) is a lightweight convention for
-commit messages that record <strong>knowledge work</strong> —
-mathematical claims and proofs, and empirical scientific findings — on
-top of <a
+<p>Conventional Knowledge Commits (CKC) is a convention for commit
+messages that record knowledge work: mathematical claims and proofs, and
+empirical scientific findings. It builds on <a
 href="https://www.conventionalcommits.org/en/v1.0.0/">Conventional
 Commits 1.0.0</a>.</p>
-<p>CKC is a <strong>strict superset</strong>: every CKC commit is a
-valid Conventional Commit. It adds a research vocabulary (commit
-<em>types</em>), an <em>epistemic-status</em> discipline, and structured
-<em>footers</em> (git trailers) that together let tooling build a
-<strong>knowledge dependency graph</strong> and track, honestly, what is
-<em>conjectured</em> vs <em>proved</em> vs <em>axiomatised</em> vs
-<em>refuted</em> — and what a refutation or a closed gap implies for
-everything that depended on it.</p>
-<p>A CKC commit captures a claim, its status, and what it depends
-on.</p>
+<p>CKC is a strict superset. Every CKC commit is also a valid
+Conventional Commit. It adds a research vocabulary (commit
+<em>types</em>), a way to record how established a claim is (its
+<em>status</em>), and structured <em>footers</em> (git trailers).
+Together these let tooling read the commit history and answer questions
+a plain log cannot: what is conjectured, what is proved, what rests on a
+cited axiom, what has been refuted, and what a refutation or a closed
+gap means for everything that depended on it.</p>
 <pre><code>&lt;type&gt;[(scope)][~][!]: &lt;description&gt;
 
 [body]
 
 [footers]</code></pre>
-<h2 id="the-two-axes-the-core-idea">The two axes (the core idea)</h2>
-<p>Software change has <strong>one</strong> lattice:
-backward-compatibility, which Conventional Commits maps onto SemVer
-(<code>fix</code>→PATCH, <code>feat</code>→MINOR,
-<code>BREAKING CHANGE</code>→MAJOR). Knowledge change has <strong>two
-orthogonal</strong> axes, and separating them is the whole design:</p>
+<h2 id="why-use-ckc">Why use CKC</h2>
 <ul>
-<li><strong>Axis 1 — dependency impact</strong> <em>(immutable; lives in
-the <code>type</code> and <code>!</code>)</em>. Does this commit
-invalidate things built on it? This is the genuine SemVer analog: a
-<em>repair</em> (PATCH-like), an <em>additive</em> result (MINOR-like),
-or a <em>breaking</em> change (MAJOR-like) such as refuting, retracting,
-re-stating, or redefining something others depend on.</li>
-<li><strong>Axis 2 — epistemic status</strong> <em>(mutable; lives in
-the <code>Status:</code> footer)</em>. How strongly is the claim
-established right now?
-<code>conjectured → proved → machine-checked</code> (math), or
-<code>hypothesis → measured → replicated</code> (science). Status is
-advanced by <strong>later commits</strong>, never by rewriting an
-earlier one. Closing a <code>sorry</code> is a new
-<code>formalize</code> commit that flips
-<code>Status: math.open → math.machine-checked</code> — the original
-history stands.</li>
+<li>The commit log becomes an honest, current record of what is proved,
+what is assumed, what is open, and what has been disproved, without
+anyone keeping a separate status document.</li>
+<li>The relation footers form a dependency graph (see <a
+href="impact-graph.html">the impact graph</a>). When a claim is
+refuted, you can see which results now depend on something false. When a
+gap is closed, the results above it are promoted.</li>
+<li>Negative results have a place. Counterexamples, null results, and
+failed replications are normal commit types, so they are recorded
+instead of quietly dropped.</li>
+<li>Provenance travels with the work: the Lean name and
+<code>#print axioms</code> for a proof, the dataset, seed, and effect
+size for an experiment. Claims stay auditable and reproducible.</li>
+<li>There is nothing new to install. A CKC commit is a Conventional
+Commit, so existing changelog and lint tooling keeps working, and
+CKC-aware tooling reads the extra types and footers.</li>
+<li>Collaborators and reviewers share one vocabulary for the state of
+the work.</li>
 </ul>
-<p>Keeping these apart is why CKC does not need to rewrite a commit's
-type when a proof later closes, and why a single
-<code>#print axioms</code> result can be both an Axis-2 status and an
-Axis-1 caveat.</p>
+<h2 id="the-two-axes">The two axes</h2>
+<p>Software change has one scale: backward compatibility, which
+Conventional Commits maps onto SemVer (<code>fix</code> is a PATCH,
+<code>feat</code> is a MINOR, <code>BREAKING CHANGE</code> is a MAJOR).
+Knowledge change has two independent scales, and CKC keeps them apart on
+purpose.</p>
+<ol type="1">
+<li><strong>Dependency impact.</strong> Does this commit invalidate
+things built on it? This is the direct SemVer analog. It lives in the
+<code>type</code> and the <code>!</code> marker, and it is a fact about
+history that does not change later. The values are a repair
+(PATCH-like), an additive result (MINOR-like), or a breaking change
+(MAJOR-like) such as refuting, retracting, re-stating, or redefining
+something that others depend on.</li>
+<li><strong>Epistemic status.</strong> How strongly is the claim
+established right now? This has no analog in Conventional Commits, and
+it is the real extension. It lives in the <code>Status:</code> footer,
+and it is advanced by later commits, never by editing an earlier one.
+The ladders are <code>conjectured</code> to <code>proved</code> to
+<code>machine-checked</code> for mathematics, and
+<code>hypothesis</code> to <code>measured</code> to
+<code>replicated</code> for science.</li>
+</ol>
+<p>Keeping the two apart is what lets CKC leave history untouched. When
+a <code>sorry</code> is closed months later, you do not rewrite the old
+commit's type. You add a new <code>formalize</code> commit that moves
+the <code>Status:</code> footer from <code>math.open</code> to
+<code>math.machine-checked</code>. The type says what happened; the
+footer says what is believed now.</p>
 <h2 id="profiles">Profiles</h2>
-<p>CKC defines one core and two <strong>profiles</strong>:</p>
+<p>A <strong>profile</strong> is a domain vocabulary layered on the
+shared core. CKC ships two:</p>
 <ul>
-<li>the <strong><code>proof</code></strong> profile — mathematics and
-formal proving (Lean/Mathlib-coupled);</li>
-<li>the <strong><code>science</code></strong> profile — empirical
-discovery (experiments, data, replication).</li>
+<li>the <strong><code>proof</code></strong> profile, for mathematics and
+formal proving (the reference tooling is Lean and Mathlib);</li>
+<li>the <strong><code>science</code></strong> profile, for empirical
+work (experiments, data, replication).</li>
 </ul>
-<p><strong>The type implies the profile.</strong> Shared types are
-profile-neutral; profile-specific types belong to exactly one profile. A
-<code>Profile:</code> footer is used only to disambiguate a genuinely
-cross-profile commit. Per-profile detail lives in <a
-href="proof-profile.html"><code>proof-profile.md</code></a> and <a
-href="science-profile.html"><code>science-profile.md</code></a>.</p>
+<p>Each profile defines its own commit types, status values, and
+trusted-base markers. The shared core types (<code>conjecture</code>,
+<code>lit</code>, <code>review</code>, <code>refute</code>,
+<code>retract</code>, <code>expose</code>, <code>meta</code>) work in
+either. <strong>The type you choose implies the profile</strong>:
+<code>formalize</code> is a <code>proof</code> commit,
+<code>experiment</code> is a <code>science</code> commit,
+<code>conjecture</code> is shared. A <code>Profile:</code> footer is
+used only to disambiguate a commit that genuinely spans both. The
+per-profile detail is in <a href="proof-profile.html">the proof
+profile</a> and <a href="science-profile.html">the science
+profile</a>.</p>
 <h2 id="specification">Specification</h2>
-<p>The key words “MUST”, “MUST NOT”, “REQUIRED”, “SHALL”, “SHALL NOT”,
-“SHOULD”, “SHOULD NOT”, “RECOMMENDED”, “MAY”, and “OPTIONAL” are to be
+<p>The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
+"SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" are to be
 interpreted as described in <a
 href="https://www.ietf.org/rfc/rfc2119.txt">RFC 2119</a>.</p>
 <ol type="1">
-<li><p>Every CKC commit <strong>MUST</strong> be a valid Conventional
-Commit 1.0.0 message: a <code>type</code>, an OPTIONAL
-<code>scope</code>, an OPTIONAL <code>!</code>, a REQUIRED terminal
-colon and space, and a <code>description</code>; with an OPTIONAL body
-and OPTIONAL footers, separated by blank lines.</p></li>
-<li><p>The <code>type</code> <strong>MUST</strong> be a noun. It SHOULD
-be one of the CKC types — shared (<code>conjecture</code>,
-<code>lit</code>, <code>review</code>, <code>refute</code>,
-<code>retract</code>, <code>expose</code>, <code>meta</code>),
-<code>proof</code>-profile (<code>state</code>, <code>proof</code>,
-<code>formalize</code>, <code>axiomatize</code>,
-<code>strengthen</code>, <code>generalize</code>, <code>weaken</code>,
-<code>port</code>), or <code>science</code>-profile
-(<code>experiment</code>, <code>result</code>, <code>replicate</code>,
-<code>null</code>, <code>data</code>, <code>protocol</code>,
-<code>method</code>, <code>analysis</code>, <code>repro-fix</code>) — or
-a Conventional-Commits type (<code>feat</code>, <code>fix</code>,
-<code>chore</code>, <code>build</code>, <code>ci</code>,
-<code>docs</code>, <code>refactor</code>, <code>test</code>) for
-surrounding tooling and prose.</p></li>
+<li><p>Every CKC commit MUST be a valid Conventional Commits 1.0.0
+message: a <code>type</code>, an OPTIONAL <code>scope</code>, an
+OPTIONAL <code>!</code>, a REQUIRED terminal colon and space, and a
+<code>description</code>, with an OPTIONAL body and OPTIONAL footers
+separated by blank lines.</p></li>
+<li><p>The <code>type</code> MUST be a noun. It SHOULD be one of the CKC
+types: a shared type (<code>conjecture</code>, <code>lit</code>,
+<code>review</code>, <code>refute</code>, <code>retract</code>,
+<code>expose</code>, <code>meta</code>), a <code>proof</code>-profile
+type (<code>state</code>, <code>proof</code>, <code>formalize</code>,
+<code>axiomatize</code>, <code>strengthen</code>,
+<code>generalize</code>, <code>weaken</code>, <code>port</code>), or a
+<code>science</code>-profile type (<code>experiment</code>,
+<code>result</code>, <code>replicate</code>, <code>null</code>,
+<code>data</code>, <code>protocol</code>, <code>method</code>,
+<code>analysis</code>, <code>repro-fix</code>). A Conventional Commits
+type (<code>feat</code>, <code>fix</code>, <code>chore</code>,
+<code>build</code>, <code>ci</code>, <code>docs</code>,
+<code>refactor</code>, <code>test</code>) MAY be used for surrounding
+tooling and prose.</p></li>
 <li><p>A <code>scope</code> MAY be provided. For knowledge commits it
-SHOULD name the <strong>claim or area</strong> the commit concerns, e.g.
+SHOULD name the claim or area the commit concerns, for example
 <code>formalize(fubini):</code>.</p></li>
-<li><p><strong>Axis 1 (dependency impact).</strong> A commit that
-invalidates results which depend on it — refuting, retracting,
-re-stating a theorem so dependents no longer hold, redefining a term, or
-a data correction that changes downstream conclusions —
-<strong>MUST</strong> signal it, either with a <code>!</code>
-immediately before the <code>:</code>, or with a
-<code>BREAKING CHANGE:</code> footer (synonym
-<code>BREAKING-CHANGE:</code>), exactly as in Conventional Commits. A
-<code>BREAKING CHANGE:</code> footer, when present,
-<strong>MUST</strong> name the affected claim(s). A commit MAY
-additionally make Axis 1 explicit with an
+<li><p><strong>Dependency impact (axis 1).</strong> A commit that
+invalidates results which depend on it (refuting, retracting, re-stating
+a theorem so dependents no longer hold, redefining a term, or correcting
+data in a way that changes downstream conclusions) MUST signal it,
+either with a <code>!</code> immediately before the <code>:</code>, or
+with a <code>BREAKING CHANGE:</code> footer (synonym
+<code>BREAKING-CHANGE:</code>), as in Conventional Commits. A
+<code>BREAKING CHANGE:</code> footer, when present, MUST name the
+affected claim(s). A commit MAY make the impact explicit with an
 <code>Impact: patch | minor | major</code> footer.</p></li>
-<li><p><strong>Axis 2 (epistemic status).</strong> A commit that asserts
+<li><p><strong>Epistemic status (axis 2).</strong> A commit that asserts
 or changes the status of a claim SHOULD carry a <code>Status:</code>
 footer with a namespaced value (<code>math.*</code> or
-<code>sci.*</code>, see the profiles). Status <strong>MUST NOT</strong>
-be changed by amending or rewriting an earlier commit; it is advanced
-(or demoted) by a <strong>new</strong> commit referencing the same
-claim.</p></li>
+<code>sci.*</code>; see the profiles). Status MUST NOT be changed by
+amending or rewriting an earlier commit. It is advanced, or demoted, by
+a new commit referencing the same claim.</p></li>
 <li><p><strong>Trusted-base markers.</strong> A commit whose results
-rest on a newly introduced assumption <strong>MUST</strong> declare it
-with a loud, uppercase footer (mirroring <code>BREAKING CHANGE</code>):
-in the <code>proof</code> profile, <code>AXIOM:</code> (a cited/added
-axiom) or <code>OPEN:</code> (a
-<code>sorry</code>/<code>admit</code>/<code>sorryAx</code>); in the
-<code>science</code> profile, <code>ASSUMES:</code> (an untested
-assumption) or <code>UNREPLICATED:</code> (a single, un-replicated run).
-A trusted-base marker affects <strong>Axis 2</strong> (the status
-becomes
-<code>axiomatised</code>/<code>open</code>/<code>unreplicated</code>);
-it is <strong>Axis 1 breaking only if</strong> it also invalidates an
-existing dependent.</p></li>
+rest on a newly introduced assumption MUST declare it with an uppercase
+footer, in the manner of <code>BREAKING CHANGE</code>. In the
+<code>proof</code> profile that is <code>AXIOM:</code> (a cited or added
+axiom) or <code>OPEN:</code> (a <code>sorry</code>, <code>admit</code>,
+or <code>sorryAx</code>). In the <code>science</code> profile it is
+<code>ASSUMES:</code> (an untested assumption) or
+<code>UNREPLICATED:</code> (a single, un-replicated run). A trusted-base
+marker affects the status (it becomes <code>axiomatised</code>,
+<code>open</code>, or <code>unreplicated</code>). It is also a
+dependency-breaking change only when it invalidates an existing
+dependent.</p></li>
 <li><p><strong>Stable identity.</strong> A claim, theorem, definition,
-or hypothesis that other commits reference <strong>MUST</strong> have a
-stable identifier (see <a
-href="identifiers.html"><code>identifiers.md</code></a>). In the
+or hypothesis that other commits reference MUST have a stable identifier
+(see <a href="identifiers.html">Identifiers</a>). In the
 <code>proof</code> profile this is the Lean fully-qualified name
-(<code>Lean:</code> / <code>Formal-Statement: lean:&lt;FQN&gt;</code>)
-and/or a blueprint label; in the <code>science</code> profile a curated
-slug registered in the claims registry. Commits <strong>SHOULD
-NOT</strong> silently rewrite a claim under an unchanged identifier —
-use <code>Supersedes:</code> or an Axis-1 breaking change.</p></li>
-<li><p><strong>Relations.</strong> Footers expressing relations between
-claims <strong>MUST</strong> use the git-trailer form
-(<code>Token: value</code>, the token using <code>-</code> for spaces)
-and MAY be repeated. Defined relation tokens: <code>Depends-On</code>,
+(<code>Lean:</code> or <code>Formal-Statement: lean:&lt;FQN&gt;</code>)
+and an optional blueprint label. In the <code>science</code> profile it
+is a curated slug registered in the claims registry. A commit SHOULD NOT
+silently rewrite a claim under an unchanged identifier. Use
+<code>Supersedes:</code> or a breaking change.</p></li>
+<li><p><strong>Relations.</strong> Footers that express a relation
+between claims MUST use the git-trailer form (<code>Token: value</code>,
+with <code>-</code> in place of spaces in the token) and MAY be
+repeated. The relation tokens are <code>Depends-On</code>,
 <code>Assumes</code>, <code>Proves</code>, <code>Refutes</code>,
 <code>Disproves</code>, <code>Supersedes</code>, <code>Retracts</code>,
-<code>Invalidates</code>, <code>Closes</code>. These edges define the
-knowledge graph (see <a
-href="impact-graph.html"><code>impact-graph.md</code></a>).</p></li>
+<code>Invalidates</code>, and <code>Closes</code>. These edges define
+the knowledge graph (see <a href="impact-graph.html">the impact
+graph</a>).</p></li>
 <li><p><strong>Provenance.</strong> Verification and provenance footers
 SHOULD be recorded where they apply: <code>Lean</code>,
 <code>Formal-Statement</code>, <code>Axioms</code>,
 <code>Verified-By</code>, <code>Proof-Hash</code>, <code>Cites</code>,
-<code>Phase</code>, <code>Gate</code> (proof); <code>Dataset</code>,
+<code>Phase</code>, <code>Gate</code> for proofs; <code>Dataset</code>,
 <code>Protocol</code>, <code>Method</code>, <code>Sample-Size</code>,
 <code>Effect-Size</code>, <code>CI</code>, <code>P-Value</code>,
 <code>Seed</code>, <code>Hardware</code>, <code>Metric</code>,
-<code>Pre-Registration</code> (science). The <code>Axioms:</code>
-footer, when present for a formalized result, SHOULD be the literal
-output of <code>#print axioms</code>.</p></li>
-<li><p><strong>Negative results are first-class.</strong>
-Counterexamples, disproofs, null results, and failed replications
-<strong>MUST</strong> be expressible as ordinary commits
-(<code>refute</code>, <code>null</code>, a <code>replicate</code> with a
-<code>sci.not-replicated</code> status) — never hidden, deferred, or
-downgraded to a <code>fix</code>.</p></li>
-<li><p><strong>Granularity.</strong> A commit SHOULD concern
-<strong>one</strong> claim, theorem, or finding, so that the knowledge
-graph has well-defined nodes. Bundle only genuinely inseparable
-changes.</p></li>
-<li><p><strong>Optional <code>~</code> sigil.</strong> A <code>~</code>
-MAY be placed immediately before the <code>:</code> (after any
-<code>scope</code>/<code>!</code>) as an at-a-glance marker that the
-commit carries a trusted-base caveat (an
-<code>AXIOM:</code>/<code>OPEN:</code>/
-<code>ASSUMES:</code>/<code>UNREPLICATED:</code> footer). The footer
-remains the canonical, machine-readable record; the <code>~</code> is
-human sugar and MUST NOT be the sole indicator.</p></li>
-<li><p>The units of information that make up CKC <strong>MUST
-NOT</strong> be treated as case-sensitive by implementors, with the
-exception of the uppercase trusted-base/breaking tokens
-(<code>BREAKING CHANGE</code>, <code>AXIOM</code>, <code>OPEN</code>,
-<code>ASSUMES</code>, <code>UNREPLICATED</code>), which MUST be
-uppercase.</p></li>
+<code>Pre-Registration</code> for science. For a formalized result, the
+<code>Axioms:</code> footer SHOULD be the literal output of
+<code>#print axioms</code>.</p></li>
+<li><p><strong>Negative results are normal commits.</strong>
+Counterexamples, disproofs, null results, and failed replications MUST
+be expressible as ordinary commits (<code>refute</code>,
+<code>null</code>, or a <code>replicate</code> with a
+<code>sci.not-replicated</code> status). They are never hidden,
+deferred, or relabelled as a <code>fix</code>.</p></li>
+<li><p><strong>Granularity.</strong> A commit SHOULD concern one claim,
+theorem, or finding, so the knowledge graph has well-defined nodes.
+Bundle only changes that are genuinely inseparable.</p></li>
+<li><p><strong>The <code>~</code> marker.</strong> A <code>~</code> MAY
+be placed immediately before the <code>:</code> (after any
+<code>scope</code> or <code>!</code>) to flag at a glance that the
+commit carries a trusted-base caveat (an <code>AXIOM:</code>,
+<code>OPEN:</code>, <code>ASSUMES:</code>, or <code>UNREPLICATED:</code>
+footer). The footer is the record that tooling reads. The <code>~</code>
+is a convenience for human readers and MUST NOT be the only
+indicator.</p></li>
+<li><p>The units of information in CKC MUST NOT be treated as
+case-sensitive by implementors, except for the uppercase trusted-base
+and breaking tokens (<code>BREAKING CHANGE</code>, <code>AXIOM</code>,
+<code>OPEN</code>, <code>ASSUMES</code>, <code>UNREPLICATED</code>),
+which MUST be uppercase.</p></li>
 </ol>
 <h2 id="relation-to-semver-and-the-payoff">Relation to SemVer and the
 payoff</h2>
-<p>The primary downstream artifact CKC serves is the <strong>knowledge
-dependency + impact graph</strong> (<a
-href="impact-graph.html"><code>impact-graph.md</code></a>): from the
+<p>The artifact CKC primarily serves is the knowledge dependency graph
+(see <a href="impact-graph.html">the impact graph</a>). From the
 relation footers, tooling can propagate a refutation to its dependents
-(mark them <em>in question</em>), promote dependents when a gap closes,
-and derive both a <strong>status report</strong> (what is
-proved/open/axiomatised/replicated) and, optionally, a
-<strong>SemVer-style release version</strong> for a knowledge artifact
-(a paper or a formalized library): breaking knowledge change → MAJOR,
-additive result/replication → MINOR, repair/cleanup → PATCH.</p>
+and mark them as in question, promote dependents when a gap closes, and
+produce both a status report (what is proved, axiomatised, open, or
+replicated) and, if you want one, a SemVer-style release version for a
+knowledge artifact such as a paper or a formalized library: a breaking
+knowledge change is a MAJOR release, an additive result or replication
+is a MINOR, a repair or cleanup is a PATCH.</p>
 <h2 id="see-also">See also</h2>
 <ul>
-<li><a href="proof-profile.html"><code>proof-profile.md</code></a> · <a
-href="science-profile.html"><code>science-profile.md</code></a></li>
-<li><a href="impact-graph.html"><code>../impact-graph.md</code></a> ·
-<a href="identifiers.html"><code>../identifiers.md</code></a></li>
-<li><a href="examples.html"><code>../EXAMPLES.md</code></a> · <a
-href="faq.html"><code>../FAQ.md</code></a></li>
+<li><a href="proof-profile.html">Proof profile</a>, <a
+href="science-profile.html">Science profile</a></li>
+<li><a href="impact-graph.html">Impact graph</a>, <a
+href="identifiers.html">Identifiers</a></li>
+<li><a href="examples.html">Examples</a>, <a
+href="faq.html">FAQ</a></li>
 </ul>
 </div></main>
 <footer><div class="wrap">Part of <a href="index.html">Conventional Knowledge Commits</a> · extends <a href="https://www.conventionalcommits.org/en/v1.0.0/">Conventional Commits 1.0.0</a> · spec licensed <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>.</div></footer>
