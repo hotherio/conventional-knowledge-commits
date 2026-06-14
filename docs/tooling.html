@@ -1,0 +1,85 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tooling · CKC</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2032%2032'%3E%3Crect%20width='32'%20height='32'%20fill='%23f7f4ee'/%3E%3Cpath%20d='M9%206V26H27'%20stroke='%231a1a1a'%20stroke-width='2.4'%20fill='none'/%3E%3Ccircle%20cx='20'%20cy='13'%20r='3.4'%20fill='%23a9c39c'%20stroke='%231a1a1a'%20stroke-width='1.2'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="assets/ckc.css">
+</head><body>
+<nav class="nav"><div class="wrap"><a class="home" href="index.html">CKC</a><span class="sp"></span><a href="spec.html">Spec</a><a href="proof-profile.html">Proof</a><a href="science-profile.html">Science</a><a href="impact-graph.html">ClaimGraph</a><a href="identifiers.html">Identifiers</a><a href="examples.html">Examples</a><a class="here" href="tooling.html">Tooling</a><a href="faq.html">FAQ</a><a class="ext" href="https://www.conventionalcommits.org/en/v1.0.0/">Conventional Commits ↗</a></div></nav>
+<main class="doc"><div class="wrap">
+<h1 id="tooling">Tooling</h1>
+<p>Hooks and configs that validate CKC commit messages live in a
+separate repository, <a
+href="https://github.com/hotherio/ckc-tools">hotherio/ckc-tools</a>.
+They are built to <strong>compose with existing <a
+href="https://www.conventionalcommits.org/">Conventional Commits</a>
+tooling, not collide with it.</strong></p>
+<h2 id="the-collision-and-how-to-avoid-it">The collision, and how to
+avoid it</h2>
+<p>A strict Conventional Commits validator allows only a fixed list of
+types, so it rejects CKC types such as <code>formalize</code> and
+<code>experiment</code>. Because CKC is a superset, a CKC validator
+already accepts every plain Conventional Commit (<code>feat</code>,
+<code>fix</code>, <code>docs</code>). The rule is simple: never run two
+validators with disjoint type lists. A repository that holds both a
+paper and its proofs uses the CKC validator and nothing conflicts, since
+it accepts both plain Conventional Commits for tooling and CKC commits
+for the work.</p>
+<h2 id="what-is-available">What is available</h2>
+<ul>
+<li><code>ckc-lint</code>, a <code>commit-msg</code> validator (Python,
+no Node). It checks that a message is a valid Conventional Commit and
+follows CKC: a known type, a known <code>Status:</code> value, uppercase
+trusted-base markers, <code>~</code> consistency, and well-formed
+relation footers.</li>
+<li><code>ckc-axiom-check</code>, an opt-in honesty hook for the proof
+profile. When a commit claims <code>Status: math.machine-checked</code>,
+it cross-checks the named <code>Lean:</code> declarations against the
+kernel via the lean-math <code>axiom-report</code> and rejects the
+commit if the kernel disagrees.</li>
+<li><code>commitlint-config-ckc</code>, a <a
+href="https://commitlint.js.org/">commitlint</a> shareable config for
+the JavaScript world that widens <code>type-enum</code> to the CKC
+vocabulary.</li>
+</ul>
+<h2 id="install-with-the-pre-commit-framework">Install with the
+pre-commit framework</h2>
+<pre class="yaml"><code># .pre-commit-config.yaml
+repos:
+  - repo: https://github.com/hotherio/ckc-tools
+    rev: v0.1.0
+    hooks:
+      - id: ckc
+      # opt-in proof honesty check (needs Lean and axiom-report):
+      # - id: ckc-axiom-check</code></pre>
+<pre class="bash"><code>pre-commit install --hook-type commit-msg</code></pre>
+<p>If you already use <a
+href="https://github.com/compilerla/conventional-pre-commit"><code>conventional-pre-commit</code></a>,
+replace it with the <code>ckc</code> hook, which is a superset that
+still accepts plain Conventional Commits, or keep it and pass the CKC
+types in its <code>args:</code>.</p>
+<h2 id="install-with-commitlint">Install with commitlint</h2>
+<pre class="js"><code>// commitlint.config.js
+module.exports = {
+  extends: [&#39;@commitlint/config-conventional&#39;, &#39;commitlint-config-ckc&#39;],
+};</code></pre>
+<p><code>commitlint-config-ckc</code> extends
+<code>config-conventional</code> and only widens the type list. Do not
+add a second config that re-narrows it.</p>
+<h2 id="the-honesty-hook">The honesty hook</h2>
+<p><code>ckc-axiom-check</code> extends the lean-math working-tree
+honesty gate into the commit log. It acts only on a commit that claims
+<code>math.machine-checked</code> or <code>math.axiomatised</code> and
+names <code>Lean:</code> declarations, and it rejects only a genuine
+contradiction (the kernel reports a <code>sorryAx</code> or a cited
+axiom while the commit claims <code>machine-checked</code>). It needs
+Lean, a built project, and <code>axiom-report</code> on
+<code>PATH</code> (or <code>$CKC_AXIOM_REPORT</code>); when it cannot
+determine a declaration's status it skips.</p>
+<p>See <a
+href="https://github.com/hotherio/ckc-tools">hotherio/ckc-tools</a> for
+the full readme and the single-source vocabulary
+(<code>vocab.json</code>) shared by the Python validator and the
+commitlint config.</p>
+</div></main>
+<footer><div class="wrap">Part of <a href="index.html">Conventional Knowledge Commits</a> · extends <a href="https://www.conventionalcommits.org/en/v1.0.0/">Conventional Commits 1.0.0</a> · spec licensed <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>.</div></footer>
+</body></html>
