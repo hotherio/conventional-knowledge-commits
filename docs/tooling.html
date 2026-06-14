@@ -10,9 +10,9 @@
 <p>Hooks and configs that validate CKC commit messages live in a
 separate repository, <a
 href="https://github.com/hotherio/ckc-tools">hotherio/ckc-tools</a>.
-They are built to <strong>compose with existing <a
+They are built to <strong>run alongside existing <a
 href="https://www.conventionalcommits.org/">Conventional Commits</a>
-tooling, not collide with it.</strong></p>
+tooling, not replace it.</strong></p>
 <h2 id="the-collision-and-how-to-avoid-it">The collision, and how to
 avoid it</h2>
 <p>A strict Conventional Commits validator allows only a fixed list of
@@ -28,9 +28,9 @@ for the work.</p>
 <ul>
 <li><code>ckc-lint</code>, a <code>commit-msg</code> validator (Python,
 no Node). It checks that a message is a valid Conventional Commit and
-follows CKC: a known type, a known <code>Status:</code> value, uppercase
-trusted-base markers, <code>~</code> consistency, and well-formed
-relation footers.</li>
+follows CKC: a known type for the active profiles, a known
+<code>Status:</code> value, uppercase trusted-base markers,
+<code>~</code> consistency, and well-formed relation footers.</li>
 <li><code>ckc-axiom-check</code>, an opt-in honesty hook for the proof
 profile. When a commit claims <code>Status: math.machine-checked</code>,
 it cross-checks the named <code>Lean:</code> declarations against the
@@ -41,30 +41,53 @@ href="https://commitlint.js.org/">commitlint</a> shareable config for
 the JavaScript world that widens <code>type-enum</code> to the CKC
 vocabulary.</li>
 </ul>
-<h2 id="install-with-the-pre-commit-framework">Install with the
-pre-commit framework</h2>
+<h2 id="profiles">Profiles</h2>
+<p>A repository chooses which profiles are active: <code>proof</code>,
+<code>science</code>, or both (the default). With one profile active, a
+type from the other profile is rejected. Set it with the
+<code>--profile</code> flag, <code>$CKC_PROFILES</code>, or a
+<code>.ckc.toml</code> at the repo root:</p>
+<pre class="toml"><code># .ckc.toml
+profiles = [&quot;proof&quot;]   # or [&quot;science&quot;], or [&quot;proof&quot;, &quot;science&quot;]</code></pre>
+<h2 id="with-the-pre-commit-framework">With the pre-commit
+framework</h2>
+<p>For a repository with no Conventional Commits hook yet,
+<code>ckc</code> alone validates both Conventional Commits and CKC:</p>
 <pre class="yaml"><code># .pre-commit-config.yaml
 repos:
   - repo: https://github.com/hotherio/ckc-tools
-    rev: v0.1.0
+    rev: v0.1.1
     hooks:
-      - id: ckc
-      # opt-in proof honesty check (needs Lean and axiom-report):
-      # - id: ckc-axiom-check</code></pre>
+      - id: ckc</code></pre>
 <pre class="bash"><code>pre-commit install --hook-type commit-msg</code></pre>
-<p>If you already use <a
-href="https://github.com/compilerla/conventional-pre-commit"><code>conventional-pre-commit</code></a>,
-replace it with the <code>ckc</code> hook, which is a superset that
-still accepts plain Conventional Commits, or keep it and pass the CKC
-types in its <code>args:</code>.</p>
-<h2 id="install-with-commitlint">Install with commitlint</h2>
+<h3 id="keeping-conventional-pre-commit">Keeping
+conventional-pre-commit</h3>
+<p>You do <strong>not</strong> have to remove <a
+href="https://github.com/compilerla/conventional-pre-commit"><code>conventional-pre-commit</code></a>.
+Keep it and run <code>ckc</code> next to it. The only change is to widen
+<code>conventional-pre-commit</code>'s allowed types so it stops
+rejecting CKC types; <code>ckc</code> then adds the CKC-specific checks.
+Generate the list with <code>ckc-lint --print-types</code> (it respects
+the active profiles) and paste it into the hook's <code>args</code>.
+Both hooks run on <code>commit-msg</code>; neither is replaced.</p>
+<h2 id="with-lefthook">With lefthook</h2>
+<pre class="yaml"><code># lefthook.yml
+commit-msg:
+  commands:
+    ckc:
+      run: ckc-lint {1}</code></pre>
+<p><code>lefthook</code> passes the commit message file as
+<code>{1}</code>. Install <code>ckc-lint</code>
+(<code>pip install git+https://github.com/hotherio/ckc-tools</code>)
+first.</p>
+<h2 id="with-commitlint">With commitlint</h2>
 <pre class="js"><code>// commitlint.config.js
 module.exports = {
   extends: [&#39;@commitlint/config-conventional&#39;, &#39;commitlint-config-ckc&#39;],
 };</code></pre>
 <p><code>commitlint-config-ckc</code> extends
-<code>config-conventional</code> and only widens the type list. Do not
-add a second config that re-narrows it.</p>
+<code>config-conventional</code> and only widens the type list, so it
+runs alongside a conventional setup rather than replacing it.</p>
 <h2 id="the-honesty-hook">The honesty hook</h2>
 <p><code>ckc-axiom-check</code> extends the lean-math working-tree
 honesty gate into the commit log. It acts only on a commit that claims
