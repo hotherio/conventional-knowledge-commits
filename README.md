@@ -34,19 +34,24 @@ A CKC commit is still a valid Conventional Commit:
 
 ## The one idea: two axes
 
-Software change has one scale, backward compatibility. Knowledge change has two independent scales,
-and keeping them apart is the design:
+Changing code raises one question that really matters: **does it break what depends on it?** Changing
+knowledge raises a second, independent one: **how sure are we it's true?** CKC tracks these as two
+separate axes — keeping them apart is the whole design.
 
-| | Axis 1: dependency impact | Axis 2: epistemic status |
+| | Does it break what builds on it?<br>(impact · axis 1) | How sure are we it's true?<br>(status · axis 2) |
 | --- | --- | --- |
-| answers | does this invalidate what depends on it? | how strongly is it established now? |
-| lives in | the `type` and `!` (the SemVer analog) | a `Status:` footer |
-| mutability | immutable, a fact about history | mutable, advanced by later commits |
-| examples | `refute!`, `retract!`, `formalize` | `math.conjectured` to `machine-checked` |
+| in plain terms | if this turns out wrong, what else falls with it? | is it a guess, proven, or machine-checked? |
+| written in the commit | the `type` and a `!` mark | a `Status:` line at the bottom |
+| can it change later? | **no** — it records what happened | **yes** — a later commit can raise or lower it |
+| for example | `refute!`, `retract!`, `formalize` | `conjectured → proved → machine-checked` |
 
-Because they are separate, closing a `sorry` later is a new `formalize` commit that moves
-`Status: math.open` to `math.machine-checked`. You never rewrite history, and one `#print axioms`
-result is both an axis-2 status (`axiomatised`) and an axis-1 caveat (an `AXIOM:` footer).
+Why two and not one? Code is either compatible or it isn't, so one axis covers it. Knowledge moves on
+both at once, and they move independently — so you can't fold them into a single number.
+
+Because they're separate, you never rewrite the past to update the present. Resolve a question that was
+left open and that's a **new** commit nudging its status from `open` to `verified`; the earlier record
+stays intact. One result can even carry both signals at once — well established, yet still flagged as
+resting on an assumption.
 
 ## Profiles
 

@@ -21,11 +21,11 @@
 
 <nav class="nav"><div class="wrap">
   <a class="home" href="index.html"><img class="brand" src="../../assets/logo.png" width="384" height="343" alt="">CKC</a><span class="sp"></span>
+  <a href="spec.html">Spec</a>
   <div class="menu"><button class="menu-trigger" type="button" aria-haspopup="true" aria-expanded="false">Profiles</button><div class="menu-panel">
     <a href="proof-profile.html"><b>Proof</b><span>mathematics &amp; formal proving</span></a>
     <a href="science-profile.html"><b>Science</b><span>empirical research</span></a>
   </div></div>
-  <a href="spec.html">Spec</a>
   <div class="menu"><button class="menu-trigger" type="button" aria-haspopup="true" aria-expanded="false">ClaimGraph</button><div class="menu-panel">
     <a href="claimgraph.html"><b>ClaimGraph</b><span>dependency graph of claims</span></a>
     <a href="identifiers.html"><b>Identifiers</b><span>stable names the graph references</span></a>
@@ -75,20 +75,35 @@
 <section id="summary">
   <div class="wrap">
     <h2>The one idea: two axes</h2>
-    <p class="muted">Software change has one scale, backward compatibility. Knowledge change has
-      <b>two independent</b> axes, and keeping them apart is the design.</p>
-    <table class="axes">
-      <tr><th></th><th>Axis 1: dependency impact</th><th>Axis 2: epistemic status</th></tr>
-      <tr><td>answers</td><td>does this invalidate what depends on it?</td><td>how strongly is it established now?</td></tr>
-      <tr><td>lives in</td><td>the <code>type</code> and <code>!</code> (the SemVer analog)</td><td>a <code>Status:</code> footer</td></tr>
-      <tr><td>mutability</td><td><b>immutable</b>, a fact about history</td><td><b>mutable</b>, advanced by later commits</td></tr>
-      <tr><td>examples</td><td><code>refute!</code>, <code>retract!</code>, <code>formalize</code></td><td><code>math.conjectured → machine-checked</code></td></tr>
+    <p class="muted">Changing code raises one question that really matters: <b>does it break what
+      depends on it?</b> Changing knowledge raises a second, independent one: <b>how sure are we it's
+      true?</b> CKC tracks these as two separate axes — keeping them apart is the whole design.</p>
+    <table class="axes two">
+      <tr>
+        <th></th>
+        <th>Does it break what builds on it?<span class="sub">impact · axis 1</span></th>
+        <th>How sure are we it's true?<span class="sub">status · axis 2</span></th>
+      </tr>
+      <tr><td>in plain terms</td>
+          <td>if this turns out wrong, what else falls with it?</td>
+          <td>is it a guess, proven, or machine-checked?</td></tr>
+      <tr><td>written in the commit</td>
+          <td>the <code>type</code> and a <code>!</code> mark</td>
+          <td>a <code>Status:</code> line at the bottom</td></tr>
+      <tr><td>can it change later?</td>
+          <td><b>no</b> — it records what happened</td>
+          <td><b>yes</b> — a later commit can raise or lower it</td></tr>
+      <tr><td>for example</td>
+          <td><code>refute!</code>, <code>retract!</code>, <code>formalize</code></td>
+          <td><code>conjectured → proved → machine-checked</code></td></tr>
     </table>
-    <p class="muted">Because the two axes are separate, you advance a result by adding a <b>new</b>
-      commit, never by rewriting an old one. Filling a gap that was left open earlier is itself a new
-      commit that moves the status from <b>open</b> to <b>verified</b>, and the history stays intact.
-      The same result can be both established and still flagged as resting on an assumption &mdash; one
-      fact on each axis.</p>
+    <p class="muted">Why two and not one? Code is either compatible or it isn't, so one axis covers it.
+      Knowledge moves on both at once, and they move independently — so you can't fold them into a
+      single number.</p>
+    <p class="muted">Because they're separate, you never rewrite the past to update the present. Resolve
+      a question that was left open and that's a <b>new</b> commit nudging its status from
+      <b>open</b> to <b>verified</b>; the earlier record stays intact. One result can even carry both
+      signals at once — well established, yet still flagged as resting on an assumption.</p>
   </div>
 </section>
 
