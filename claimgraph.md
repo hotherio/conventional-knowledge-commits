@@ -7,6 +7,11 @@ propagates two kinds of event to everything affected: breakage (a refutation or 
 promotion (a gap closing). The status report and an optional release version both come out of this
 graph.
 
+> This page defines the ClaimGraph. The [`claimgraph` tool](https://github.com/hotherio/claimgraph)
+> builds it from a repository's git history and serves it as an interactive viewer.
+> [See a real one live](https://claimgraph.conventional-knowledge-commits.org/), reconstructed from a
+> formalized research project.
+
 ## Nodes
 
 A node is a claim: a theorem, lemma, definition, conjecture, or empirical finding, named by its

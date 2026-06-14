@@ -38,6 +38,7 @@ OUT = os.path.join(DOCS, VERSION, LANG_CODE)
 CC_URL = "https://www.conventionalcommits.org/en/v1.0.0/"
 GH_URL = "https://github.com/hotherio/conventional-knowledge-commits"
 TOOLS_URL = "https://github.com/hotherio/ckc-tools"
+VIEWER_URL = "https://claimgraph.conventional-knowledge-commits.org/"   # the live ClaimGraph viewer
 GH_ICON = ('<svg viewBox="0 0 16 16" width="17" height="17" aria-hidden="true"><path fill="currentColor" '
            'd="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49'
            '-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 '
@@ -127,7 +128,7 @@ def main():
     )
     env.globals.update(SITE=SITE, VERSION=VERSION, LANG_CODE=LANG_CODE, VERSIONS=VERSIONS,
                        LANGS=LANGS, CC_URL=CC_URL, GH_URL=GH_URL, TOOLS_URL=TOOLS_URL,
-                       GH_ICON=GH_ICON, ASSET=ASSET)
+                       VIEWER_URL=VIEWER_URL, GH_ICON=GH_ICON, ASSET=ASSET)
     page_tpl = env.get_template("page.html")
     index_tpl = env.get_template("index.html")
     redirect_tpl = env.get_template("redirect.html")
