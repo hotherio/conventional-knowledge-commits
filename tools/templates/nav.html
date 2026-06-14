@@ -1,0 +1,30 @@
+{#- The site nav. Single source of truth for every page (doc pages + landing). -#}
+{%- macro link(href, label, cur) -%}
+<a{% if href == cur %} class="here"{% endif %} href="{{ href }}">{{ label }}</a>
+{%- endmacro -%}
+
+{%- macro nav(cur) -%}
+<nav class="nav"><div class="wrap">
+<a class="home" href="index.html"><img class="brand" src="{{ ASSET }}assets/logo.png" width="384" height="343" alt="">CKC</a><span class="sp"></span>
+{{- link("spec.html", "Spec", cur) -}}
+<div class="menu{% if cur in ['proof-profile.html','science-profile.html'] %} here{% endif %}"><button class="menu-trigger" type="button" aria-haspopup="true" aria-expanded="false">Profiles</button><div class="menu-panel"><a href="proof-profile.html"><b>Proof</b><span>mathematics &amp; formal proving</span></a><a href="science-profile.html"><b>Science</b><span>empirical research</span></a></div></div>
+<div class="menu{% if cur in ['claimgraph.html','identifiers.html'] %} here{% endif %}"><button class="menu-trigger" type="button" aria-haspopup="true" aria-expanded="false">ClaimGraph</button><div class="menu-panel"><a href="claimgraph.html"><b>ClaimGraph</b><span>dependency graph of claims</span></a><a href="identifiers.html"><b>Identifiers</b><span>stable names the graph references</span></a></div></div>
+{{- link("examples.html", "Examples", cur) -}}
+<div class="menu{% if cur == 'tooling.html' %} here{% endif %}"><button class="menu-trigger" type="button" aria-haspopup="true" aria-expanded="false">Tooling</button><div class="menu-panel"><a href="tooling.html"><b>Tooling</b><span>hooks, configs, CI</span></a><a href="{{ TOOLS_URL }}"><b>Pre-commit hooks ↗</b><span>ckc-tools repository</span></a></div></div>
+{{- link("faq.html", "FAQ", cur) -}}
+<span class="navsep"></span>
+<div class="menu sel"><button class="menu-trigger" type="button" aria-haspopup="true" aria-expanded="false">v{{ VERSION }}</button><div class="menu-panel">
+{%- for vlabel, vsub in VERSIONS -%}
+<a{% if vlabel == VERSION %} class="cur"{% endif %} href="../../{{ vlabel }}/{{ LANG_CODE }}/{{ cur }}"><b>v{{ vlabel }}</b><span>{{ vsub }}</span></a>
+{%- endfor -%}
+</div></div>
+<div class="menu sel"><button class="menu-trigger" type="button" aria-haspopup="true" aria-expanded="false">{{ LANG_CODE | upper }}</button><div class="menu-panel">
+{%- for lcode, lname in LANGS -%}
+<a{% if lcode == LANG_CODE %} class="cur"{% endif %} href="../{{ lcode }}/{{ cur }}"><b>{{ lname }}</b><span>{{ lcode }}</span></a>
+{%- endfor -%}
+</div></div>
+<span class="navsep"></span>
+<a class="ext" href="{{ CC_URL }}" title="Conventional Commits 1.0.0">CC ↗</a>
+<a class="gh" href="{{ GH_URL }}" aria-label="GitHub repository" title="GitHub repository">{{ GH_ICON | safe }}</a>
+</div></nav>
+{%- endmacro -%}

@@ -1,5 +1,8 @@
-<!DOCTYPE html><html lang="en"><head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Stable identifiers · CKC</title>
 <link rel="icon" href="../../assets/favicon.ico" sizes="16x16 32x32 48x48">
 <link rel="icon" type="image/png" sizes="96x96" href="../../assets/favicon.png">
@@ -9,74 +12,66 @@
 <meta property="og:url" content="https://conventional-knowledge-commits.org/0.1.0/en/identifiers.html">
 <meta property="og:image" content="https://conventional-knowledge-commits.org/assets/og-image.png">
 <link rel="stylesheet" href="../../assets/ckc.css">
-</head><body>
-<nav class="nav"><div class="wrap"><a class="home" href="index.html"><img class="brand" src="../../assets/logo.png" width="384" height="343" alt="">CKC</a><span class="sp"></span><a href="spec.html">Spec</a><div class="menu"><button class="menu-trigger" type="button" aria-haspopup="true" aria-expanded="false">Profiles</button><div class="menu-panel"><a href="proof-profile.html"><b>Proof</b><span>mathematics &amp; formal proving</span></a><a href="science-profile.html"><b>Science</b><span>empirical research</span></a></div></div><div class="menu here"><button class="menu-trigger" type="button" aria-haspopup="true" aria-expanded="false">ClaimGraph</button><div class="menu-panel"><a href="claimgraph.html"><b>ClaimGraph</b><span>dependency graph of claims</span></a><a href="identifiers.html"><b>Identifiers</b><span>stable names the graph references</span></a></div></div><a href="examples.html">Examples</a><div class="menu"><button class="menu-trigger" type="button" aria-haspopup="true" aria-expanded="false">Tooling</button><div class="menu-panel"><a href="tooling.html"><b>Tooling</b><span>hooks, configs, CI</span></a><a href="https://github.com/hotherio/ckc-tools"><b>Pre-commit hooks ↗</b><span>ckc-tools repository</span></a></div></div><a href="faq.html">FAQ</a><span class="navsep"></span><div class="menu sel"><button class="menu-trigger" type="button" aria-haspopup="true" aria-expanded="false">v0.1.0</button><div class="menu-panel"><a class="cur" href="../../0.1.0/en/identifiers.html"><b>v0.1.0</b><span>current</span></a></div></div><div class="menu sel"><button class="menu-trigger" type="button" aria-haspopup="true" aria-expanded="false">EN</button><div class="menu-panel"><a class="cur" href="../en/identifiers.html"><b>English</b><span>en</span></a></div></div><span class="navsep"></span><a class="ext" href="https://www.conventionalcommits.org/en/v1.0.0/" title="Conventional Commits 1.0.0">CC ↗</a><a class="gh" href="https://github.com/hotherio/conventional-knowledge-commits" aria-label="GitHub repository" title="GitHub repository"><svg viewBox="0 0 16 16" width="17" height="17" aria-hidden="true"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82a7.6 7.6 0 0 1 2-.27c.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg></a></div></nav>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"Stable identifiers · CKC","url":"https://conventional-knowledge-commits.org/0.1.0/en/identifiers.html","isPartOf":{"@type":"WebSite","name":"Conventional Knowledge Commits","url":"https://conventional-knowledge-commits.org/0.1.0/en/"},"inLanguage":"en","license":"https://creativecommons.org/licenses/by/4.0/"}</script>
+</head>
+<body>
+<nav class="nav"><div class="wrap">
+<a class="home" href="index.html"><img class="brand" src="../../assets/logo.png" width="384" height="343" alt="">CKC</a><span class="sp"></span><a href="spec.html">Spec</a><div class="menu"><button class="menu-trigger" type="button" aria-haspopup="true" aria-expanded="false">Profiles</button><div class="menu-panel"><a href="proof-profile.html"><b>Proof</b><span>mathematics &amp; formal proving</span></a><a href="science-profile.html"><b>Science</b><span>empirical research</span></a></div></div>
+<div class="menu here"><button class="menu-trigger" type="button" aria-haspopup="true" aria-expanded="false">ClaimGraph</button><div class="menu-panel"><a href="claimgraph.html"><b>ClaimGraph</b><span>dependency graph of claims</span></a><a href="identifiers.html"><b>Identifiers</b><span>stable names the graph references</span></a></div></div><a href="examples.html">Examples</a><div class="menu"><button class="menu-trigger" type="button" aria-haspopup="true" aria-expanded="false">Tooling</button><div class="menu-panel"><a href="tooling.html"><b>Tooling</b><span>hooks, configs, CI</span></a><a href="https://github.com/hotherio/ckc-tools"><b>Pre-commit hooks ↗</b><span>ckc-tools repository</span></a></div></div><a href="faq.html">FAQ</a><span class="navsep"></span>
+<div class="menu sel"><button class="menu-trigger" type="button" aria-haspopup="true" aria-expanded="false">v0.1.0</button><div class="menu-panel"><a class="cur" href="../../0.1.0/en/identifiers.html"><b>v0.1.0</b><span>current</span></a></div></div>
+<div class="menu sel"><button class="menu-trigger" type="button" aria-haspopup="true" aria-expanded="false">EN</button><div class="menu-panel"><a class="cur" href="../en/identifiers.html"><b>English</b><span>en</span></a></div></div>
+<span class="navsep"></span>
+<a class="ext" href="https://www.conventionalcommits.org/en/v1.0.0/" title="Conventional Commits 1.0.0">CC ↗</a>
+<a class="gh" href="https://github.com/hotherio/conventional-knowledge-commits" aria-label="GitHub repository" title="GitHub repository"><svg viewBox="0 0 16 16" width="17" height="17" aria-hidden="true"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82a7.6 7.6 0 0 1 2-.27c.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg></a>
+</div></nav>
 <main class="doc"><div class="wrap">
 <h1 id="stable-identifiers">Stable identifiers</h1>
-<p>The <a href="claimgraph.html">ClaimGraph</a> needs identifiers for
-claims and theorems that survive a rewrite of their wording. You must be
-able to <code>Depends-On:</code> or <code>Refutes:</code> a result even
-after its statement text is edited. Commit hashes do not work for this,
-because a hash identifies a change, not a claim. CKC uses a hybrid
-scheme: reuse what is already stable in the proof setting, and curate a
-lightweight registry for the empirical setting.</p>
-<h2 id="proof-profile-reuse-the-assistants-name">Proof profile: reuse
-the assistant's name</h2>
-<p>A formal result already has a stable name: its fully-qualified
-declaration name in the proof assistant. It is canonical,
-machine-checkable, and rename-aware, since a rename is a visible
-refactor rather than a silent drift.</p>
+<p>The <a href="claimgraph.html">ClaimGraph</a> needs identifiers for claims and theorems that survive a rewrite
+of their wording. You must be able to <code>Depends-On:</code> or <code>Refutes:</code> a result even after its statement
+text is edited. Commit hashes do not work for this, because a hash identifies a change, not a claim.
+CKC uses a hybrid scheme: reuse what is already stable in the proof setting, and curate a lightweight
+registry for the empirical setting.</p>
+<h2 id="proof-profile-reuse-the-assistants-name">Proof profile: reuse the assistant's name</h2>
+<p>A formal result already has a stable name: its fully-qualified declaration name in the proof
+assistant. It is canonical, machine-checkable, and rename-aware, since a rename is a visible refactor
+rather than a silent drift.</p>
 <ul>
-<li>Primary id: the fully-qualified name, for example
-<code>IGL.fubini_factorization</code>, recorded as <code>Lean:</code> or
-<code>Formal-Statement: lean:IGL.fubini_factorization</code>.</li>
-<li>Human-facing alias: the blueprint label, for example
-<code>thm:master-formula</code>, used in prose and as a
-<code>scope</code>.</li>
-<li>Optional: <code>Proof-Hash: sha256:...</code> over the proof term,
-when you want to detect that a proof, rather than a statement, has
-changed.</li>
+<li>Primary id: the fully-qualified name, for example <code>IGL.fubini_factorization</code>, recorded as <code>Lean:</code>
+  or <code>Formal-Statement: lean:IGL.fubini_factorization</code>.</li>
+<li>Human-facing alias: the blueprint label, for example <code>thm:master-formula</code>, used in prose and as a
+  <code>scope</code>.</li>
+<li>Optional: <code>Proof-Hash: sha256:...</code> over the proof term, when you want to detect that a proof, rather
+  than a statement, has changed.</li>
 </ul>
-<p>A statement edit that changes the theorem's meaning is not the same
-claim. Use a new name and <code>Supersedes:</code> the old one, or mark
-it a breaking change.</p>
-<h2 id="science-profile-a-curated-registry">Science profile: a curated
-registry</h2>
-<p>Empirical claims have no canonical formal statement, so each gets a
-slug recorded in a registry file at the repository root,
-<code>claims.toml</code>. The slug is what <code>Closes:</code>,
-<code>Refutes:</code>, and <code>Depends-On:</code> reference. The
-registry maps it to the human statement, its provenance, and, once
-published, a DOI.</p>
-<pre class="toml"><code># claims.toml: the claim registry (one entry per claim or hypothesis)
+<p>A statement edit that changes the theorem's meaning is not the same claim. Use a new name and
+<code>Supersedes:</code> the old one, or mark it a breaking change.</p>
+<h2 id="science-profile-a-curated-registry">Science profile: a curated registry</h2>
+<p>Empirical claims have no canonical formal statement, so each gets a slug recorded in a registry file
+at the repository root, <code>claims.toml</code>. The slug is what <code>Closes:</code>, <code>Refutes:</code>, and <code>Depends-On:</code>
+reference. The registry maps it to the human statement, its provenance, and, once published, a DOI.</p>
+<pre class="highlight"><code class="language-toml"># claims.toml: the claim registry (one entry per claim or hypothesis)
 
 [claims.tensor-rank-helps]
-kind        = &quot;hypothesis&quot;          # hypothesis, finding, definition
-statement   = &quot;Tensor rank K&gt;1 beats K=1 on non-additive targets.&quot;
-status      = &quot;sci.not-replicated&quot;  # a cache of the graph-derived effective status
-created     = &quot;2026-06-14&quot;
-prereg      = &quot;osf.io/abcd1&quot;
-doi         = &quot;&quot;                     # filled in on publication
+kind        = "hypothesis"          # hypothesis, finding, definition
+statement   = "Tensor rank K&gt;1 beats K=1 on non-additive targets."
+status      = "sci.not-replicated"  # a cache of the graph-derived effective status
+created     = "2026-06-14"
+prereg      = "osf.io/abcd1"
+doi         = ""                     # filled in on publication
 
 [claims.naive-separable]
-kind        = &quot;conjecture&quot;
-statement   = &quot;The Green&#39;s kernel factorises separably without metric compensation.&quot;
-status      = &quot;math.disproved&quot;
-lean        = &quot;IGL.naiveSeparable&quot;   # a proof-side claim may carry both a slug and a Lean name</code></pre>
-<p>A slug is written <code>conjecture:&lt;slug&gt;</code>,
-<code>claim:&lt;slug&gt;</code>, or <code>result:&lt;slug&gt;</code> in
-footers, with the prefix mirroring the kind. The <code>status</code>
-field in <code>claims.toml</code> is a cache of the effective status
-computed from the commit graph. Regenerate it; do not hand-edit it as
-the source of truth.</p>
+kind        = "conjecture"
+statement   = "The Green's kernel factorises separably without metric compensation."
+status      = "math.disproved"
+lean        = "IGL.naiveSeparable"   # a proof-side claim may carry both a slug and a Lean name</code></pre>
+<p>A slug is written <code>conjecture:&lt;slug&gt;</code>, <code>claim:&lt;slug&gt;</code>, or <code>result:&lt;slug&gt;</code> in footers, with the prefix
+mirroring the kind. The <code>status</code> field in <code>claims.toml</code> is a cache of the effective status computed
+from the commit graph. Regenerate it; do not hand-edit it as the source of truth.</p>
 <h2 id="when-to-mint-a-global-id">When to mint a global id</h2>
-<p>Keep ids local (a Lean name or a registry slug) while work is in
-progress. Global ids are ceremony you do not need for unpublished
-claims. Bind a DOI or URI at publication, when a paper is accepted, a
-dataset is released, or a library is tagged. Record it in
-<code>claims.toml</code> or a <code>Cites:</code> or
-<code>Claim-ID:</code> footer, so other repositories can reference the
-claim.</p>
+<p>Keep ids local (a Lean name or a registry slug) while work is in progress. Global ids are ceremony
+you do not need for unpublished claims. Bind a DOI or URI at publication, when a paper is accepted, a
+dataset is released, or a library is tagged. Record it in <code>claims.toml</code> or a <code>Cites:</code> or <code>Claim-ID:</code>
+footer, so other repositories can reference the claim.</p>
 <h2 id="summary">Summary</h2>
 <table>
 <thead>
@@ -90,8 +85,7 @@ claim.</p>
 <tr>
 <td>Formal result</td>
 <td>the assistant's fully-qualified name, and a blueprint label</td>
-<td><code>Lean:</code>, <code>Formal-Statement:</code>,
-<code>scope</code></td>
+<td><code>Lean:</code>, <code>Formal-Statement:</code>, <code>scope</code></td>
 </tr>
 <tr>
 <td>Empirical claim</td>
@@ -108,4 +102,5 @@ claim.</p>
 </div></main>
 <footer><div class="wrap">Part of <a href="index.html">Conventional Knowledge Commits</a> · extends <a href="https://www.conventionalcommits.org/en/v1.0.0/">Conventional Commits 1.0.0</a> · spec licensed <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>.</div></footer>
 <script src="../../assets/nav.js" defer></script>
-</body></html>
+</body>
+</html>

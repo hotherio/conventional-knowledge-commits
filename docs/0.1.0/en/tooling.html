@@ -1,5 +1,8 @@
-<!DOCTYPE html><html lang="en"><head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Tooling · CKC</title>
 <link rel="icon" href="../../assets/favicon.ico" sizes="16x16 32x32 48x48">
 <link rel="icon" type="image/png" sizes="96x96" href="../../assets/favicon.png">
@@ -9,127 +12,102 @@
 <meta property="og:url" content="https://conventional-knowledge-commits.org/0.1.0/en/tooling.html">
 <meta property="og:image" content="https://conventional-knowledge-commits.org/assets/og-image.png">
 <link rel="stylesheet" href="../../assets/ckc.css">
-</head><body>
-<nav class="nav"><div class="wrap"><a class="home" href="index.html"><img class="brand" src="../../assets/logo.png" width="384" height="343" alt="">CKC</a><span class="sp"></span><a href="spec.html">Spec</a><div class="menu"><button class="menu-trigger" type="button" aria-haspopup="true" aria-expanded="false">Profiles</button><div class="menu-panel"><a href="proof-profile.html"><b>Proof</b><span>mathematics &amp; formal proving</span></a><a href="science-profile.html"><b>Science</b><span>empirical research</span></a></div></div><div class="menu"><button class="menu-trigger" type="button" aria-haspopup="true" aria-expanded="false">ClaimGraph</button><div class="menu-panel"><a href="claimgraph.html"><b>ClaimGraph</b><span>dependency graph of claims</span></a><a href="identifiers.html"><b>Identifiers</b><span>stable names the graph references</span></a></div></div><a href="examples.html">Examples</a><div class="menu here"><button class="menu-trigger" type="button" aria-haspopup="true" aria-expanded="false">Tooling</button><div class="menu-panel"><a href="tooling.html"><b>Tooling</b><span>hooks, configs, CI</span></a><a href="https://github.com/hotherio/ckc-tools"><b>Pre-commit hooks ↗</b><span>ckc-tools repository</span></a></div></div><a href="faq.html">FAQ</a><span class="navsep"></span><div class="menu sel"><button class="menu-trigger" type="button" aria-haspopup="true" aria-expanded="false">v0.1.0</button><div class="menu-panel"><a class="cur" href="../../0.1.0/en/tooling.html"><b>v0.1.0</b><span>current</span></a></div></div><div class="menu sel"><button class="menu-trigger" type="button" aria-haspopup="true" aria-expanded="false">EN</button><div class="menu-panel"><a class="cur" href="../en/tooling.html"><b>English</b><span>en</span></a></div></div><span class="navsep"></span><a class="ext" href="https://www.conventionalcommits.org/en/v1.0.0/" title="Conventional Commits 1.0.0">CC ↗</a><a class="gh" href="https://github.com/hotherio/conventional-knowledge-commits" aria-label="GitHub repository" title="GitHub repository"><svg viewBox="0 0 16 16" width="17" height="17" aria-hidden="true"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82a7.6 7.6 0 0 1 2-.27c.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg></a></div></nav>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"Tooling · CKC","url":"https://conventional-knowledge-commits.org/0.1.0/en/tooling.html","isPartOf":{"@type":"WebSite","name":"Conventional Knowledge Commits","url":"https://conventional-knowledge-commits.org/0.1.0/en/"},"inLanguage":"en","license":"https://creativecommons.org/licenses/by/4.0/"}</script>
+</head>
+<body>
+<nav class="nav"><div class="wrap">
+<a class="home" href="index.html"><img class="brand" src="../../assets/logo.png" width="384" height="343" alt="">CKC</a><span class="sp"></span><a href="spec.html">Spec</a><div class="menu"><button class="menu-trigger" type="button" aria-haspopup="true" aria-expanded="false">Profiles</button><div class="menu-panel"><a href="proof-profile.html"><b>Proof</b><span>mathematics &amp; formal proving</span></a><a href="science-profile.html"><b>Science</b><span>empirical research</span></a></div></div>
+<div class="menu"><button class="menu-trigger" type="button" aria-haspopup="true" aria-expanded="false">ClaimGraph</button><div class="menu-panel"><a href="claimgraph.html"><b>ClaimGraph</b><span>dependency graph of claims</span></a><a href="identifiers.html"><b>Identifiers</b><span>stable names the graph references</span></a></div></div><a href="examples.html">Examples</a><div class="menu here"><button class="menu-trigger" type="button" aria-haspopup="true" aria-expanded="false">Tooling</button><div class="menu-panel"><a href="tooling.html"><b>Tooling</b><span>hooks, configs, CI</span></a><a href="https://github.com/hotherio/ckc-tools"><b>Pre-commit hooks ↗</b><span>ckc-tools repository</span></a></div></div><a href="faq.html">FAQ</a><span class="navsep"></span>
+<div class="menu sel"><button class="menu-trigger" type="button" aria-haspopup="true" aria-expanded="false">v0.1.0</button><div class="menu-panel"><a class="cur" href="../../0.1.0/en/tooling.html"><b>v0.1.0</b><span>current</span></a></div></div>
+<div class="menu sel"><button class="menu-trigger" type="button" aria-haspopup="true" aria-expanded="false">EN</button><div class="menu-panel"><a class="cur" href="../en/tooling.html"><b>English</b><span>en</span></a></div></div>
+<span class="navsep"></span>
+<a class="ext" href="https://www.conventionalcommits.org/en/v1.0.0/" title="Conventional Commits 1.0.0">CC ↗</a>
+<a class="gh" href="https://github.com/hotherio/conventional-knowledge-commits" aria-label="GitHub repository" title="GitHub repository"><svg viewBox="0 0 16 16" width="17" height="17" aria-hidden="true"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82a7.6 7.6 0 0 1 2-.27c.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg></a>
+</div></nav>
 <main class="doc"><div class="wrap">
 <h1 id="tooling">Tooling</h1>
-<p>Hooks and configs that validate CKC commit messages live in a
-separate repository, <a
-href="https://github.com/hotherio/ckc-tools">hotherio/ckc-tools</a>.
-They are built to <strong>run alongside existing <a
-href="https://www.conventionalcommits.org/">Conventional Commits</a>
-tooling, not replace it.</strong></p>
-<h2 id="the-collision-and-how-to-avoid-it">The collision, and how to
-avoid it</h2>
-<p>A strict Conventional Commits validator allows only a fixed list of
-types, so it rejects CKC types such as <code>formalize</code> and
-<code>experiment</code>. Because CKC is a superset, a CKC validator
-already accepts every plain Conventional Commit (<code>feat</code>,
-<code>fix</code>, <code>docs</code>). The rule is simple: never run two
-validators with disjoint type lists. A repository that holds both a
-paper and its proofs uses the CKC validator and nothing conflicts, since
-it accepts both plain Conventional Commits for tooling and CKC commits
+<p>Hooks and configs that validate CKC commit messages live in a separate repository,
+<a href="https://github.com/hotherio/ckc-tools">hotherio/ckc-tools</a>. They are built to <strong>run alongside
+existing <a href="https://www.conventionalcommits.org/">Conventional Commits</a> tooling, not replace it.</strong></p>
+<h2 id="the-collision-and-how-to-avoid-it">The collision, and how to avoid it</h2>
+<p>A strict Conventional Commits validator allows only a fixed list of types, so it rejects CKC types
+such as <code>formalize</code> and <code>experiment</code>. Because CKC is a superset, a CKC validator already accepts
+every plain Conventional Commit (<code>feat</code>, <code>fix</code>, <code>docs</code>). The rule is simple: never run two validators
+with disjoint type lists. A repository that holds both a paper and its proofs uses the CKC validator
+and nothing conflicts, since it accepts both plain Conventional Commits for tooling and CKC commits
 for the work.</p>
 <h2 id="what-is-available">What is available</h2>
 <ul>
-<li><code>ckc-lint</code>, a <code>commit-msg</code> validator (Python,
-no Node). It checks that a message is a valid Conventional Commit and
-follows CKC: a known type for the active profiles, a known
-<code>Status:</code> value, uppercase trusted-base markers,
-<code>~</code> consistency, and well-formed relation footers.</li>
-<li><code>ckc-axiom-check</code>, an opt-in honesty hook for the proof
-profile. When a commit claims <code>Status: math.machine-checked</code>,
-it cross-checks the named <code>Lean:</code> declarations against the
-kernel via the lean-math <code>axiom-report</code> and rejects the
-commit if the kernel disagrees.</li>
-<li><code>commitlint-config-ckc</code>, a <a
-href="https://commitlint.js.org/">commitlint</a> shareable config for
-the JavaScript world that widens <code>type-enum</code> to the CKC
-vocabulary.</li>
+<li><code>ckc-lint</code>, a <code>commit-msg</code> validator (Python, no Node). It checks that a message is a valid
+  Conventional Commit and follows CKC: a known type for the active profiles, a known <code>Status:</code> value,
+  uppercase trusted-base markers, <code>~</code> consistency, and well-formed relation footers.</li>
+<li><code>ckc-axiom-check</code>, an opt-in honesty hook for the proof profile. When a commit claims
+  <code>Status: math.machine-checked</code>, it cross-checks the named <code>Lean:</code> declarations against the kernel
+  via the lean-math <code>axiom-report</code> and rejects the commit if the kernel disagrees.</li>
+<li><code>commitlint-config-ckc</code>, a <a href="https://commitlint.js.org/">commitlint</a> shareable config for the
+  JavaScript world that widens <code>type-enum</code> to the CKC vocabulary.</li>
 </ul>
 <h2 id="profiles">Profiles</h2>
-<p>A repository chooses which profiles are active: <code>proof</code>,
-<code>science</code>, or both (the default). With one profile active, a
-type from the other profile is rejected. Set it with the
-<code>--profile</code> flag, <code>$CKC_PROFILES</code>, or a
-<code>.ckc.toml</code> at the repo root:</p>
-<pre class="toml"><code># .ckc.toml
-profiles = [&quot;proof&quot;]   # or [&quot;science&quot;], or [&quot;proof&quot;, &quot;science&quot;]</code></pre>
-<h2 id="with-the-pre-commit-framework">With the pre-commit
-framework</h2>
-<p>For a repository with no Conventional Commits hook yet,
-<code>ckc</code> alone validates both Conventional Commits and CKC:</p>
-<pre class="yaml"><code># .pre-commit-config.yaml
+<p>A repository chooses which profiles are active: <code>proof</code>, <code>science</code>, or both (the default). With one
+profile active, a type from the other profile is rejected. Set it with the <code>--profile</code> flag,
+<code>$CKC_PROFILES</code>, or a <code>.ckc.toml</code> at the repo root:</p>
+<pre class="highlight"><code class="language-toml"># .ckc.toml
+profiles = ["proof"]   # or ["science"], or ["proof", "science"]</code></pre>
+<h2 id="with-the-pre-commit-framework">With the pre-commit framework</h2>
+<p>For a repository with no Conventional Commits hook yet, <code>ckc</code> alone validates both Conventional
+Commits and CKC:</p>
+<pre class="highlight"><code class="language-yaml"># .pre-commit-config.yaml
 repos:
   - repo: https://github.com/hotherio/ckc-tools
     rev: v0.1.3
     hooks:
       - id: ckc</code></pre>
-<pre class="bash"><code>pre-commit install --hook-type commit-msg</code></pre>
-<p>The id <code>ckc</code> is also available as
-<code>conventional-knowledge-pre-commit</code>, an alias named to
-parallel <code>conventional-pre-commit</code>. Both ids run the same
-validator.</p>
-<p><code>ckc</code> is a drop-in superset of
-<code>conventional-pre-commit</code>: it accepts the same interface
-(positional types, <code>--strict</code>, <code>--force-scope</code>,
-<code>--scopes</code>, <code>--no-color</code>, <code>--verbose</code>,
-exit codes 0 and 1, and <code>fixup!</code>/merge commits passing unless
-<code>--strict</code>), and additionally allows the CKC vocabulary and
-runs the CKC checks. You have two options.</p>
+<pre class="highlight"><code class="language-bash">pre-commit install --hook-type commit-msg</code></pre>
+<p>The id <code>ckc</code> is also available as <code>conventional-knowledge-pre-commit</code>, an alias named to parallel
+<code>conventional-pre-commit</code>. Both ids run the same validator.</p>
+<p><code>ckc</code> is a drop-in superset of <code>conventional-pre-commit</code>: it accepts the same interface (positional
+types, <code>--strict</code>, <code>--force-scope</code>, <code>--scopes</code>, <code>--no-color</code>, <code>--verbose</code>, exit codes 0 and 1, and
+<code>fixup!</code>/merge commits passing unless <code>--strict</code>), and additionally allows the CKC vocabulary and runs
+the CKC checks. You have two options.</p>
 <h3 id="migrate-to-ckc-only">Migrate to ckc only</h3>
-<p>Drop <code>conventional-pre-commit</code> and keep your existing
-<code>args</code>: change the <code>repo</code> and <code>id</code>, and
-the rest carries over (a pinned type list is still honoured exactly;
-remove it to allow the full CKC vocabulary).</p>
-<pre class="yaml"><code>- repo: https://github.com/hotherio/ckc-tools
+<p>Drop <code>conventional-pre-commit</code> and keep your existing <code>args</code>: change the <code>repo</code> and <code>id</code>, and the rest
+carries over (a pinned type list is still honoured exactly; remove it to allow the full CKC
+vocabulary).</p>
+<pre class="highlight"><code class="language-yaml">- repo: https://github.com/hotherio/ckc-tools
   rev: v0.1.3
   hooks:
     - id: ckc
       stages: [commit-msg]
-      args: [--strict, --scopes, &quot;api,client&quot;]   # the same args you gave conventional-pre-commit</code></pre>
-<h3 id="or-keep-conventional-pre-commit">Or keep
-conventional-pre-commit</h3>
-<p>If you prefer to keep it, run <code>ckc</code> next to it and widen
-<code>conventional-pre-commit</code>'s allowed types so it stops
-rejecting CKC types. Generate the list with
-<code>ckc-lint --print-types</code> (it respects the active profiles)
-and paste it into the hook's <code>args</code>. Both hooks run on
-<code>commit-msg</code>; neither is replaced.</p>
+      args: [--strict, --scopes, "api,client"]   # the same args you gave conventional-pre-commit</code></pre>
+<h3 id="or-keep-conventional-pre-commit">Or keep conventional-pre-commit</h3>
+<p>If you prefer to keep it, run <code>ckc</code> next to it and widen <code>conventional-pre-commit</code>'s allowed types so
+it stops rejecting CKC types. Generate the list with <code>ckc-lint --print-types</code> (it respects the active
+profiles) and paste it into the hook's <code>args</code>. Both hooks run on <code>commit-msg</code>; neither is replaced.</p>
 <h2 id="with-lefthook">With lefthook</h2>
-<pre class="yaml"><code># lefthook.yml
+<pre class="highlight"><code class="language-yaml"># lefthook.yml
 commit-msg:
   commands:
     ckc:
       run: ckc-lint {1}</code></pre>
-<p><code>lefthook</code> passes the commit message file as
-<code>{1}</code>. Install <code>ckc-lint</code>
-(<code>pip install git+https://github.com/hotherio/ckc-tools</code>)
-first.</p>
+<p><code>lefthook</code> passes the commit message file as <code>{1}</code>. Install <code>ckc-lint</code>
+(<code>pip install git+https://github.com/hotherio/ckc-tools</code>) first.</p>
 <h2 id="with-commitlint">With commitlint</h2>
-<pre class="js"><code>// commitlint.config.js
+<pre class="highlight"><code class="language-js">// commitlint.config.js
 module.exports = {
-  extends: [&#39;@commitlint/config-conventional&#39;, &#39;commitlint-config-ckc&#39;],
+  extends: ['@commitlint/config-conventional', 'commitlint-config-ckc'],
 };</code></pre>
-<p><code>commitlint-config-ckc</code> extends
-<code>config-conventional</code> and only widens the type list, so it
-runs alongside a conventional setup rather than replacing it.</p>
+<p><code>commitlint-config-ckc</code> extends <code>config-conventional</code> and only widens the type list, so it runs
+alongside a conventional setup rather than replacing it.</p>
 <h2 id="the-honesty-hook">The honesty hook</h2>
-<p><code>ckc-axiom-check</code> extends the lean-math working-tree
-honesty gate into the commit log. It acts only on a commit that claims
-<code>math.machine-checked</code> or <code>math.axiomatised</code> and
-names <code>Lean:</code> declarations, and it rejects only a genuine
-contradiction (the kernel reports a <code>sorryAx</code> or a cited
-axiom while the commit claims <code>machine-checked</code>). It needs
-Lean, a built project, and <code>axiom-report</code> on
-<code>PATH</code> (or <code>$CKC_AXIOM_REPORT</code>); when it cannot
-determine a declaration's status it skips.</p>
-<p>See <a
-href="https://github.com/hotherio/ckc-tools">hotherio/ckc-tools</a> for
-the full readme and the single-source vocabulary
-(<code>vocab.json</code>) shared by the Python validator and the
-commitlint config.</p>
+<p><code>ckc-axiom-check</code> extends the lean-math working-tree honesty gate into the commit log. It acts only
+on a commit that claims <code>math.machine-checked</code> or <code>math.axiomatised</code> and names <code>Lean:</code> declarations,
+and it rejects only a genuine contradiction (the kernel reports a <code>sorryAx</code> or a cited axiom while
+the commit claims <code>machine-checked</code>). It needs Lean, a built project, and <code>axiom-report</code> on <code>PATH</code>
+(or <code>$CKC_AXIOM_REPORT</code>); when it cannot determine a declaration's status it skips.</p>
+<p>See <a href="https://github.com/hotherio/ckc-tools">hotherio/ckc-tools</a> for the full readme and the
+single-source vocabulary (<code>vocab.json</code>) shared by the Python validator and the commitlint config.</p>
 </div></main>
 <footer><div class="wrap">Part of <a href="index.html">Conventional Knowledge Commits</a> · extends <a href="https://www.conventionalcommits.org/en/v1.0.0/">Conventional Commits 1.0.0</a> · spec licensed <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>.</div></footer>
 <script src="../../assets/nav.js" defer></script>
-</body></html>
+</body>
+</html>

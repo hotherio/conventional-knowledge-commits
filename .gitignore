@@ -3,3 +3,6 @@
 .playwright-mcp/
 __pycache__/
 .DS_Store
+
+# local build venv
+.ckc-venv/

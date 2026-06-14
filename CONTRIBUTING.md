@@ -20,10 +20,21 @@ Conventional Knowledge Commits is an open specification. It improves through use
 5. Stay minimal. Prefer an existing footer over a new one.
 
 ## Building the site
-The site under `docs/` is generated from the markdown documents by `tools/build-pages.sh` (it needs
-`pandoc`). The organization disables GitHub Actions, so the site is served by the classic GitHub Pages
-branch build from `docs/`, not by a workflow. Run the script locally after editing a document and
-commit the regenerated pages.
+The site under `docs/` is generated from the markdown documents and templates by
+`tools/generate.py` (Python + Jinja2 + python-markdown). The organization disables GitHub Actions, so
+the site is served by the classic GitHub Pages branch build from `docs/`, not by a workflow. Run the
+generator locally after editing a document and commit the regenerated pages:
+
+```sh
+python3 -m venv .ckc-venv
+.ckc-venv/bin/pip install -r tools/requirements.txt
+.ckc-venv/bin/python tools/generate.py
+```
+
+The nav lives in one place (`tools/templates/nav.html`) and is shared by every page including the
+landing page. To add a version or language, extend `VERSIONS` / `LANGS` (and `VERSION` / `LANG_CODE`)
+in `tools/generate.py`. The generator also emits `sitemap.xml`, `robots.txt`, per-page JSON-LD, and
+the redirect stubs, and runs an internal broken-link check.
 
 ## Process
 - This repository uses Conventional Commits for its own tooling and docs. Branch, then open a pull

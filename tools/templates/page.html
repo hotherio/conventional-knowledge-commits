@@ -1,0 +1,4 @@
+{% extends 'base.html' %}
+{% block body %}<main class="doc{% if main_class %} {{ main_class }}{% endif %}"><div class="wrap">
+{{ content | safe }}
+</div></main>{% endblock %}
