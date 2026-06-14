@@ -77,7 +77,7 @@
     <h2>The one idea: two axes</h2>
     <p class="muted">Changing code raises one question that really matters: <b>does it break what
       depends on it?</b> Changing knowledge raises a second, independent one: <b>how sure are we it's
-      true?</b> CKC tracks these as two separate axes — keeping them apart is the whole design.</p>
+      true?</b> CKC tracks these as two separate axes. Keeping them apart is the whole design.</p>
     <table class="axes two">
       <tr>
         <th></th>
@@ -91,19 +91,19 @@
           <td>the <code>type</code> and a <code>!</code> mark</td>
           <td>a <code>Status:</code> line at the bottom</td></tr>
       <tr><td>can it change later?</td>
-          <td><b>no</b> — it records what happened</td>
-          <td><b>yes</b> — a later commit can raise or lower it</td></tr>
+          <td><b>no</b>, it records what happened</td>
+          <td><b>yes</b>, a later commit can raise or lower it</td></tr>
       <tr><td>for example</td>
           <td><code>refute!</code>, <code>retract!</code>, <code>formalize</code></td>
           <td><code>conjectured → proved → machine-checked</code></td></tr>
     </table>
     <p class="muted">Why two and not one? Code is either compatible or it isn't, so one axis covers it.
-      Knowledge moves on both at once, and they move independently — so you can't fold them into a
+      Knowledge moves on both at once, and they move independently, so you can't fold them into a
       single number.</p>
     <p class="muted">Because they're separate, you never rewrite the past to update the present. Resolve
       a question that was left open and that's a <b>new</b> commit nudging its status from
-      <b>open</b> to <b>verified</b>; the earlier record stays intact. One result can even carry both
-      signals at once — well established, yet still flagged as resting on an assumption.</p>
+      <b>open</b> to <b>verified</b>. The earlier record stays intact. One result can carry both
+      signals at once: well established, yet still flagged as resting on an assumption.</p>
   </div>
 </section>
 
