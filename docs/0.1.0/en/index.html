@@ -20,9 +20,17 @@
     <a href="proof-profile.html"><b>Proof</b><span>mathematics &amp; formal proving</span></a>
     <a href="science-profile.html"><b>Science</b><span>empirical research</span></a>
   </div></div>
-  <a href="spec.html">Spec</a><a href="impact-graph.html">ClaimGraph</a>
-  <a href="identifiers.html">Identifiers</a><a href="examples.html">Examples</a>
-  <a href="tooling.html">Tooling</a><a href="faq.html">FAQ</a>
+  <a href="spec.html">Spec</a>
+  <div class="menu"><button class="menu-trigger" type="button" aria-haspopup="true" aria-expanded="false">ClaimGraph</button><div class="menu-panel">
+    <a href="claimgraph.html"><b>ClaimGraph</b><span>dependency graph of claims</span></a>
+    <a href="identifiers.html"><b>Identifiers</b><span>stable names the graph references</span></a>
+  </div></div>
+  <a href="examples.html">Examples</a>
+  <div class="menu"><button class="menu-trigger" type="button" aria-haspopup="true" aria-expanded="false">Tooling</button><div class="menu-panel">
+    <a href="tooling.html"><b>Tooling</b><span>hooks, configs, CI</span></a>
+    <a href="https://github.com/hotherio/ckc-tools"><b>Pre-commit hooks ↗</b><span>ckc-tools repository</span></a>
+  </div></div>
+  <a href="faq.html">FAQ</a>
   <span class="navsep"></span>
   <div class="menu sel"><button class="menu-trigger" type="button" aria-haspopup="true" aria-expanded="false">v0.1.0</button><div class="menu-panel">
     <a class="cur" href="../../0.1.0/en/index.html"><b>v0.1.0</b><span>current</span></a>
@@ -30,7 +38,9 @@
   <div class="menu sel"><button class="menu-trigger" type="button" aria-haspopup="true" aria-expanded="false">EN</button><div class="menu-panel">
     <a class="cur" href="../en/index.html"><b>English</b><span>en</span></a>
   </div></div>
-  <a class="ext" href="https://www.conventionalcommits.org/en/v1.0.0/">Conventional Commits ↗</a>
+  <span class="navsep"></span>
+  <a class="ext" href="https://www.conventionalcommits.org/en/v1.0.0/" title="Conventional Commits 1.0.0">CC ↗</a>
+  <a class="gh" href="https://github.com/hotherio/conventional-knowledge-commits" aria-label="GitHub repository" title="GitHub repository"><svg viewBox="0 0 16 16" width="17" height="17" aria-hidden="true"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82a7.6 7.6 0 0 1 2-.27c.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg></a>
 </div></nav>
 
 <header>
@@ -68,11 +78,11 @@
       <tr><td>mutability</td><td><b>immutable</b>, a fact about history</td><td><b>mutable</b>, advanced by later commits</td></tr>
       <tr><td>examples</td><td><code>refute!</code>, <code>retract!</code>, <code>formalize</code></td><td><code>math.conjectured → machine-checked</code></td></tr>
     </table>
-    <p class="muted">Because they are separate, closing a <code>sorry</code> later is a <b>new</b>
-      <code>formalize</code> commit that moves <code>Status: math.open</code> to
-      <code>math.machine-checked</code>. You never rewrite history, and one <code>#print axioms</code>
-      result is both an axis-2 status (<code>axiomatised</code>) and an axis-1 caveat
-      (an <code>AXIOM:</code> footer).</p>
+    <p class="muted">Because the two axes are separate, you advance a result by adding a <b>new</b>
+      commit, never by rewriting an old one. Filling a gap that was left open earlier is itself a new
+      commit that moves the status from <b>open</b> to <b>verified</b>, and the history stays intact.
+      The same result can be both established and still flagged as resting on an assumption &mdash; one
+      fact on each axis.</p>
   </div>
 </section>
 
@@ -83,7 +93,7 @@
       <ul class="muted">
         <li>The commit log is an honest record of what is proved, assumed, open, or disproved, with no
             separate status document to keep.</li>
-        <li>The relation footers form a <a href="impact-graph.html">ClaimGraph</a>. A refutation flags
+        <li>The relation footers form a <a href="claimgraph.html">ClaimGraph</a>. A refutation flags
             the results that now depend on something false; closing a gap promotes the results above it.</li>
       </ul>
       <ul class="muted">
@@ -224,7 +234,7 @@ the compensation result depends on it.</pre>
       <li>derive an honest <b>status report</b> and, if you want one, a Semantic Versioning (SemVer)
           <b>release version</b> for a paper or formalized library.</li>
     </ul>
-    <p class="muted" style="font-size:14px">See the <a href="impact-graph.html">ClaimGraph page</a>.</p>
+    <p class="muted" style="font-size:14px">See the <a href="claimgraph.html">ClaimGraph page</a>.</p>
   </div>
 </section>
 

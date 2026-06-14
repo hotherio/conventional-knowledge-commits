@@ -1,6 +1,6 @@
 # Stable identifiers
 
-The [ClaimGraph](./impact-graph.md) needs identifiers for claims and theorems that survive a rewrite
+The [ClaimGraph](./claimgraph.md) needs identifiers for claims and theorems that survive a rewrite
 of their wording. You must be able to `Depends-On:` or `Refutes:` a result even after its statement
 text is edited. Commit hashes do not work for this, because a hash identifies a change, not a claim.
 CKC uses a hybrid scheme: reuse what is already stable in the proof setting, and curate a lightweight

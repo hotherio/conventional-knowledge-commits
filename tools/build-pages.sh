@@ -22,15 +22,22 @@ LANGS=( "en|English" )
 
 ICON="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2032%2032'%3E%3Crect%20width='32'%20height='32'%20fill='%23f7f4ee'/%3E%3Cpath%20d='M9%206V26H27'%20stroke='%231a1a1a'%20stroke-width='2.4'%20fill='none'/%3E%3Ccircle%20cx='20'%20cy='13'%20r='3.4'%20fill='%23a9c39c'%20stroke='%231a1a1a'%20stroke-width='1.2'/%3E%3C/svg%3E"
 
-# nav: label|href  (Home first; Proof/Science live in the Profiles dropdown)
-NAV=( "Home|index.html" "Spec|spec.html" "ClaimGraph|impact-graph.html" \
-      "Identifiers|identifiers.html" "Examples|examples.html" \
-      "Tooling|tooling.html" "FAQ|faq.html" )
 CC_URL="https://www.conventionalcommits.org/en/v1.0.0/"
+GH_URL="https://github.com/hotherio/conventional-knowledge-commits"
+TOOLS_URL="https://github.com/hotherio/ckc-tools"
+# GitHub mark (inline SVG, inherits currentColor)
+GH_ICON='<svg viewBox="0 0 16 16" width="17" height="17" aria-hidden="true"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82a7.6 7.6 0 0 1 2-.27c.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>'
+
+navlink(){ # $1 href  $2 label  $3 cur
+  local cls=""; [ "$1" = "$3" ] && cls=" class=\"here\""
+  printf '<a%s href="%s">%s</a>' "$cls" "$1" "$2"
+}
 
 render_nav(){ # $1 = current page filename (e.g. spec.html)
-  local cur="$1" item label href cls pcls="" v vlabel vsub l lcode lname
+  local cur="$1" pcls="" cgcls="" tcls="" v vlabel vsub l lcode lname
   case "$cur" in proof-profile.html|science-profile.html) pcls=" here";; esac
+  case "$cur" in claimgraph.html|identifiers.html) cgcls=" here";; esac
+  case "$cur" in tooling.html) tcls=" here";; esac
   printf '<nav class="nav"><div class="wrap">'
   printf '<a class="home" href="index.html">CKC</a><span class="sp"></span>'
   # Profiles dropdown
@@ -38,12 +45,18 @@ render_nav(){ # $1 = current page filename (e.g. spec.html)
   printf '<a href="proof-profile.html"><b>Proof</b><span>mathematics &amp; formal proving</span></a>'
   printf '<a href="science-profile.html"><b>Science</b><span>empirical research</span></a>'
   printf '</div></div>'
-  # page links
-  for item in "${NAV[@]:1}"; do
-    label="${item%%|*}"; href="${item##*|}"
-    cls=""; [ "$href" = "$cur" ] && cls=" class=\"here\""
-    printf '<a%s href="%s">%s</a>' "$cls" "$href" "$label"
-  done
+  # content links + ClaimGraph and Tooling dropdowns
+  navlink "spec.html" "Spec" "$cur"
+  printf '<div class="menu%s"><button class="menu-trigger" type="button" aria-haspopup="true" aria-expanded="false">ClaimGraph</button><div class="menu-panel">' "$cgcls"
+  printf '<a href="claimgraph.html"><b>ClaimGraph</b><span>dependency graph of claims</span></a>'
+  printf '<a href="identifiers.html"><b>Identifiers</b><span>stable names the graph references</span></a>'
+  printf '</div></div>'
+  navlink "examples.html" "Examples" "$cur"
+  printf '<div class="menu%s"><button class="menu-trigger" type="button" aria-haspopup="true" aria-expanded="false">Tooling</button><div class="menu-panel">' "$tcls"
+  printf '<a href="tooling.html"><b>Tooling</b><span>hooks, configs, CI</span></a>'
+  printf '<a href="%s"><b>Pre-commit hooks \xe2\x86\x97</b><span>ckc-tools repository</span></a>' "$TOOLS_URL"
+  printf '</div></div>'
+  navlink "faq.html" "FAQ" "$cur"
   printf '<span class="navsep"></span>'
   # version selector — entries point to the same page under each version
   printf '<div class="menu sel"><button class="menu-trigger" type="button" aria-haspopup="true" aria-expanded="false">v%s</button><div class="menu-panel">' "$VERSION"
@@ -61,7 +74,9 @@ render_nav(){ # $1 = current page filename (e.g. spec.html)
     printf '<a%s href="../%s/%s"><b>%s</b><span>%s</span></a>' "$cls" "$lcode" "$cur" "$lname" "$lcode"
   done
   printf '</div></div>'
-  printf '<a class="ext" href="%s">Conventional Commits \xe2\x86\x97</a>' "$CC_URL"
+  printf '<span class="navsep"></span>'
+  printf '<a class="ext" href="%s" title="Conventional Commits 1.0.0">CC \xe2\x86\x97</a>' "$CC_URL"
+  printf '<a class="gh" href="%s" aria-label="GitHub repository" title="GitHub repository">%s</a>' "$GH_URL" "$GH_ICON"
   printf '</div></nav>'
 }
 
@@ -73,7 +88,7 @@ rewrite(){
     -e 's#href="[^"]*v0\.1\.0\.md"#href="spec.html"#g' \
     -e 's#href="[^"]*proof-profile\.md"#href="proof-profile.html"#g' \
     -e 's#href="[^"]*science-profile\.md"#href="science-profile.html"#g' \
-    -e 's#href="[^"]*impact-graph\.md"#href="impact-graph.html"#g' \
+    -e 's#href="[^"]*claimgraph\.md"#href="claimgraph.html"#g' \
     -e 's#href="[^"]*identifiers\.md"#href="identifiers.html"#g' \
     -e 's#href="[^"]*EXAMPLES\.md"#href="examples.html"#g' \
     -e 's#href="[^"]*FAQ\.md"#href="faq.html"#g' \
@@ -120,7 +135,7 @@ echo "rendering doc pages → $OUT …"
 page spec/v0.1.0.md          spec.html             "Specification v0.1.0"
 page spec/proof-profile.md   proof-profile.html    "Proof profile"
 page spec/science-profile.md science-profile.html  "Science profile"
-page impact-graph.md         impact-graph.html     "The ClaimGraph"
+page claimgraph.md           claimgraph.html       "The ClaimGraph"
 page identifiers.md          identifiers.html      "Stable identifiers"
 page EXAMPLES.md             examples.html         "Examples"
 page tooling.md              tooling.html          "Tooling"
@@ -133,4 +148,6 @@ cp -f llms.txt docs/llms.txt && echo "  copied docs/llms.txt"
 redirect "index.html"          "$VERSION/$LANG_CODE/"
 redirect "$VERSION/index.html" "$LANG_CODE/"
 redirect "404.html"            "/$VERSION/$LANG_CODE/"   # catch-all (absolute)
+# legacy: the ClaimGraph page was renamed from impact-graph.html
+redirect "$VERSION/$LANG_CODE/impact-graph.html" "claimgraph.html" "$SITE/$VERSION/$LANG_CODE/claimgraph.html"
 echo "done."

@@ -111,7 +111,7 @@ Semantic Versioning (SemVer) release version derive from the graph.
 - Specification: https://conventional-knowledge-commits.org/0.1.0/en/spec.html
 - Proof profile: https://conventional-knowledge-commits.org/0.1.0/en/proof-profile.html
 - Science profile: https://conventional-knowledge-commits.org/0.1.0/en/science-profile.html
-- ClaimGraph: https://conventional-knowledge-commits.org/0.1.0/en/impact-graph.html
+- ClaimGraph: https://conventional-knowledge-commits.org/0.1.0/en/claimgraph.html
 - Identifiers: https://conventional-knowledge-commits.org/0.1.0/en/identifiers.html
 - Examples: https://conventional-knowledge-commits.org/0.1.0/en/examples.html
 - Tooling: https://conventional-knowledge-commits.org/0.1.0/en/tooling.html

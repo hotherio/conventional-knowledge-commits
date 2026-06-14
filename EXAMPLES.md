@@ -55,7 +55,7 @@ Axioms: propext, Classical.choice, Quot.sound
 Depends-On: IGL.expSumRank_logBound
 ```
 Its own `#print axioms` is clean, but its effective status is axiomatised, because it `Depends-On`
-an axiomatised node. The [ClaimGraph](impact-graph.md) computes this, so the commit need not restate
+an axiomatised node. The [ClaimGraph](claimgraph.md) computes this, so the commit need not restate
 it.
 
 ### Leave an explicit gap

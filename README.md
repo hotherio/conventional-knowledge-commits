@@ -58,7 +58,7 @@ work too), and **`science`** for empirical work. The type you choose implies the
 
 - The commit log is an honest record of what is proved, assumed, open, or disproved, with no separate
   status document to maintain.
-- The relation footers form a [ClaimGraph](impact-graph.md). A refutation flags the results that now
+- The relation footers form a [ClaimGraph](claimgraph.md). A refutation flags the results that now
   depend on something false; closing a gap promotes the results above it.
 - Negative results have a place. Counterexamples, null results, and failed replications are normal
   commit types.
@@ -98,7 +98,7 @@ More in [Examples](EXAMPLES.md).
 - [Specification](spec/v0.1.0.md), the grammar and the numbered rules
 - [Proof profile](spec/proof-profile.md), mathematics and formal proving
 - [Science profile](spec/science-profile.md), empirical discovery
-- [ClaimGraph](impact-graph.md), the dependency graph CKC builds
+- [ClaimGraph](claimgraph.md), the dependency graph CKC builds
 - [Identifiers](identifiers.md), stable claim and theorem ids
 - [Tooling](tooling.md), commit-message hooks and configs ([hotherio/ckc-tools](https://github.com/hotherio/ckc-tools))
 - [FAQ](FAQ.md), [Contributing](CONTRIBUTING.md)
