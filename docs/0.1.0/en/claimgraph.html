@@ -1,0 +1,173 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The ClaimGraph · CKC</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2032%2032'%3E%3Crect%20width='32'%20height='32'%20fill='%23f7f4ee'/%3E%3Cpath%20d='M9%206V26H27'%20stroke='%231a1a1a'%20stroke-width='2.4'%20fill='none'/%3E%3Ccircle%20cx='20'%20cy='13'%20r='3.4'%20fill='%23a9c39c'%20stroke='%231a1a1a'%20stroke-width='1.2'/%3E%3C/svg%3E">
+<link rel="canonical" href="https://conventional-knowledge-commits.org/0.1.0/en/claimgraph.html">
+<meta property="og:title" content="The ClaimGraph · CKC">
+<meta property="og:url" content="https://conventional-knowledge-commits.org/0.1.0/en/claimgraph.html">
+<link rel="stylesheet" href="../../assets/ckc.css">
+</head><body>
+<nav class="nav"><div class="wrap"><a class="home" href="index.html">CKC</a><span class="sp"></span><div class="menu"><button class="menu-trigger" type="button" aria-haspopup="true" aria-expanded="false">Profiles</button><div class="menu-panel"><a href="proof-profile.html"><b>Proof</b><span>mathematics &amp; formal proving</span></a><a href="science-profile.html"><b>Science</b><span>empirical research</span></a></div></div><a href="spec.html">Spec</a><div class="menu here"><button class="menu-trigger" type="button" aria-haspopup="true" aria-expanded="false">ClaimGraph</button><div class="menu-panel"><a href="claimgraph.html"><b>ClaimGraph</b><span>dependency graph of claims</span></a><a href="identifiers.html"><b>Identifiers</b><span>stable names the graph references</span></a></div></div><a href="examples.html">Examples</a><div class="menu"><button class="menu-trigger" type="button" aria-haspopup="true" aria-expanded="false">Tooling</button><div class="menu-panel"><a href="tooling.html"><b>Tooling</b><span>hooks, configs, CI</span></a><a href="https://github.com/hotherio/ckc-tools"><b>Pre-commit hooks ↗</b><span>ckc-tools repository</span></a></div></div><a href="faq.html">FAQ</a><span class="navsep"></span><div class="menu sel"><button class="menu-trigger" type="button" aria-haspopup="true" aria-expanded="false">v0.1.0</button><div class="menu-panel"><a class="cur" href="../../0.1.0/en/claimgraph.html"><b>v0.1.0</b><span>current</span></a></div></div><div class="menu sel"><button class="menu-trigger" type="button" aria-haspopup="true" aria-expanded="false">EN</button><div class="menu-panel"><a class="cur" href="../en/claimgraph.html"><b>English</b><span>en</span></a></div></div><span class="navsep"></span><a class="ext" href="https://www.conventionalcommits.org/en/v1.0.0/" title="Conventional Commits 1.0.0">CC ↗</a><a class="gh" href="https://github.com/hotherio/conventional-knowledge-commits" aria-label="GitHub repository" title="GitHub repository"><svg viewBox="0 0 16 16" width="17" height="17" aria-hidden="true"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82a7.6 7.6 0 0 1 2-.27c.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg></a></div></nav>
+<main class="doc"><div class="wrap">
+<h1 id="the-claimgraph">The ClaimGraph</h1>
+<p>The <strong>ClaimGraph</strong> is what CKC is for. Conventional
+Commits earned its place by mapping commits onto one decision, the
+version bump. CKC's equivalent is a graph of knowledge claims and how
+they depend on each other. From the relation footers, tooling
+reconstructs which claims rest on which, then propagates two kinds of
+event to everything affected: breakage (a refutation or retraction) and
+promotion (a gap closing). The status report and an optional release
+version both come out of this graph.</p>
+<h2 id="nodes">Nodes</h2>
+<p>A node is a claim: a theorem, lemma, definition, conjecture, or
+empirical finding, named by its stable identifier (see <a
+href="identifiers.html">Identifiers</a>). That is a Lean fully-qualified
+name and an optional blueprint label in the proof profile, and a
+registered slug in the science profile.</p>
+<p>Each node carries its current <code>Status:</code> (axis 2), taken
+from the most recent commit that set a status for it. History is
+append-only, so a status moves forward, or back, only through a new
+commit.</p>
+<h2 id="edges">Edges</h2>
+<p>The relation footers create the edges.</p>
+<table>
+<thead>
+<tr>
+<th>Footer</th>
+<th>Edge for a commit asserting A</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Depends-On: B</code></td>
+<td>A depends on B</td>
+<td>A's truth relies on B</td>
+</tr>
+<tr>
+<td><code>Assumes: B</code></td>
+<td>A depends on B</td>
+<td>B is an assumption or axiom A rests on</td>
+</tr>
+<tr>
+<td><code>Proves: B</code></td>
+<td>A establishes B</td>
+<td>this commit discharges B</td>
+</tr>
+<tr>
+<td><code>Closes: B</code></td>
+<td>A resolves B</td>
+<td>a conjecture or goal B is settled by A</td>
+</tr>
+<tr>
+<td><code>Refutes: B</code></td>
+<td>A contradicts B</td>
+<td>evidence or argument against B</td>
+</tr>
+<tr>
+<td><code>Disproves: B</code></td>
+<td>A falsifies B</td>
+<td>a counterexample to B</td>
+</tr>
+<tr>
+<td><code>Supersedes: B</code></td>
+<td>A replaces B</td>
+<td>B is retired in favour of A</td>
+</tr>
+<tr>
+<td><code>Retracts: B</code></td>
+<td>A withdraws B</td>
+<td>B is pulled</td>
+</tr>
+<tr>
+<td><code>Invalidates: B</code></td>
+<td>A breaks B</td>
+<td>B's conclusion no longer holds</td>
+</tr>
+</tbody>
+</table>
+<p>The <code>Depends-On</code> and <code>Assumes</code> edges form the
+directed graph that everything propagates over. The rest are the events
+that drive propagation.</p>
+<h2 id="breakage">Breakage</h2>
+<p>When a commit refutes, disproves, retracts, or invalidates a node B
+(a breaking event, signalled by <code>!</code> or
+<code>BREAKING CHANGE:</code>):</p>
+<ol type="1">
+<li>B's status becomes <code>math.disproved</code>,
+<code>sci.falsified</code>, or retracted, as appropriate.</li>
+<li>Every node A with a path from A through <code>Depends-On</code> to B
+is marked <strong>in question</strong>. Its asserted status is suspect
+until someone re-examines it. Tooling should list these as the blast
+radius of the change.</li>
+<li>"In question" is computed from the edges, not stored. It clears on
+its own once the dependency is repaired or routed around.</li>
+</ol>
+<p>A one-line <code>refute(...)!</code> commit can, through the graph,
+flag a dozen downstream results for recheck, without anyone maintaining
+that list by hand.</p>
+<h2 id="promotion">Promotion</h2>
+<p>When a commit closes a gap, such as a <code>formalize</code>,
+<code>proof</code>, or <code>port</code> that moves a node from
+<code>math.open</code> (<code>sorryAx</code>) or
+<code>math.axiomatised</code> to <code>math.machine-checked</code>, or a
+<code>replicate</code> that moves <code>sci.measured</code> to
+<code>sci.replicated</code>:</p>
+<ol type="1">
+<li>The node's status advances (axis 2) through the new commit, not a
+rewrite.</li>
+<li>A node is only as established as its weakest dependency. Tooling
+computes an <strong>effective status</strong> as the minimum over the
+node and its transitive <code>Depends-On</code> and <code>Assumes</code>
+closure on the status ladder. A theorem whose own proof is
+<code>machine-checked</code> but which <code>Assumes:</code> an
+<code>axiomatised</code> lemma has effective status
+<code>axiomatised</code>. That is how a cited axiom surfaces on
+everything downstream, the same way <code>#print axioms</code>
+does.</li>
+</ol>
+<h2 id="derived-views">Derived views</h2>
+<ul>
+<li><strong>Status report.</strong> Group nodes by effective status:
+machine-checked, axiomatised, open, conjectured for proofs, and
+replicated, supported, measured, not-replicated for science. This is the
+honest project dashboard, computed from the graph rather than kept as a
+separate file.</li>
+<li><strong>Blast radius.</strong> Given a node, the set of dependents
+that a refutation or retraction would put in question. Run it before
+committing a breaking change to see what you are about to disturb.</li>
+<li><strong>Release version.</strong> A Semantic Versioning (SemVer)
+number for a knowledge artifact such as a paper or a formalized library:
+a breaking knowledge event since the last tag is a MAJOR release, a new
+result or an independent replication is a MINOR, a proof repair or
+cleanup is a PATCH.</li>
+</ul>
+<h2 id="a-worked-trace">A worked trace</h2>
+<pre><code>conjecture(master-formula): the Green&#39;s integral factorises as a finite rank-K×R sum
+    node conjecture:master-formula, Status: math.conjectured
+
+formalize(fubini): close the d-fold separable factorization
+    Lean: IGL.fubini_factorization   Closes: conjecture:master-formula
+    Status: math.machine-checked
+    node IGL.fubini_factorization (machine-checked), proves conjecture:master-formula
+
+axiomatize(exp-sum): cite the log rank bound
+    Lean: IGL.expSumRank_logBound   Status: math.axiomatised   AXIOM: IGL.expSumRank_logBound
+
+formalize(rank-bound-use): bound the approximation error using the exp-sum rank
+    Lean: IGL.approxError   Depends-On: IGL.expSumRank_logBound
+    Status: math.machine-checked
+    IGL.approxError is itself clean, but its effective status is axiomatised, because it
+    Depends-On an axiomatised node. The graph reports it, matching #print axioms.
+
+refute(separability)!: √|g| blocks naive factorization
+    Disproves: conjecture:naive-separable
+    conjecture:naive-separable becomes disproved; any node that Depends-On it is in question.</code></pre>
+<p>A CKC-aware tool reads only the footers above and can answer three
+questions: what is proved versus assumed versus open, what breaks if
+<code>conjecture:naive-separable</code> falls, and what version the next
+release should be.</p>
+</div></main>
+<footer><div class="wrap">Part of <a href="index.html">Conventional Knowledge Commits</a> · extends <a href="https://www.conventionalcommits.org/en/v1.0.0/">Conventional Commits 1.0.0</a> · spec licensed <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>.</div></footer>
+<script src="../../assets/nav.js" defer></script>
+</body></html>

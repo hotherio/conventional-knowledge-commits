@@ -61,6 +61,11 @@ h3{font-size:18px;margin:26px 0 8px}
 .nav .menu.sel .menu-trigger{color:var(--slate);letter-spacing:.3px}
 .nav .menu.sel .menu-panel{left:auto;right:0;min-width:170px}
 
+/* GitHub icon link */
+.nav a.gh{border:0;color:var(--muted);display:inline-flex;align-items:center;padding:0}
+.nav a.gh:hover{color:var(--ink)}
+.nav a.gh svg{display:block}
+
 /* primary actions (CC-style Quick Summary / Full Specification / Contribute) */
 .cta{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin-top:22px}
 .cta .btn{border:1px solid var(--rule-2);background:var(--panel);color:var(--ink);
