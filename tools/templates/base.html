@@ -1,0 +1,35 @@
+{%- from 'nav.html' import nav -%}
+<!DOCTYPE html>
+<html lang="{{ LANG_CODE }}">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{ title }}</title>
+<link rel="icon" href="{{ ASSET }}assets/favicon.ico" sizes="16x16 32x32 48x48">
+<link rel="icon" type="image/png" sizes="96x96" href="{{ ASSET }}assets/favicon.png">
+<link rel="apple-touch-icon" href="{{ ASSET }}assets/apple-touch-icon.png">
+<link rel="canonical" href="{{ canonical }}">
+<meta property="og:title" content="{{ og_title | default(title, true) }}">
+<meta property="og:url" content="{{ canonical }}">
+<meta property="og:image" content="{{ SITE }}/assets/og-image.png">
+{%- block head_extra %}{% endblock %}
+<link rel="stylesheet" href="{{ ASSET }}assets/ckc.css">
+{%- if needs_katex %}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+{%- endif %}
+<script type="application/ld+json">{{ jsonld | safe }}</script>
+</head>
+<body>
+{{ nav(cur) }}
+{% block body %}{% endblock %}
+{% block footer %}<footer><div class="wrap">Part of <a href="index.html">Conventional Knowledge Commits</a> · extends <a href="https://www.conventionalcommits.org/en/v1.0.0/">Conventional Commits 1.0.0</a> · spec licensed <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>.</div></footer>{% endblock %}
+<script src="{{ ASSET }}assets/nav.js" defer></script>
+{%- if needs_katex %}
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body,{delimiters:[{left:'\\(',right:'\\)',display:false},{left:'\\[',right:'\\]',display:true}]})"></script>
+{%- endif %}
+{%- if needs_mermaid %}
+<script type="module">import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';mermaid.initialize({startOnLoad:true});</script>
+{%- endif %}
+</body>
+</html>
