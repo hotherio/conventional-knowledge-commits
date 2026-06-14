@@ -1,0 +1,101 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FAQ · CKC</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2032%2032'%3E%3Crect%20width='32'%20height='32'%20fill='%23f7f4ee'/%3E%3Cpath%20d='M9%206V26H27'%20stroke='%231a1a1a'%20stroke-width='2.4'%20fill='none'/%3E%3Ccircle%20cx='20'%20cy='13'%20r='3.4'%20fill='%23a9c39c'%20stroke='%231a1a1a'%20stroke-width='1.2'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="assets/ckc.css">
+</head><body>
+<nav class="nav"><div class="wrap"><a class="home" href="index.html">CKC</a><span class="sp"></span><a href="spec.html">Spec</a><a href="proof-profile.html">Proof</a><a href="science-profile.html">Science</a><a href="impact-graph.html">Impact graph</a><a href="identifiers.html">Identifiers</a><a href="examples.html">Examples</a><a class="here" href="faq.html">FAQ</a></div></nav>
+<main class="doc"><div class="wrap">
+<h1 id="faq">FAQ</h1>
+<h3
+id="why-extend-conventional-commits-instead-of-inventing-something-new">Why
+extend Conventional Commits instead of inventing something new?</h3>
+<p>Because the ergonomics are already right: a short, parseable header
+plus git-trailer footers, understood by humans and tools. CKC keeps the
+grammar verbatim and only adds vocabulary, so every CKC commit stays a
+valid Conventional Commit and existing tooling (changelog, lint) keeps
+working.</p>
+<h3 id="why-two-axes-isnt-a-status-enough">Why two axes? Isn't a status
+enough?</h3>
+<p>A status alone can't tell you what <em>breaks</em>. Software
+conflates the two because there's one lattice (compatibility). Knowledge
+needs both: <strong>dependency impact</strong> (did this invalidate
+dependents?) and <strong>epistemic status</strong> (how established is
+it?). A result can advance in status without breaking anything
+(<code>open → machine-checked</code>), and a commit can break dependents
+without changing its own status (a re-statement). Separating them is
+what makes the impact graph well-defined.</p>
+<h3 id="why-is-status-a-footer-and-not-part-of-the-type">Why is status a
+<em>footer</em> and not part of the type?</h3>
+<p>Because status is <strong>mutable</strong> and the type is
+<strong>immutable</strong>. When a <code>sorry</code> closes months
+later, you don't want to rewrite the old commit's type — you add a new
+<code>formalize</code> commit that flips the <code>Status:</code>
+footer. The type records <em>what happened</em> (a historical fact); the
+footer records <em>what is believed now</em> (recomputed from the latest
+commit touching the claim).</p>
+<h3 id="is-introducing-an-axiom-a-breaking-change">Is introducing an
+axiom a "breaking change"?</h3>
+<p>Not on Axis 1, usually. Citing an axiom is <em>additive</em> — it
+introduces an object — so it doesn't invalidate dependents. It is a
+<strong>trusted-base</strong> event on Axis 2: the status becomes
+<code>axiomatised</code> and the commit carries an <code>AXIOM:</code>
+footer. It only becomes Axis-1 breaking if it <em>replaces</em> a
+previously proved result with an assumed one.</p>
+<h3 id="how-is-this-kept-honest-theres-no-enforcement">How is this kept
+honest? There's no enforcement.</h3>
+<p>v0.1.0 is convention-only, like Conventional Commits itself. But the
+<code>proof</code> profile is honest <em>by construction</em> in one
+important way: the <code>Status:</code> and <code>Axioms:</code> footers
+are meant to be the literal <code>#print axioms</code> result. A future,
+opt-in checker can cross-check those footers against the kernel and
+reject a commit that claims <code>machine-checked</code> while a
+<code>sorryAx</code> or a non-standard axiom is present — extending a
+working-tree honesty gate into history. The convention is designed for
+that; it just doesn't mandate it.</p>
+<h3 id="whats-the-relationship-to-semver">What's the relationship to
+SemVer?</h3>
+<p>SemVer is the single decision Conventional Commits serves. CKC's
+analog is the <strong>impact graph</strong>, from which a SemVer-style
+release version <em>derives</em> for a knowledge artifact: a breaking
+knowledge event → MAJOR, a new result or replication → MINOR, a
+repair/cleanup → PATCH. But the graph (and the status report it yields)
+is the primary payoff; the version number is optional.</p>
+<h3
+id="how-do-depends-on--refutes-survive-someone-rephrasing-a-theorem">How
+do <code>Depends-On:</code> / <code>Refutes:</code> survive someone
+rephrasing a theorem?</h3>
+<p>Via stable identifiers (<a
+href="identifiers.html"><code>identifiers.md</code></a>). In the
+<code>proof</code> profile the identifier is the proof assistant's
+fully-qualified name (and a blueprint label) — already rename-aware. In
+the <code>science</code> profile it's a curated slug in
+<code>claims.toml</code>, optionally bound to a DOI on publication.
+Commit SHAs are deliberately <em>not</em> used as claim ids: a SHA
+identifies a change, not a claim.</p>
+<h3 id="why-are-negative-results-first-class-types">Why are negative
+results first-class types?</h3>
+<p>Because hiding them is the failure mode CKC exists to prevent. A
+counterexample, a disproof, a null result, and a failed replication are
+<code>refute</code> / <code>null</code> /
+<code>replicate (sci.not-replicated)</code> commits — never silently
+dropped or downgraded to a <code>fix</code>. The impact graph treats
+them as the events they are.</p>
+<h3 id="does-ckc-require-lean-or-a-proof-assistant-at-all">Does CKC
+require Lean, or a proof assistant at all?</h3>
+<p>No. The <code>proof</code> profile is sharpest with a proof assistant
+(the trusted base is exact), but the <code>science</code> profile needs
+none, and the shared core (<code>conjecture</code>, <code>lit</code>,
+<code>review</code>, <code>refute</code>, <code>expose</code>) is
+assistant-agnostic. The Lean/Mathlib coupling in the examples is the
+reference implementation, not a requirement.</p>
+<h3 id="how-does-this-relate-to-nanopublications-and-prov">How does this
+relate to nanopublications and PROV?</h3>
+<p>They're kin. A nanopublication is an <em>assertion + its provenance +
+publication info</em>; W3C PROV is a general provenance model. CKC
+carries the same spirit — assertion (type + description), provenance
+(footers), relations (the graph) — but lives where the work already
+happens: the commit log.</p>
+</div></main>
+<footer><div class="wrap">Part of <a href="index.html">Conventional Knowledge Commits</a> · extends <a href="https://www.conventionalcommits.org/en/v1.0.0/">Conventional Commits 1.0.0</a> · spec licensed <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>.</div></footer>
+</body></html>

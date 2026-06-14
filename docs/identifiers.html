@@ -1,0 +1,104 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Stable identifiers · CKC</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2032%2032'%3E%3Crect%20width='32'%20height='32'%20fill='%23f7f4ee'/%3E%3Cpath%20d='M9%206V26H27'%20stroke='%231a1a1a'%20stroke-width='2.4'%20fill='none'/%3E%3Ccircle%20cx='20'%20cy='13'%20r='3.4'%20fill='%23a9c39c'%20stroke='%231a1a1a'%20stroke-width='1.2'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="assets/ckc.css">
+</head><body>
+<nav class="nav"><div class="wrap"><a class="home" href="index.html">CKC</a><span class="sp"></span><a href="spec.html">Spec</a><a href="proof-profile.html">Proof</a><a href="science-profile.html">Science</a><a href="impact-graph.html">Impact graph</a><a class="here" href="identifiers.html">Identifiers</a><a href="examples.html">Examples</a><a href="faq.html">FAQ</a></div></nav>
+<main class="doc"><div class="wrap">
+<h1 id="stable-identifiers">Stable identifiers</h1>
+<p>The impact graph needs identifiers for claims and theorems that
+<strong>survive rephrasing</strong> — you must be able to
+<code>Depends-On:</code> or <code>Refutes:</code> a result even after
+its statement text is edited. Commit SHAs won't do (they identify a
+change, not a claim). CKC uses a <strong>hybrid</strong> scheme: reuse
+what is already stable in the proof setting, and curate a lightweight
+registry for the empirical setting.</p>
+<h2
+id="proof-profile--reuse-what-the-assistant-already-gives-you"><code>proof</code>
+profile — reuse what the assistant already gives you</h2>
+<p>A formal result already has a stable name: its
+<strong>fully-qualified declaration name</strong> in the proof
+assistant. This is canonical, machine-checkable, and rename-aware (a
+rename is a visible refactor, not a silent drift).</p>
+<ul>
+<li>Primary id: the Lean fully-qualified name, e.g.
+<code>IGL.fubini_factorization</code>, recorded as <code>Lean:</code> /
+<code>Formal-Statement: lean:IGL.fubini_factorization</code>.</li>
+<li>Human-facing alias: the <strong>blueprint label</strong>, e.g.
+<code>thm:master-formula</code>, used in prose and as a
+<code>scope</code>.</li>
+<li>Optional: <code>Proof-Hash: sha256:…</code> over the proof term,
+when you want to detect that a proof (not the statement) changed.</li>
+</ul>
+<p>A statement edit that changes the theorem's meaning is
+<strong>not</strong> "the same claim" — use a new name and
+<code>Supersedes:</code> the old one, or mark it Axis-1 breaking.</p>
+<h2 id="science-profile--a-curated-registry"><code>science</code>
+profile — a curated registry</h2>
+<p>Empirical claims have no canonical formal statement, so each gets a
+<strong>slug</strong> minted in a registry file at the repo root,
+<code>claims.toml</code>. The slug is what <code>Closes:</code> /
+<code>Refutes:</code> / <code>Depends-On:</code> reference; the registry
+maps it to the human statement, provenance, and (once published) a
+DOI.</p>
+<pre class="toml"><code># claims.toml — the claim registry (one entry per claim/hypothesis)
+
+[claims.tensor-rank-helps]
+kind        = &quot;hypothesis&quot;          # hypothesis | finding | definition
+statement   = &quot;Tensor rank K&gt;1 beats K=1 on non-additive targets.&quot;
+status      = &quot;sci.not-replicated&quot;  # cache of the graph-derived effective status
+created     = &quot;2026-06-14&quot;
+prereg      = &quot;osf.io/abcd1&quot;
+doi         = &quot;&quot;                     # filled on publication
+
+[claims.naive-separable]
+kind        = &quot;conjecture&quot;
+statement   = &quot;The Green&#39;s kernel factorises separably without metric compensation.&quot;
+status      = &quot;math.disproved&quot;
+lean        = &quot;IGL.naiveSeparable&quot;   # a proof-side claim may carry both a slug and a Lean name</code></pre>
+<p>Referencing convention: a slug is written
+<code>conjecture:&lt;slug&gt;</code> / <code>claim:&lt;slug&gt;</code> /
+<code>result:&lt;slug&gt;</code> in footers (the prefix mirrors the
+kind). The <code>claims.toml</code> <code>status</code> field is a
+<strong>cache</strong> of the effective status computed from the commit
+graph — regenerate it, don't hand-edit it as the source of truth.</p>
+<h2 id="when-to-mint-a-global-id-doi--uri">When to mint a global id (DOI
+/ URI)</h2>
+<p>Keep ids <strong>local</strong> (Lean name or registry slug) while
+work is in progress — global ids are ceremony you don't need for
+unpublished claims. Bind a <strong>DOI or URI</strong> at publication
+(paper accepted, dataset released, library tagged), recording it in
+<code>claims.toml</code> and/or a
+<code>Cites:</code>/<code>Claim-ID:</code> footer, so external work can
+reference the claim stably across repositories.</p>
+<h2 id="summary">Summary</h2>
+<table>
+<thead>
+<tr>
+<th>Setting</th>
+<th>Stable id</th>
+<th>Recorded as</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Formal result</td>
+<td>Lean FQN (+ blueprint label)</td>
+<td><code>Lean:</code> / <code>Formal-Statement:</code> / scope</td>
+</tr>
+<tr>
+<td>Empirical claim</td>
+<td>curated slug in <code>claims.toml</code></td>
+<td><code>Claim-ID:</code> / <code>conjecture:&lt;slug&gt;</code></td>
+</tr>
+<tr>
+<td>Published artifact</td>
+<td>DOI / URI</td>
+<td><code>claims.toml</code> <code>doi</code>, <code>Cites:</code></td>
+</tr>
+</tbody>
+</table>
+</div></main>
+<footer><div class="wrap">Part of <a href="index.html">Conventional Knowledge Commits</a> · extends <a href="https://www.conventionalcommits.org/en/v1.0.0/">Conventional Commits 1.0.0</a> · spec licensed <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>.</div></footer>
+</body></html>
