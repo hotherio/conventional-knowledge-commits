@@ -99,7 +99,8 @@ page(){ # $1 src md   $2 out html   $3 <title>   $4 extra main class (optional)
 <!DOCTYPE html><html lang="$LANG_CODE"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <title>${title} · CKC</title>
-<link rel="icon" type="image/png" href="../../assets/favicon.png">
+<link rel="icon" href="../../assets/favicon.ico" sizes="16x16 32x32 48x48">
+<link rel="icon" type="image/png" sizes="96x96" href="../../assets/favicon.png">
 <link rel="apple-touch-icon" href="../../assets/apple-touch-icon.png">
 <link rel="canonical" href="${SITE}/${VERSION}/${LANG_CODE}/${out}">
 <meta property="og:title" content="${title} · CKC">
