@@ -20,8 +20,6 @@ VERSIONS=( "0.1.0|current" )
 #   "en|English"     →  label EN, panel "English / en"
 LANGS=( "en|English" )
 
-ICON="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2032%2032'%3E%3Crect%20width='32'%20height='32'%20fill='%23f7f4ee'/%3E%3Cpath%20d='M9%206V26H27'%20stroke='%231a1a1a'%20stroke-width='2.4'%20fill='none'/%3E%3Ccircle%20cx='20'%20cy='13'%20r='3.4'%20fill='%23a9c39c'%20stroke='%231a1a1a'%20stroke-width='1.2'/%3E%3C/svg%3E"
-
 CC_URL="https://www.conventionalcommits.org/en/v1.0.0/"
 GH_URL="https://github.com/hotherio/conventional-knowledge-commits"
 TOOLS_URL="https://github.com/hotherio/ckc-tools"
@@ -39,7 +37,7 @@ render_nav(){ # $1 = current page filename (e.g. spec.html)
   case "$cur" in claimgraph.html|identifiers.html) cgcls=" here";; esac
   case "$cur" in tooling.html) tcls=" here";; esac
   printf '<nav class="nav"><div class="wrap">'
-  printf '<a class="home" href="index.html">CKC</a><span class="sp"></span>'
+  printf '<a class="home" href="index.html"><img class="brand" src="../../assets/logo.png" width="24" height="24" alt="">CKC</a><span class="sp"></span>'
   # Profiles dropdown
   printf '<div class="menu%s"><button class="menu-trigger" type="button" aria-haspopup="true" aria-expanded="false">Profiles</button><div class="menu-panel">' "$pcls"
   printf '<a href="proof-profile.html"><b>Proof</b><span>mathematics &amp; formal proving</span></a>'
@@ -101,10 +99,12 @@ page(){ # $1 src md   $2 out html   $3 <title>   $4 extra main class (optional)
 <!DOCTYPE html><html lang="$LANG_CODE"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <title>${title} · CKC</title>
-<link rel="icon" href="${ICON}">
+<link rel="icon" type="image/png" href="../../assets/favicon.png">
+<link rel="apple-touch-icon" href="../../assets/apple-touch-icon.png">
 <link rel="canonical" href="${SITE}/${VERSION}/${LANG_CODE}/${out}">
 <meta property="og:title" content="${title} · CKC">
 <meta property="og:url" content="${SITE}/${VERSION}/${LANG_CODE}/${out}">
+<meta property="og:image" content="${SITE}/assets/og-image.png">
 <link rel="stylesheet" href="../../assets/ckc.css">
 </head><body>
 $(render_nav "$out")
