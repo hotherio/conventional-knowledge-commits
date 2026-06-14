@@ -37,7 +37,7 @@ render_nav(){ # $1 = current page filename (e.g. spec.html)
   case "$cur" in claimgraph.html|identifiers.html) cgcls=" here";; esac
   case "$cur" in tooling.html) tcls=" here";; esac
   printf '<nav class="nav"><div class="wrap">'
-  printf '<a class="home" href="index.html"><img class="brand" src="../../assets/logo.png" width="24" height="24" alt="">CKC</a><span class="sp"></span>'
+  printf '<a class="home" href="index.html"><img class="brand" src="../../assets/logo.png" width="384" height="343" alt="">CKC</a><span class="sp"></span>'
   # Profiles dropdown
   printf '<div class="menu%s"><button class="menu-trigger" type="button" aria-haspopup="true" aria-expanded="false">Profiles</button><div class="menu-panel">' "$pcls"
   printf '<a href="proof-profile.html"><b>Proof</b><span>mathematics &amp; formal proving</span></a>'
