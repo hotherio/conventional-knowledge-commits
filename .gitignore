@@ -1,0 +1,5 @@
+# preview / verify artifacts
+*.verify.png
+.playwright-mcp/
+__pycache__/
+.DS_Store
