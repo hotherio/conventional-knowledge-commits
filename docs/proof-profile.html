@@ -1,0 +1,211 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Proof profile · CKC</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2032%2032'%3E%3Crect%20width='32'%20height='32'%20fill='%23f7f4ee'/%3E%3Cpath%20d='M9%206V26H27'%20stroke='%231a1a1a'%20stroke-width='2.4'%20fill='none'/%3E%3Ccircle%20cx='20'%20cy='13'%20r='3.4'%20fill='%23a9c39c'%20stroke='%231a1a1a'%20stroke-width='1.2'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="assets/ckc.css">
+</head><body>
+<nav class="nav"><div class="wrap"><a class="home" href="index.html">CKC</a><span class="sp"></span><a href="spec.html">Spec</a><a class="here" href="proof-profile.html">Proof</a><a href="science-profile.html">Science</a><a href="impact-graph.html">Impact graph</a><a href="identifiers.html">Identifiers</a><a href="examples.html">Examples</a><a href="faq.html">FAQ</a></div></nav>
+<main class="doc"><div class="wrap">
+<h1 id="ckc--proof-profile">CKC — <code>proof</code> profile</h1>
+<p>For mathematics and formal proving. Designed to couple to a proof
+assistant (Lean 4 / Mathlib in the reference implementation), where the
+<strong>trusted base</strong> is precise: a result is either
+kernel-checked, depends on a cited axiom, or has an open
+<code>sorry</code>. <code>#print axioms</code> is the ground truth, and
+CKC commits report it rather than asserting status by hand.</p>
+<h2 id="types">Types</h2>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Use it when you…</th>
+<th>Typical Axis 1</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>state</code></td>
+<td>add a definition or the formal statement of a result (no proof
+yet)</td>
+<td>additive</td>
+</tr>
+<tr>
+<td><code>conjecture</code></td>
+<td>assert a statement you believe but do not prove</td>
+<td>additive</td>
+</tr>
+<tr>
+<td><code>proof</code></td>
+<td>give or complete an <strong>informal</strong> (paper) proof</td>
+<td>additive</td>
+</tr>
+<tr>
+<td><code>formalize</code></td>
+<td>write/advance a machine-checkable proof: stubs → tactics → closing
+goals</td>
+<td>additive</td>
+</tr>
+<tr>
+<td><code>axiomatize</code></td>
+<td>deliberately posit a <strong>cited</strong> axiom (theory absent
+from the library)</td>
+<td>additive¹</td>
+</tr>
+<tr>
+<td><code>strengthen</code></td>
+<td>weaken hypotheses or strengthen the conclusion; old form still
+follows</td>
+<td>additive</td>
+</tr>
+<tr>
+<td><code>generalize</code></td>
+<td>subsume a special case under a more general result</td>
+<td>additive</td>
+</tr>
+<tr>
+<td><code>weaken</code></td>
+<td>strengthen hypotheses / narrow the conclusion</td>
+<td>usually breaking <code>!</code></td>
+</tr>
+<tr>
+<td><code>refute</code></td>
+<td>give a counterexample / disproof of a prior claim</td>
+<td>breaking <code>!</code></td>
+</tr>
+<tr>
+<td><code>retract</code></td>
+<td>withdraw a previously asserted result or proof</td>
+<td>breaking <code>!</code></td>
+</tr>
+<tr>
+<td><code>port</code></td>
+<td>move an informal proof into the proof assistant</td>
+<td>additive</td>
+</tr>
+</tbody>
+</table>
+<p>¹ <code>axiomatize</code> is <strong>additive on Axis 1</strong> (it
+introduces a new object), but it is a <strong>trusted-base</strong>
+event on Axis 2 — it MUST carry an <code>AXIOM:</code> footer and sets
+<code>Status: math.axiomatised</code>. It becomes Axis-1 breaking only
+if it <em>replaces</em> a previously proved result with an assumed
+one.</p>
+<h2 id="status-axis-2--bound-to-print-axioms">Status (Axis 2) — bound to
+<code>#print axioms</code></h2>
+<p><code>Status:</code> values, namespaced <code>math.*</code>:</p>
+<table>
+<thead>
+<tr>
+<th><code>Status:</code></th>
+<th>Meaning</th>
+<th>Ground truth (<code>axiom-report</code> /
+<code>#print axioms</code>)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>math.conjectured</code></td>
+<td>asserted, unproven</td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>math.proved-informal</code></td>
+<td>paper proof, not formalized</td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>math.open</code></td>
+<td>formalized with a remaining gap</td>
+<td>depends on <code>sorryAx</code></td>
+</tr>
+<tr>
+<td><code>math.axiomatised</code></td>
+<td>formalized <strong>modulo</strong> a cited axiom</td>
+<td>depends on a cited/added <code>axiom</code></td>
+</tr>
+<tr>
+<td><code>math.machine-checked</code></td>
+<td>kernel-checked, no gaps, no added axioms</td>
+<td><strong>clean</strong> (only <code>propext</code>,
+<code>Classical.choice</code>, <code>Quot.sound</code>)</td>
+</tr>
+<tr>
+<td><code>math.disproved</code></td>
+<td>shown false (counterexample/disproof)</td>
+<td>—</td>
+</tr>
+</tbody>
+</table>
+<p>A commit claiming <code>math.machine-checked</code> SHOULD include
+the actual <code>Axioms:</code> line, and that line SHOULD show only the
+standard three. Claiming <code>machine-checked</code> while the kernel
+reports a <code>sorryAx</code> or a non-standard axiom is a CKC
+violation (it is exactly the dishonesty the convention exists to
+prevent).</p>
+<h2 id="trusted-base-footers">Trusted-base footers</h2>
+<ul>
+<li><code>AXIOM: &lt;Name&gt; — &lt;what it is / why cited&gt;</code> —
+a cited or added axiom widens the trusted base.</li>
+<li><code>OPEN: &lt;what is unproven&gt;</code> — a remaining
+<code>sorry</code> / <code>admit</code> / <code>sorryAx</code>.</li>
+</ul>
+<h2 id="provenance-footers">Provenance footers</h2>
+<ul>
+<li><code>Lean: &lt;Fully.Qualified.Name&gt;[, …]</code> — the
+declaration(s) this commit touches (the stable ID).</li>
+<li><code>Formal-Statement: lean:&lt;FQN&gt;</code> — alternative
+spelling binding a claim id to its Lean name.</li>
+<li><code>Axioms: &lt;name&gt;[, …]</code> — the literal
+<code>#print axioms</code> result
+(<code>propext, Classical.choice, Quot.sound</code> for a clean
+result).</li>
+<li><code>Verified-By: &lt;assistant + library version&gt;</code> — e.g.
+<code>Lean 4.30.0; Mathlib v4.30.0</code>.</li>
+<li><code>Proof-Hash: sha256:…</code> — optional content hash of the
+proof artifact.</li>
+<li><code>Cites: &lt;doi|arXiv|ref&gt;</code> — for
+<code>axiomatize</code>/<code>lit</code>: where the cited fact comes
+from.</li>
+<li><code>Phase: &lt;A..H&gt;</code>, <code>Gate: &lt;…&gt;</code> —
+optional link to the research pipeline ledger
+(<code>RESEARCH.md</code>).</li>
+</ul>
+<h2 id="identity">Identity</h2>
+<p>The stable identifier of a formal result is its <strong>Lean
+fully-qualified name</strong> (and/or its blueprint label, e.g.
+<code>thm:master-formula</code>). These survive rephrasing of the prose
+and are what <code>Depends-On:</code> / <code>Proves:</code> /
+<code>Refutes:</code> reference. See <a
+href="identifiers.html"><code>../identifiers.md</code></a>.</p>
+<h2 id="examples">Examples</h2>
+<pre><code>state(green-kernel): define the elliptic Green&#39;s kernel operator
+
+Lean: IGL.greensKernel
+Status: math.conjectured</code></pre>
+<pre><code>formalize(fubini): close the d-fold separable factorization (Master Formula)
+
+Mirror MeasureTheory.integral_fintype_prod_eq_prod over Fin d.
+
+Lean: IGL.fubini_dfold, IGL.fubini_factorization
+Status: math.machine-checked
+Axioms: propext, Classical.choice, Quot.sound
+Verified-By: Lean 4.30.0; Mathlib v4.30.0
+Closes: conjecture:master-formula</code></pre>
+<pre><code>axiomatize~(exp-sum): cite the Braess–Hackbusch logarithmic rank bound
+
+Mathlib v4.30.0 has no elliptic-Green&#39;s exponential-sum theory; posit it as a Tier-3 citation.
+
+Lean: IGL.expSumRank_logBound
+Status: math.axiomatised
+AXIOM: IGL.expSumRank_logBound — separable rank K = O(log 1/ε), dimension-independent
+Cites: Braess &amp; Hackbusch 2005, Numer. Math.</code></pre>
+<pre><code>refute(separability)!: the metric factor √|g| blocks naive separable factorization
+
+A radial counterexample shows the kernel does not factor under the affine-invariant metric.
+
+Disproves: conjecture:naive-separable
+Status: math.disproved
+BREAKING CHANGE: conjecture:naive-separable is withdrawn; the compensation result depends on it.</code></pre>
+</div></main>
+<footer><div class="wrap">Part of <a href="index.html">Conventional Knowledge Commits</a> · extends <a href="https://www.conventionalcommits.org/en/v1.0.0/">Conventional Commits 1.0.0</a> · spec licensed <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>.</div></footer>
+</body></html>

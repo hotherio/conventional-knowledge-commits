@@ -6,95 +6,18 @@
 <title>Conventional Knowledge Commits</title>
 <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2032%2032'%3E%3Crect%20width='32'%20height='32'%20fill='%23f7f4ee'/%3E%3Cpath%20d='M9%206V26H27'%20stroke='%231a1a1a'%20stroke-width='2.4'%20fill='none'/%3E%3Ccircle%20cx='20'%20cy='13'%20r='3.4'%20fill='%23a9c39c'%20stroke='%231a1a1a'%20stroke-width='1.2'/%3E%3C/svg%3E">
 <meta property="og:title" content="Conventional Knowledge Commits">
-<meta property="og:description" content="Commits that record mathematical proofs and scientific findings — the two axes of knowledge change.">
+<meta property="og:description" content="Structured commits for mathematical proofs and scientific findings — the two axes of knowledge change.">
 <meta name="theme-color" content="#f7f4ee">
-<meta name="description" content="A Conventional-Commits extension for commits that record mathematical proofs and scientific findings — the two axes of knowledge change.">
-<style>
-  :root{
-    --paper:#f7f4ee; --panel:#fffdf8; --ink:#1a1a1a; --muted:#6b7280; --slate:#475569;
-    --rule:#e2dccf; --rule-2:#d8d0c0;
-    --warm:#e4d4ba; --cool:#abc1d2; --sage:#a9c39c; --ochre:#dcc085; --rose:#d3a3ad;
-    --danger:#9c3a34; --stone:#d2cabb; --lav:#b9b2d2;
-    --mono:'SF Mono',Menlo,Monaco,Consolas,'DejaVu Sans Mono','Courier New',monospace;
-  }
-  *{box-sizing:border-box}
-  html{scroll-behavior:smooth}
-  body{
-    margin:0;background:var(--paper);color:var(--ink);font-family:var(--mono);
-    font-size:16px;line-height:1.65;-webkit-font-smoothing:antialiased;
-  }
-  .wrap{max-width:980px;margin:0 auto;padding:0 24px}
-  a{color:var(--slate);text-decoration:none;border-bottom:1px solid var(--rule-2)}
-  a:hover{color:var(--ink);border-color:var(--ink)}
-  h1,h2,h3{font-weight:500;line-height:1.2}
-  h2{font-size:26px;margin:0 0 6px}
-  h3{font-size:18px;margin:26px 0 8px}
-  .muted{color:var(--muted)}
-  .tag{font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--muted)}
-
-  /* header */
-  header{border-bottom:1px solid var(--rule);background:linear-gradient(180deg,#fbf9f3,transparent)}
-  .head{padding:40px 0 28px;text-align:center}
-  .badge{display:inline-block;font-size:12px;letter-spacing:2px;color:var(--slate);
-    border:1px solid var(--rule-2);border-radius:2px;padding:3px 10px;margin-bottom:18px}
-  h1{font-size:40px;margin:0 0 8px;letter-spacing:-0.5px}
-  .lede{max-width:640px;margin:6px auto 0;color:var(--slate);font-size:16px}
-  .super{font-size:13px;color:var(--muted);margin-top:14px}
-
-  section{padding:38px 0;border-bottom:1px solid var(--rule)}
-  section:last-of-type{border-bottom:0}
-
-  /* hero figure */
-  .hero img{width:100%;height:auto;display:block;
-    filter:drop-shadow(0 8px 22px rgba(60,50,30,.07))}
-  .hero .cap{text-align:center;color:var(--muted);font-size:13px;margin-top:8px}
-
-  /* two-axes table */
-  table{width:100%;border-collapse:collapse;margin:10px 0;font-size:14.5px}
-  th,td{text-align:left;padding:9px 12px;border-bottom:1px solid var(--rule);vertical-align:top}
-  th{color:var(--muted);font-weight:500;font-size:12px;letter-spacing:1px;text-transform:uppercase}
-  td code{font-size:13.5px}
-  .axes td:first-child{color:var(--muted);width:120px}
-
-  /* code / commit cards */
-  pre{margin:0;background:var(--panel);border:1px solid var(--rule-2);border-left:3px solid var(--cool);
-    border-radius:3px;padding:14px 16px;overflow-x:auto;font-size:13.5px;line-height:1.55;
-    box-shadow:0 1px 0 #fff inset}
-  pre.grammar{border-left-color:var(--stone)}
-  .gallery{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:12px}
-  .gallery pre{margin:0}
-  pre.proof{border-left-color:var(--sage)}
-  pre.axiom{border-left-color:var(--ochre)}
-  pre.break{border-left-color:var(--danger)}
-  pre.sci{border-left-color:var(--cool)}
-  .k{color:var(--slate);font-weight:500}              /* type */
-  .lo{color:var(--danger)}                            /* loud footer: AXIOM/OPEN/BREAKING */
-  .ft{color:var(--muted)}                             /* footer token */
-  .cm{color:#9a9384}                                  /* comment / body */
-
-  /* pills */
-  .pills{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0 2px}
-  .pill{font-size:13px;padding:4px 10px;border-radius:2px;border:1px solid var(--rule-2);
-    background:var(--panel)}
-  .pill b{font-weight:500}
-  .pill.s-proof{border-color:#c9d8c1;background:#f1f5ee}
-  .pill.s-sci{border-color:#c2d2de;background:#eef3f7}
-  .pill.s-shared{border-color:#ddd6c9;background:#f7f4ee}
-
-  .cols{display:grid;grid-template-columns:1fr 1fr;gap:24px}
-  ul{margin:8px 0;padding-left:20px}
-  li{margin:4px 0}
-  .lean{color:var(--muted);font-size:13px}
-
-  footer{padding:30px 0 50px;color:var(--muted);font-size:13px;text-align:center}
-  .links{display:flex;flex-wrap:wrap;gap:18px;justify-content:center;margin:8px 0 16px;font-size:14px}
-
-  @media(max-width:720px){
-    h1{font-size:30px}.gallery,.cols{grid-template-columns:1fr}
-  }
-</style>
+<link rel="stylesheet" href="assets/ckc.css">
 </head>
 <body>
+
+<nav class="nav"><div class="wrap">
+  <a class="home" href="index.html">CKC</a><span class="sp"></span>
+  <a href="spec.html">Spec</a><a href="proof-profile.html">Proof</a><a href="science-profile.html">Science</a>
+  <a href="impact-graph.html">Impact graph</a><a href="identifiers.html">Identifiers</a>
+  <a href="examples.html">Examples</a><a href="faq.html">FAQ</a>
+</div></nav>
 
 <header>
   <div class="wrap head">
@@ -102,14 +25,14 @@
     <h1>Conventional Knowledge Commits</h1>
     <p class="lede">A specification for adding human- and machine-readable meaning to commits that
       record <b>mathematical proofs</b> and <b>scientific findings</b>.</p>
-    <div class="super">a commit records a <i>knowledge delta</i>, not merely a code delta</div>
+    <div class="super">structured commits for claims, proofs, and evidence</div>
   </div>
 </header>
 
 <section class="hero">
   <div class="wrap">
     <img src="assets/two-axes.svg" alt="Two axes of knowledge change: dependency impact (horizontal) versus epistemic status (vertical), with example commits plotted.">
-    <div class="cap">The core idea — two orthogonal axes, plotted with real commits.</div>
+    <div class="cap">The core idea — two orthogonal axes, plotted with example commits.</div>
   </div>
 </section>
 
@@ -150,7 +73,8 @@
 <section>
   <div class="wrap">
     <h2>Types</h2>
-    <p class="muted">The type implies the profile. Shared types are profile-neutral.</p>
+    <p class="muted">The type implies the profile. Shared types are profile-neutral.
+      Full detail: <a href="spec.html">the spec</a>.</p>
     <h3>shared <span class="tag">core</span></h3>
     <div class="pills">
       <span class="pill s-shared"><b>conjecture</b></span><span class="pill s-shared"><b>lit</b></span>
@@ -218,32 +142,31 @@
   <div class="wrap">
     <h2>Examples</h2>
     <div class="gallery">
-<pre class="proof"><span class="k">formalize</span>(fubini): close the d-fold separable factorization
-<span class="ft">Lean:</span> IGL.fubini_dfold, IGL.fubini_factorization
+<pre class="proof"><span class="k">formalize</span>(thm): close the d-fold separable factorization
+<span class="ft">Lean:</span> Sep.factorization
 <span class="ft">Status:</span> math.machine-checked
 <span class="ft">Axioms:</span> propext, Classical.choice, Quot.sound
 <span class="ft">Closes:</span> conjecture:master-formula</pre>
 
-<pre class="axiom"><span class="k">axiomatize~</span>(exp-sum): cite the Braess–Hackbusch rank bound
-<span class="ft">Lean:</span> IGL.expSumRank_logBound
+<pre class="axiom"><span class="k">axiomatize~</span>(lemma): cite the logarithmic rank bound
+<span class="ft">Lean:</span> Approx.rankBound
 <span class="ft">Status:</span> math.axiomatised
-<span class="lo">AXIOM:</span> IGL.expSumRank_logBound — rank K = O(log 1/ε)
+<span class="lo">AXIOM:</span> Approx.rankBound — rank K = O(log 1/ε)
 <span class="ft">Cites:</span> Braess &amp; Hackbusch 2005</pre>
 
-<pre class="break"><span class="k">refute</span>(separability)!: √|g| blocks naive factorization
+<pre class="break"><span class="k">refute</span>(claim)!: a counterexample blocks naive factorization
 <span class="ft">Disproves:</span> conjecture:naive-separable
 <span class="ft">Status:</span> math.disproved
 <span class="lo">BREAKING CHANGE:</span> conjecture:naive-separable withdrawn;
 the compensation result depends on it.</pre>
 
-<pre class="sci"><span class="k">experiment</span>(non-additive): K=1 vs K&gt;1 on XOR/radial
+<pre class="sci"><span class="k">experiment</span>(non-additive): rank K=1 vs K&gt;1 on hard targets
 <span class="ft">Status:</span> sci.measured
-<span class="ft">Metric:</span> MSE   <span class="ft">Seed:</span> 0..4   <span class="ft">Hardware:</span> M4 (MPS)
+<span class="ft">Metric:</span> MSE   <span class="ft">Seed:</span> 0..4   <span class="ft">Hardware:</span> 1 GPU
 <span class="lo">UNREPLICATED:</span> single machine, 5 seeds
-<span class="ft">Closes:</span> conjecture:tensor-rank-helps</pre>
+<span class="ft">Closes:</span> conjecture:rank-helps</pre>
     </div>
-    <p class="muted" style="margin-top:14px;font-size:14px">More in
-      <a href="https://github.com/hotherio/conventional-knowledge-commits/blob/main/EXAMPLES.md">EXAMPLES.md</a>.</p>
+    <p class="muted" style="margin-top:14px;font-size:14px">More on the <a href="examples.html">examples page</a>.</p>
   </div>
 </section>
 
@@ -258,23 +181,22 @@ the compensation result depends on it.</pre>
       <li>derive an honest <b>status report</b> and, optionally, a SemVer-style <b>release version</b>
           for a paper or formalized library.</li>
     </ul>
-    <p class="muted" style="font-size:14px">See
-      <a href="https://github.com/hotherio/conventional-knowledge-commits/blob/main/impact-graph.md">impact-graph.md</a>.</p>
+    <p class="muted" style="font-size:14px">See the <a href="impact-graph.html">impact-graph page</a>.</p>
   </div>
 </section>
 
 <footer>
   <div class="wrap">
     <div class="links">
-      <a href="https://github.com/hotherio/conventional-knowledge-commits/blob/main/spec/v0.1.0.md">Specification</a>
-      <a href="https://github.com/hotherio/conventional-knowledge-commits/blob/main/spec/proof-profile.md">Proof profile</a>
-      <a href="https://github.com/hotherio/conventional-knowledge-commits/blob/main/spec/science-profile.md">Science profile</a>
-      <a href="https://github.com/hotherio/conventional-knowledge-commits/blob/main/identifiers.md">Identifiers</a>
-      <a href="https://github.com/hotherio/conventional-knowledge-commits/blob/main/FAQ.md">FAQ</a>
+      <a href="spec.html">Specification</a>
+      <a href="proof-profile.html">Proof profile</a>
+      <a href="science-profile.html">Science profile</a>
+      <a href="identifiers.html">Identifiers</a>
+      <a href="faq.html">FAQ</a>
       <a href="https://github.com/hotherio/conventional-knowledge-commits">GitHub</a>
     </div>
     Extends <a href="https://www.conventionalcommits.org/en/v1.0.0/">Conventional Commits 1.0.0</a>.
-    Kin: <a href="http://nanopub.org/">nanopublications</a>, <a href="https://www.w3.org/TR/prov-overview/">W3C PROV</a>.
+    Kin: <a href="https://nanopub.net/">nanopublications</a>, <a href="https://www.w3.org/TR/prov-overview/">W3C PROV</a>.
     Spec licensed <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>.
   </div>
 </footer>

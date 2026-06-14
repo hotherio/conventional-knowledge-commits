@@ -41,7 +41,7 @@
     </filter>
   </defs>
 
-  <rect x="0" y="0" width="940" height="590" fill="#ffffff"/>
+  <!-- transparent background (no fill rect) -->
 
   <!-- Title + hand-drawn underline -->
   <text x="470" y="48" text-anchor="middle" class="title">Two axes of knowledge change</text>
@@ -74,19 +74,19 @@
   <!-- commit chips: (impact &#8594;, status &#8593;) -->
   <g>
     <circle cx="505" cy="192" r="9" fill="#a9c39c" opacity="0.85" stroke="#111111" stroke-width="1.4" filter="url(#ink-b)"/>
-    <text x="520" y="197" class="mono chip">formalize(fubini)</text>
+    <text x="520" y="197" class="mono chip">formalize(thm)</text>
   </g>
   <g>
     <circle cx="468" cy="298" r="9" fill="#dcc085" opacity="0.85" stroke="#111111" stroke-width="1.4" filter="url(#ink-c)"/>
-    <text x="483" y="303" class="mono chip">axiomatize~(exp-sum)</text>
+    <text x="483" y="303" class="mono chip">axiomatize~(lemma)</text>
   </g>
   <g>
     <circle cx="262" cy="382" r="9" fill="#abc1d2" opacity="0.85" stroke="#111111" stroke-width="1.4" filter="url(#ink-a)"/>
-    <text x="277" y="387" class="mono chip">conjecture(master-formula)</text>
+    <text x="277" y="387" class="mono chip">conjecture(claim)</text>
   </g>
   <g>
     <circle cx="744" cy="420" r="9" fill="#d3a3ad" opacity="0.9" stroke="#111111" stroke-width="1.4" filter="url(#ink-b)"/>
-    <text x="729" y="425" text-anchor="end" class="mono chip">refute(separability)!</text>
+    <text x="729" y="425" text-anchor="end" class="mono chip">refute(claim)!</text>
   </g>
 
   <!-- x-axis: impact zone tags + subs + title (bottom) -->

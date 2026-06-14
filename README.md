@@ -14,8 +14,8 @@ CKC&nbsp;v0.1.0 · a strict superset of [Conventional Commits&nbsp;1.0.0](https:
 Conventional Commits structures *software* change so tools can derive a SemVer bump. But a
 research or proof repository commits a different kind of change — a conjecture posed, a proof
 closed, an axiom cited, a result refuted, an experiment run. **Conventional Knowledge Commits
-(CKC)** extends the convention so a commit records a **knowledge delta**: what was claimed, how
-strongly it is established, what it rests on, and what it breaks.
+(CKC)** extends the convention so a commit can record what was claimed, how strongly it is
+established, what it rests on, and what it breaks.
 
 A CKC commit is still a valid Conventional Commit:
 
@@ -102,7 +102,7 @@ See [`impact-graph.md`](./impact-graph.md).
 ## Prior art & kin
 
 [Conventional Commits](https://www.conventionalcommits.org/) (the base), SemVer (the mapping it
-inspired), [nanopublications](http://nanopub.org/) (assertion + provenance + publication-info), and
+inspired), [nanopublications](https://nanopub.net/) (assertion + provenance + publication-info), and
 [W3C PROV](https://www.w3.org/TR/prov-overview/) (provenance). CKC borrows the commit-message
 ergonomics of the first and the provenance discipline of the others.
 

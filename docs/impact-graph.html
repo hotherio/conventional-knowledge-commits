@@ -1,0 +1,174 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The knowledge impact graph · CKC</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2032%2032'%3E%3Crect%20width='32'%20height='32'%20fill='%23f7f4ee'/%3E%3Cpath%20d='M9%206V26H27'%20stroke='%231a1a1a'%20stroke-width='2.4'%20fill='none'/%3E%3Ccircle%20cx='20'%20cy='13'%20r='3.4'%20fill='%23a9c39c'%20stroke='%231a1a1a'%20stroke-width='1.2'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="assets/ckc.css">
+</head><body>
+<nav class="nav"><div class="wrap"><a class="home" href="index.html">CKC</a><span class="sp"></span><a href="spec.html">Spec</a><a href="proof-profile.html">Proof</a><a href="science-profile.html">Science</a><a class="here" href="impact-graph.html">Impact graph</a><a href="identifiers.html">Identifiers</a><a href="examples.html">Examples</a><a href="faq.html">FAQ</a></div></nav>
+<main class="doc"><div class="wrap">
+<h1 id="the-knowledge-impact-graph">The knowledge impact graph</h1>
+<p>This is what CKC is <em>for</em>. Conventional Commits earned its
+keep by mapping commits onto one downstream decision (the SemVer bump).
+CKC's downstream artifact is a <strong>knowledge dependency + impact
+graph</strong>: from the relation footers, tooling reconstructs which
+claims rest on which, and propagates two kinds of event —
+<strong>breakage</strong> (a refutation/retraction) and
+<strong>promotion</strong> (a gap closing) — to everything affected. The
+status report and an optional release-version both <em>derive</em> from
+this graph.</p>
+<h2 id="nodes">Nodes</h2>
+<p>A node is a <strong>claim</strong>: a theorem, lemma, definition,
+conjecture, or empirical finding, named by its stable identifier (see <a
+href="identifiers.html"><code>identifiers.md</code></a>) — a Lean
+fully-qualified name and/or blueprint label in the <code>proof</code>
+profile, a registered slug in the <code>science</code> profile.</p>
+<p>Each node carries the <strong>current</strong> <code>Status:</code>
+(Axis 2), obtained by taking the <em>latest</em> commit that set a
+status for that node. History is append-only: status moves forward (or
+back) only via new commits.</p>
+<h2 id="edges-from-relation-footers">Edges (from relation footers)</h2>
+<table>
+<thead>
+<tr>
+<th>Footer</th>
+<th>Edge <code>A → B</code> (commit asserts A)</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Depends-On: B</code></td>
+<td>A depends on B</td>
+<td>A's truth relies on B</td>
+</tr>
+<tr>
+<td><code>Assumes: B</code></td>
+<td>A depends on B</td>
+<td>B is an assumption/axiom A rests on</td>
+</tr>
+<tr>
+<td><code>Proves: B</code></td>
+<td>A establishes B</td>
+<td>this commit discharges B</td>
+</tr>
+<tr>
+<td><code>Closes: B</code></td>
+<td>A resolves B</td>
+<td>a conjecture/goal B is settled by A</td>
+</tr>
+<tr>
+<td><code>Refutes: B</code></td>
+<td>A contradicts B</td>
+<td>evidence/argument against B</td>
+</tr>
+<tr>
+<td><code>Disproves: B</code></td>
+<td>A falsifies B</td>
+<td>a counterexample to B</td>
+</tr>
+<tr>
+<td><code>Supersedes: B</code></td>
+<td>A replaces B</td>
+<td>B is retired in favour of A</td>
+</tr>
+<tr>
+<td><code>Retracts: B</code></td>
+<td>A withdraws B</td>
+<td>B is pulled</td>
+</tr>
+<tr>
+<td><code>Invalidates: B</code></td>
+<td>A breaks B</td>
+<td>B's conclusion no longer holds</td>
+</tr>
+</tbody>
+</table>
+<p><code>Depends-On</code> / <code>Assumes</code> edges define the DAG
+over which everything propagates; the others are the events that drive
+propagation.</p>
+<h2 id="propagation--breakage">Propagation — breakage</h2>
+<p>When a commit <strong>refutes</strong>, <strong>disproves</strong>,
+<strong>retracts</strong>, or <strong>invalidates</strong> a node
+<code>B</code> (an Axis-1 breaking event, signalled by <code>!</code> /
+<code>BREAKING CHANGE:</code>):</p>
+<ol type="1">
+<li><code>B</code>'s status becomes <code>math.disproved</code> /
+<code>sci.falsified</code> / <em>retracted</em> as appropriate.</li>
+<li>Every node <code>A</code> with a path
+<code>A —Depends-On→ … → B</code> is marked <strong>in question</strong>
+— its asserted status is <em>suspect</em> until re-examined. Tooling
+SHOULD list these as the <strong>blast radius</strong> of the
+change.</li>
+<li><code>in question</code> is a graph-derived overlay, not a stored
+status: it is recomputed from the edges, so it clears automatically once
+the dependency is repaired or re-routed.</li>
+</ol>
+<p>This is the knowledge analog of "a breaking change ripples to
+dependents". A one-line <code>refute(...)!:</code> commit can, through
+the graph, flag a dozen downstream results for recheck — without anyone
+maintaining that list by hand.</p>
+<h2 id="propagation--promotion">Propagation — promotion</h2>
+<p>When a commit <strong>closes a gap</strong> — a
+<code>formalize</code>/<code>proof</code>/<code>port</code> that flips a
+node from <code>math.open</code> (<code>sorryAx</code>) or
+<code>math.axiomatised</code> to <code>math.machine-checked</code>, or a
+<code>replicate</code> that moves <code>sci.measured</code> to
+<code>sci.replicated</code>:</p>
+<ol type="1">
+<li>The node's status advances (Axis 2), via the new commit, not a
+rewrite.</li>
+<li>A node is only as established as its weakest dependency. Tooling
+computes an <strong>effective status</strong> = the <em>minimum</em>
+over the node and its transitive
+<code>Depends-On</code>/<code>Assumes</code> closure on the status
+ladder. So a theorem whose proof is <code>machine-checked</code> but
+which <code>Assumes:</code> an <code>axiomatised</code> lemma has
+<strong>effective status <code>axiomatised</code></strong> — exactly how
+<code>#print axioms</code> surfaces a cited axiom on everything
+downstream.</li>
+</ol>
+<h2 id="derived-views">Derived views</h2>
+<ul>
+<li><strong>Status report</strong> — group nodes by effective status:
+<code>machine-checked / axiomatised / open / conjectured</code> (proof),
+<code>replicated / supported / measured / not-replicated</code>
+(science). This is the honest project dashboard; it is a
+<code>reduce</code> over the graph, not a separate source of truth.</li>
+<li><strong>Blast radius</strong> — given a node, the set of dependents
+that a refutation/retraction would put in question. Run it
+<em>before</em> committing a breaking change to see what you are about
+to disturb.</li>
+<li><strong>Release version (optional)</strong> — a SemVer for a
+knowledge artifact (a paper, a formalized library): a breaking knowledge
+event since the last tag → <strong>MAJOR</strong>; a new result or an
+independent replication → <strong>MINOR</strong>; a proof repair /
+cleanup / typo → <strong>PATCH</strong>.</li>
+</ul>
+<h2 id="worked-trace">Worked trace</h2>
+<pre><code>conjecture(master-formula): the Green&#39;s integral factorises as a finite rank-K×R sum
+    → node conjecture:master-formula, Status: math.conjectured
+
+formalize(fubini): close the d-fold separable factorization
+    Lean: IGL.fubini_factorization   Closes: conjecture:master-formula
+    Status: math.machine-checked
+    → node IGL.fubini_factorization (machine-checked), Proves conjecture:master-formula
+
+axiomatize(exp-sum): cite the log rank bound
+    Lean: IGL.expSumRank_logBound   Status: math.axiomatised   AXIOM: IGL.expSumRank_logBound
+
+formalize(rank-bound-use): bound the approximation error using the exp-sum rank
+    Lean: IGL.approxError   Depends-On: IGL.expSumRank_logBound
+    Status: math.machine-checked
+    → IGL.approxError is itself clean, but effective status = axiomatised
+      (it Depends-On an axiomatised node) — the graph says so, matching #print axioms.
+
+refute(separability)!: √|g| blocks naive factorization
+    Disproves: conjecture:naive-separable
+    → conjecture:naive-separable → disproved; any node Depends-On it is flagged in question.</code></pre>
+<p>A CKC-aware tool reads only the footers above and can answer:
+<em>what is proved vs assumed vs open?</em>, <em>what breaks if
+<code>conjecture:naive-separable</code> falls?</em>, and <em>what
+version should the next release be?</em></p>
+</div></main>
+<footer><div class="wrap">Part of <a href="index.html">Conventional Knowledge Commits</a> · extends <a href="https://www.conventionalcommits.org/en/v1.0.0/">Conventional Commits 1.0.0</a> · spec licensed <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>.</div></footer>
+</body></html>
