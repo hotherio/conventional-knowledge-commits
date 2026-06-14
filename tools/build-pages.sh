@@ -9,6 +9,7 @@ cd "$(dirname "$0")/.."
 command -v pandoc >/dev/null || { echo "pandoc required"; exit 127; }
 
 # ---- site config -------------------------------------------------------------
+SITE="https://conventional-knowledge-commits.org"   # official canonical origin
 VERSION="0.1.0"          # current/latest version (the one the root redirects to)
 LANG_CODE="en"           # default language
 LANG_NAME="English"
@@ -86,6 +87,9 @@ page(){ # $1 src md   $2 out html   $3 <title>   $4 extra main class (optional)
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <title>${title} · CKC</title>
 <link rel="icon" href="${ICON}">
+<link rel="canonical" href="${SITE}/${VERSION}/${LANG_CODE}/${out}">
+<meta property="og:title" content="${title} · CKC">
+<meta property="og:url" content="${SITE}/${VERSION}/${LANG_CODE}/${out}">
 <link rel="stylesheet" href="../../assets/ckc.css">
 </head><body>
 $(render_nav "$out")
@@ -97,12 +101,12 @@ EOF
   echo "  wrote $OUT/$out"
 }
 
-redirect(){ # $1 out-path (relative to docs/)   $2 target href
-  local out="$1" target="$2"
+redirect(){ # $1 out-path (relative to docs/)   $2 target href (relative)   $3 canonical (absolute, optional)
+  local out="$1" target="$2" canon="${3:-$SITE/$VERSION/$LANG_CODE/}"
   cat > "docs/$out" <<EOF
 <!DOCTYPE html><html lang="$LANG_CODE"><head><meta charset="utf-8">
 <title>Conventional Knowledge Commits</title>
-<link rel="canonical" href="$target">
+<link rel="canonical" href="$canon">
 <meta name="robots" content="noindex">
 <meta http-equiv="refresh" content="0; url=$target">
 <script>location.replace("$target"+location.search+location.hash)</script>
