@@ -38,13 +38,13 @@ render_nav(){ # $1 = current page filename (e.g. spec.html)
   case "$cur" in tooling.html) tcls=" here";; esac
   printf '<nav class="nav"><div class="wrap">'
   printf '<a class="home" href="index.html"><img class="brand" src="../../assets/logo.png" width="384" height="343" alt="">CKC</a><span class="sp"></span>'
-  # Profiles dropdown
+  # Spec, then Profiles dropdown
+  navlink "spec.html" "Spec" "$cur"
   printf '<div class="menu%s"><button class="menu-trigger" type="button" aria-haspopup="true" aria-expanded="false">Profiles</button><div class="menu-panel">' "$pcls"
   printf '<a href="proof-profile.html"><b>Proof</b><span>mathematics &amp; formal proving</span></a>'
   printf '<a href="science-profile.html"><b>Science</b><span>empirical research</span></a>'
   printf '</div></div>'
-  # content links + ClaimGraph and Tooling dropdowns
-  navlink "spec.html" "Spec" "$cur"
+  # ClaimGraph and Tooling dropdowns
   printf '<div class="menu%s"><button class="menu-trigger" type="button" aria-haspopup="true" aria-expanded="false">ClaimGraph</button><div class="menu-panel">' "$cgcls"
   printf '<a href="claimgraph.html"><b>ClaimGraph</b><span>dependency graph of claims</span></a>'
   printf '<a href="identifiers.html"><b>Identifiers</b><span>stable names the graph references</span></a>'
