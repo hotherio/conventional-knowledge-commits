@@ -44,7 +44,7 @@ Commits and CKC:
 # .pre-commit-config.yaml
 repos:
   - repo: https://github.com/hotherio/ckc-tools
-    rev: v0.1.2
+    rev: v0.1.3
     hooks:
       - id: ckc
 ```
@@ -52,6 +52,9 @@ repos:
 ```bash
 pre-commit install --hook-type commit-msg
 ```
+
+The id `ckc` is also available as `conventional-knowledge-pre-commit`, an alias named to parallel
+`conventional-pre-commit`. Both ids run the same validator.
 
 `ckc` is a drop-in superset of `conventional-pre-commit`: it accepts the same interface (positional
 types, `--strict`, `--force-scope`, `--scopes`, `--no-color`, `--verbose`, exit codes 0 and 1, and
@@ -66,7 +69,7 @@ vocabulary).
 
 ```yaml
 - repo: https://github.com/hotherio/ckc-tools
-  rev: v0.1.2
+  rev: v0.1.3
   hooks:
     - id: ckc
       stages: [commit-msg]
