@@ -56,10 +56,14 @@ framework</h2>
 <pre class="yaml"><code># .pre-commit-config.yaml
 repos:
   - repo: https://github.com/hotherio/ckc-tools
-    rev: v0.1.2
+    rev: v0.1.3
     hooks:
       - id: ckc</code></pre>
 <pre class="bash"><code>pre-commit install --hook-type commit-msg</code></pre>
+<p>The id <code>ckc</code> is also available as
+<code>conventional-knowledge-pre-commit</code>, an alias named to
+parallel <code>conventional-pre-commit</code>. Both ids run the same
+validator.</p>
 <p><code>ckc</code> is a drop-in superset of
 <code>conventional-pre-commit</code>: it accepts the same interface
 (positional types, <code>--strict</code>, <code>--force-scope</code>,
@@ -73,7 +77,7 @@ runs the CKC checks. You have two options.</p>
 the rest carries over (a pinned type list is still honoured exactly;
 remove it to allow the full CKC vocabulary).</p>
 <pre class="yaml"><code>- repo: https://github.com/hotherio/ckc-tools
-  rev: v0.1.2
+  rev: v0.1.3
   hooks:
     - id: ckc
       stages: [commit-msg]
