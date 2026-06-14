@@ -88,7 +88,9 @@ registered slug for science). Edges come from the relation footers. Breakage: re
 a node marks every dependent (via `Depends-On`/`Assumes`) as in question (the blast radius).
 Promotion: closing a gap advances a node's status, and a node's effective status is the minimum over
 its dependency closure, the way a cited axiom surfaces downstream. The status report and an optional
-Semantic Versioning (SemVer) release version derive from the graph.
+Semantic Versioning (SemVer) release version derive from the graph. The `claimgraph` tool
+(https://github.com/hotherio/claimgraph) builds and visualizes this graph from git history; a live
+example runs at https://claimgraph.conventional-knowledge-commits.org/.
 
 ## Identifiers
 
@@ -117,3 +119,5 @@ Semantic Versioning (SemVer) release version derive from the graph.
 - Tooling: https://conventional-knowledge-commits.org/0.1.0/en/tooling.html
 - Spec repository: https://github.com/hotherio/conventional-knowledge-commits
 - Hooks and configs (ckc-tools): https://github.com/hotherio/ckc-tools
+- Live ClaimGraph viewer: https://claimgraph.conventional-knowledge-commits.org/
+- ClaimGraph tool (CLI + JSON schema): https://github.com/hotherio/claimgraph
