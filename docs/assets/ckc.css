@@ -25,7 +25,7 @@ h3{font-size:18px;margin:26px 0 8px}
 .nav .wrap{display:flex;flex-wrap:wrap;gap:4px 20px;align-items:center;padding:12px 24px;font-size:14px}
 .nav .home{font-weight:500;border:0;color:var(--ink);display:inline-flex;align-items:center;gap:7px}
 .nav .home:hover{color:var(--danger)}
-.nav .home .brand{height:24px;width:auto;display:block}
+.nav .home .brand{height:30px;width:auto;display:block}
 .nav .sp{flex:1}
 .nav a{border:0;color:var(--muted)}
 .nav a:hover{color:var(--ink)}
