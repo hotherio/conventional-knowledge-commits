@@ -129,6 +129,12 @@ pre.sci{border-left-color:var(--cool)}
 .pill.s-shared{border-color:#ddd6c9;background:#f7f4ee}
 
 .cols{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+/* status ladder: a colour dot shows how settled each status is */
+.status td:first-child{white-space:nowrap}
+.dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:8px;vertical-align:middle}
+.dot.ok{background:var(--sage)}
+.dot.warn{background:var(--ochre)}
+.dot.bad{background:var(--danger)}
 ul{margin:8px 0;padding-left:20px}
 li{margin:4px 0}
 .lean{color:var(--muted);font-size:13px}

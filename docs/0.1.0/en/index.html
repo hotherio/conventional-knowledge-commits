@@ -163,33 +163,37 @@
 <section>
   <div class="wrap">
     <h2>Status and footers</h2>
+    <p class="muted">Each result carries footers. A quiet <b>status</b> says how settled it is right now
+      (axis 2). A loud <b>marker</b> warns anything built on it about what it leans on (axis 1), the way
+      a breaking change warns dependents in software.</p>
     <div class="cols">
       <div>
-        <h3>Status <span class="tag">axis 2, namespaced</span></h3>
-        <p class="muted" style="font-size:14px">Proof statuses bind to ground truth
-          (<code>#print axioms</code>):</p>
-        <table>
-          <tr><td><code>math.machine-checked</code></td><td class="lean">clean</td></tr>
-          <tr><td><code>math.axiomatised</code></td><td class="lean">cited axiom</td></tr>
-          <tr><td><code>math.open</code></td><td class="lean">sorryAx</td></tr>
-          <tr><td><code>sci.replicated, measured</code></td><td class="lean">empirical</td></tr>
-          <tr><td><code>sci.not-replicated, falsified</code></td><td class="lean">negative</td></tr>
+        <h3>How settled is it?<span class="tag">axis 2</span></h3>
+        <p class="muted" style="font-size:14px">A <code>Status:</code> line that climbs as the work
+          gets firmer. It is checked against ground truth, never just asserted.</p>
+        <table class="status">
+          <tr><td><span class="dot ok"></span><code>math.machine-checked</code></td><td class="lean">proof: fully verified, no gaps</td></tr>
+          <tr><td><span class="dot warn"></span><code>math.axiomatised</code></td><td class="lean">proof: verified, but leans on a cited axiom</td></tr>
+          <tr><td><span class="dot bad"></span><code>math.open</code></td><td class="lean">proof: still has an unproven gap</td></tr>
+          <tr><td><span class="dot ok"></span><code>sci.replicated</code></td><td class="lean">science: measured, then reproduced</td></tr>
+          <tr><td><span class="dot bad"></span><code>sci.falsified</code></td><td class="lean">science: tested, came out false</td></tr>
         </table>
       </div>
       <div>
-        <h3>Trusted-base markers <span class="tag">loud</span></h3>
-        <p class="muted" style="font-size:14px">The <code>BREAKING CHANGE</code> analog, widening what
-          downstream rests on:</p>
-        <table>
-          <tr><td><code class="lo">AXIOM:</code></td><td class="lean">proof, a cited axiom</td></tr>
-          <tr><td><code class="lo">OPEN:</code></td><td class="lean">proof, a remaining sorry</td></tr>
-          <tr><td><code class="lo">ASSUMES:</code></td><td class="lean">science, untested assumption</td></tr>
-          <tr><td><code class="lo">UNREPLICATED:</code></td><td class="lean">science, single run</td></tr>
+        <h3>What does it lean on?<span class="tag">axis 1, loud</span></h3>
+        <p class="muted" style="font-size:14px">An uppercase warning that travels to everything
+          downstream, so a reader sees the caveat without digging:</p>
+        <table class="status">
+          <tr><td><code class="lo">AXIOM:</code></td><td class="lean">it rests on an assumption stated as an axiom</td></tr>
+          <tr><td><code class="lo">OPEN:</code></td><td class="lean">it still has an unproven gap</td></tr>
+          <tr><td><code class="lo">ASSUMES:</code></td><td class="lean">science: it rests on an untested assumption</td></tr>
+          <tr><td><code class="lo">UNREPLICATED:</code></td><td class="lean">science: it has been run only once</td></tr>
         </table>
-        <p class="muted" style="font-size:13px">Relations build the graph: <code>Depends-On</code>,
-          <code>Proves</code>, <code>Refutes</code>, <code>Closes</code>, <code>Supersedes</code>.</p>
       </div>
     </div>
+    <p class="muted" style="font-size:14px;margin-top:18px">A third kind of footer wires results into
+      the <a href="claimgraph.html">ClaimGraph</a>: <code>Depends-On</code>, <code>Proves</code>,
+      <code>Refutes</code>, <code>Closes</code>, <code>Supersedes</code>.</p>
   </div>
 </section>
 
