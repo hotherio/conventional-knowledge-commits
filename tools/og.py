@@ -33,7 +33,7 @@ def _wrap(draw, text, font, max_width):
     return lines
 
 
-def card(title, out_path, *, logo, eyebrow, accent=ACCENT, paper=PAPER):
+def card(title, out_path, *, logo, eyebrow, cta, accent=ACCENT, paper=PAPER):
     img = Image.new("RGB", (OG_W, OG_H), paper)
     draw = ImageDraw.Draw(img)
     draw.rectangle([0, 0, 14, OG_H], fill=accent)        # left accent bar
@@ -56,9 +56,15 @@ def card(title, out_path, *, logo, eyebrow, accent=ACCENT, paper=PAPER):
         draw.text((margin, y), line, font=tfont, fill=INK)
         y += line_h
 
-    # byline, bottom-left
+    # bottom row: byline (left) + a CTA button (right)
     bfont = ImageFont.truetype(_BYLINE_FONT, 27)
-    draw.text((margin, OG_H - 78), eyebrow.upper(), font=bfont, fill=accent)
+    cy = OG_H - 60
+    draw.text((margin, cy), eyebrow.upper(), font=bfont, fill=accent, anchor="lm")
+    pad_x, btn_h = 26, 54
+    btn_w = draw.textlength(cta, font=bfont) + 2 * pad_x
+    x1 = OG_W - margin
+    draw.rounded_rectangle([x1 - btn_w, cy - btn_h // 2, x1, cy + btn_h // 2], radius=9, fill=accent)
+    draw.text((x1 - btn_w / 2, cy), cta, font=bfont, fill=paper, anchor="mm")
 
     os.makedirs(os.path.dirname(out_path), exist_ok=True)
     img.save(out_path, "PNG")

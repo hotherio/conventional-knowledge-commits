@@ -63,6 +63,20 @@ PAGES = [
     ("FAQ.md",                  "faq.html",             "FAQ",                  "faq"),
 ]
 
+# per-page meta description (SEO snippet); keyed by output slug, plus "home" for the landing
+DESCRIPTIONS = {
+    "home": "Structured commits for mathematical proofs and scientific findings: the two axes of knowledge change.",
+    "spec": "The Conventional Knowledge Commits specification: commit grammar, status footers, and relation footers for proofs and findings.",
+    "proof-profile": "The CKC proof profile: commit types and statuses for mathematics and formal proving (Lean, Rocq, Isabelle, Agda).",
+    "science-profile": "The CKC science profile: commit types and statuses for empirical research, replication, and negative results.",
+    "claimgraph": "The ClaimGraph: a dependency graph of knowledge claims built from CKC commit footers, with effective status and blast radius.",
+    "identifiers": "Stable identifiers for CKC claims: proof-assistant names and a curated registry, so a claim survives a rewrite of its wording.",
+    "examples": "Worked examples of Conventional Knowledge Commits for mathematical proofs and scientific findings.",
+    "tooling": "Tooling for Conventional Knowledge Commits: pre-commit hooks, configs, and CI that coexist with Conventional Commits.",
+    "faq": "Frequently asked questions about Conventional Knowledge Commits.",
+}
+CTA = "Read the spec →"
+
 # ---- markdown ----------------------------------------------------------------
 # GFM-equivalent feature set. Smart typography is intentionally OFF (no em dashes).
 # Code is left un-highlighted (use_pygments False) to keep the minimalist look; flip
@@ -128,9 +142,9 @@ def main():
         autoescape=select_autoescape(["html"]),
         keep_trailing_newline=True,
     )
-    env.globals.update(SITE=SITE, VERSION=VERSION, LANG_CODE=LANG_CODE, VERSIONS=VERSIONS,
-                       LANGS=LANGS, CC_URL=CC_URL, GH_URL=GH_URL, TOOLS_URL=TOOLS_URL,
-                       VIEWER_URL=VIEWER_URL, GH_ICON=GH_ICON, ASSET=ASSET)
+    env.globals.update(SITE=SITE, SITE_NAME=SITE_NAME, VERSION=VERSION, LANG_CODE=LANG_CODE,
+                       VERSIONS=VERSIONS, LANGS=LANGS, CC_URL=CC_URL, GH_URL=GH_URL,
+                       TOOLS_URL=TOOLS_URL, VIEWER_URL=VIEWER_URL, GH_ICON=GH_ICON, ASSET=ASSET)
     page_tpl = env.get_template("page.html")
     index_tpl = env.get_template("index.html")
     redirect_tpl = env.get_template("redirect.html")
@@ -148,10 +162,11 @@ def main():
         full_title = "{} · CKC".format(title)
         slug = out[:-5]  # drop .html
         og.card(title, os.path.join(DOCS, "assets", "og", slug + ".png"),
-                logo=logo, eyebrow=SITE_NAME)
+                logo=logo, eyebrow=SITE_NAME, cta=CTA)
         write(os.path.join(OUT, out), page_tpl.render(
             title=full_title, og_title=full_title, canonical=canonical, cur=out,
             main_class=extra, content=body, og_image=og_url(slug),
+            description=DESCRIPTIONS[slug],
             jsonld=jsonld("article", full_title, canonical),
             needs_katex=("arithmatex" in body), needs_mermaid=('class="mermaid"' in body),
         ))
@@ -159,10 +174,10 @@ def main():
     # landing page (its own template; the rich hero is not markdown)
     landing_canonical = "{}/{}/{}/".format(SITE, VERSION, LANG_CODE)
     og.card("Structured commits for mathematical proofs and scientific findings",
-            os.path.join(DOCS, "assets", "og", "home.png"), logo=logo, eyebrow=SITE_NAME)
+            os.path.join(DOCS, "assets", "og", "home.png"), logo=logo, eyebrow=SITE_NAME, cta=CTA)
     write(os.path.join(OUT, "index.html"), index_tpl.render(
         title=SITE_NAME, og_title=SITE_NAME, canonical=landing_canonical, cur="index.html",
-        og_image=og_url("home"),
+        og_image=og_url("home"), description=DESCRIPTIONS["home"],
         jsonld=jsonld("website", SITE_NAME, landing_canonical),
         needs_katex=False, needs_mermaid=False,
     ))
