@@ -19,6 +19,8 @@ import markdown
 from jinja2 import Environment, FileSystemLoader, select_autoescape
 from pymdownx.superfences import fence_div_format
 
+import og
+
 # ---- paths -------------------------------------------------------------------
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 TPL_DIR = os.path.join(ROOT, "tools", "templates")
@@ -136,22 +138,31 @@ def main():
     os.makedirs(OUT, exist_ok=True)
     print("rendering doc pages -> {} ...".format(os.path.relpath(OUT, ROOT)))
 
+    logo = os.path.join(DOCS, "assets", "logo.png")
+    og_url = lambda slug: "{}/assets/og/{}.png".format(SITE, slug)
+
     # doc pages
     for src, out, title, extra in PAGES:
         body = render_markdown(open(os.path.join(ROOT, src), encoding="utf-8").read())
         canonical = "{}/{}/{}/{}".format(SITE, VERSION, LANG_CODE, out)
         full_title = "{} · CKC".format(title)
+        slug = out[:-5]  # drop .html
+        og.card(title, os.path.join(DOCS, "assets", "og", slug + ".png"),
+                logo=logo, eyebrow=SITE_NAME)
         write(os.path.join(OUT, out), page_tpl.render(
             title=full_title, og_title=full_title, canonical=canonical, cur=out,
-            main_class=extra, content=body,
+            main_class=extra, content=body, og_image=og_url(slug),
             jsonld=jsonld("article", full_title, canonical),
             needs_katex=("arithmatex" in body), needs_mermaid=('class="mermaid"' in body),
         ))
 
     # landing page (its own template; the rich hero is not markdown)
     landing_canonical = "{}/{}/{}/".format(SITE, VERSION, LANG_CODE)
+    og.card("Structured commits for mathematical proofs and scientific findings",
+            os.path.join(DOCS, "assets", "og", "home.png"), logo=logo, eyebrow=SITE_NAME)
     write(os.path.join(OUT, "index.html"), index_tpl.render(
         title=SITE_NAME, og_title=SITE_NAME, canonical=landing_canonical, cur="index.html",
+        og_image=og_url("home"),
         jsonld=jsonld("website", SITE_NAME, landing_canonical),
         needs_katex=False, needs_mermaid=False,
     ))
