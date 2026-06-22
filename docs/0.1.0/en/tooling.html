@@ -24,7 +24,7 @@
 <body>
 <nav class="nav"><div class="wrap">
 <a class="home" href="index.html"><img class="brand" src="../../assets/logo.png" width="384" height="343" alt="">CKC</a><span class="sp"></span><a href="spec.html">Spec</a><div class="menu"><button class="menu-trigger" type="button" aria-haspopup="true" aria-expanded="false">Profiles</button><div class="menu-panel"><a href="proof-profile.html"><b>Proof</b><span>mathematics &amp; formal proving</span></a><a href="science-profile.html"><b>Science</b><span>empirical research</span></a></div></div>
-<div class="menu"><button class="menu-trigger" type="button" aria-haspopup="true" aria-expanded="false">ClaimGraph</button><div class="menu-panel"><a href="claimgraph.html"><b>ClaimGraph</b><span>dependency graph of claims</span></a><a href="identifiers.html"><b>Identifiers</b><span>stable names the graph references</span></a><a href="https://claimgraph.conventional-knowledge-commits.org/"><b>Live graph ↗</b><span>see it on real data</span></a></div></div><a href="examples.html">Examples</a><div class="menu here"><button class="menu-trigger" type="button" aria-haspopup="true" aria-expanded="false">Tooling</button><div class="menu-panel"><a href="tooling.html"><b>Tooling</b><span>hooks, configs, CI</span></a><a href="https://github.com/hotherio/ckc-tools"><b>Pre-commit hooks ↗</b><span>ckc-tools repository</span></a></div></div><a href="faq.html">FAQ</a><span class="navsep"></span>
+<div class="menu"><button class="menu-trigger" type="button" aria-haspopup="true" aria-expanded="false">ClaimGraph</button><div class="menu-panel"><a href="claimgraph.html"><b>ClaimGraph</b><span>dependency graph of claims</span></a><a href="identifiers.html"><b>Identifiers</b><span>stable names the graph references</span></a><a href="https://claimgraph.conventional-knowledge-commits.org/"><b>Live graph ↗</b><span>see it on real data</span></a></div></div><a href="examples.html">Examples</a><div class="menu here"><button class="menu-trigger" type="button" aria-haspopup="true" aria-expanded="false">Tooling</button><div class="menu-panel"><a href="tooling.html"><b>Tooling</b><span>hooks, configs, CI</span></a><a href="https://github.com/hotherio/ckc-tools"><b>Pre-commit hooks ↗</b><span>ckc-tools repository</span></a><a href="https://github.com/hotherio/ckc-tools/tree/main/skills/conventional-knowledge-commits"><b>Agent skill ↗</b><span>write CKC with AI assistants</span></a></div></div><a href="faq.html">FAQ</a><span class="navsep"></span>
 <div class="menu sel"><button class="menu-trigger" type="button" aria-haspopup="true" aria-expanded="false">v0.1.0</button><div class="menu-panel"><a class="cur" href="../../0.1.0/en/tooling.html"><b>v0.1.0</b><span>current</span></a></div></div>
 <div class="menu sel"><button class="menu-trigger" type="button" aria-haspopup="true" aria-expanded="false">EN</button><div class="menu-panel"><a class="cur" href="../en/tooling.html"><b>English</b><span>en</span></a></div></div>
 <span class="navsep"></span>
@@ -53,6 +53,20 @@ for the work.</p>
   via the lean-math <code>axiom-report</code> and rejects the commit if the kernel disagrees.</li>
 <li><code>commitlint-config-ckc</code>, a <a href="https://commitlint.js.org/">commitlint</a> shareable config for the
   JavaScript world that widens <code>type-enum</code> to the CKC vocabulary.</li>
+</ul>
+<h2 id="for-ai-agents">For AI agents</h2>
+<p>A skill teaches coding assistants to write and validate CKC commits, so the convention is followed
+without being restated each time.</p>
+<ul>
+<li>The <code>conventional-knowledge-commits</code> skill, a <a href="https://www.claude.com/product/claude-code">Claude Code</a>
+  plugin shipped in <a href="https://github.com/hotherio/ckc-tools">hotherio/ckc-tools</a> and invoked as
+  <code>/ckc:conventional-knowledge-commits</code>. It triggers when an agent writes or validates a knowledge
+  commit, and carries the grammar, an authoring procedure, the honesty rules, and the <code>ckc-lint</code> and
+  <code>claimgraph</code> commands. It reads the vocabulary from <code>vocab.json</code> and this site's <code>llms.txt</code>, so it
+  stays in step with the spec. Add ckc-tools as a plugin to use it.</li>
+<li>A portable <a href="https://github.com/hotherio/ckc-tools/blob/main/AGENTS.md"><code>AGENTS.md</code></a>, carrying the
+  same rules for the agents that read that convention (Cursor, Codex, Aider, Continue). Vendor it into
+  any CKC repository; it points to <code>llms.txt</code> for the full reference.</li>
 </ul>
 <h2 id="profiles">Profiles</h2>
 <p>A repository chooses which profiles are active: <code>proof</code>, <code>science</code>, or both (the default). With one

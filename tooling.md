@@ -24,6 +24,21 @@ for the work.
 - `commitlint-config-ckc`, a [commitlint](https://commitlint.js.org/) shareable config for the
   JavaScript world that widens `type-enum` to the CKC vocabulary.
 
+## For AI agents
+
+A skill teaches coding assistants to write and validate CKC commits, so the convention is followed
+without being restated each time.
+
+- The `conventional-knowledge-commits` skill, a [Claude Code](https://www.claude.com/product/claude-code)
+  plugin shipped in [hotherio/ckc-tools](https://github.com/hotherio/ckc-tools) and invoked as
+  `/ckc:conventional-knowledge-commits`. It triggers when an agent writes or validates a knowledge
+  commit, and carries the grammar, an authoring procedure, the honesty rules, and the `ckc-lint` and
+  `claimgraph` commands. It reads the vocabulary from `vocab.json` and this site's `llms.txt`, so it
+  stays in step with the spec. Add ckc-tools as a plugin to use it.
+- A portable [`AGENTS.md`](https://github.com/hotherio/ckc-tools/blob/main/AGENTS.md), carrying the
+  same rules for the agents that read that convention (Cursor, Codex, Aider, Continue). Vendor it into
+  any CKC repository; it points to `llms.txt` for the full reference.
+
 ## Profiles
 
 A repository chooses which profiles are active: `proof`, `science`, or both (the default). With one
