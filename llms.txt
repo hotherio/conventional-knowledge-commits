@@ -119,5 +119,7 @@ example runs at https://claimgraph.conventional-knowledge-commits.org/.
 - Tooling: https://conventional-knowledge-commits.org/0.1.0/en/tooling.html
 - Spec repository: https://github.com/hotherio/conventional-knowledge-commits
 - Hooks and configs (ckc-tools): https://github.com/hotherio/ckc-tools
+- Agent skill (ckc-tools): https://github.com/hotherio/ckc-tools/tree/main/skills/conventional-knowledge-commits
+- Portable AGENTS.md for any agent: https://github.com/hotherio/ckc-tools/blob/main/AGENTS.md
 - Live ClaimGraph viewer: https://claimgraph.conventional-knowledge-commits.org/
 - ClaimGraph tool (CLI + JSON schema): https://github.com/hotherio/claimgraph
