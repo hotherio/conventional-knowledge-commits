@@ -43,10 +43,29 @@ Note: a `data`, `protocol`, or `analysis` change that alters earlier conclusions
 - `ASSUMES: <untested assumption>`: a modelling or identification assumption the result rests on.
 - `UNREPLICATED: <scope>`: a single, un-replicated run, for example one machine or one cohort.
 
+## Protocol fidelity
+
+Provenance says what produced the number; protocol fidelity says the procedure that ran is the
+procedure that was registered. The two fail independently: an experiment can carry a complete
+`Dataset:`, `Seed:`, and `Code:` chain and still deviate silently from its `Pre-Registration:`,
+and no provenance check can see it, the same way a dropped hypothesis is invisible to the kernel.
+An undisclosed as-run deviation is this profile's transcription error.
+
+- `Protocol-Deviations: none | <log>`: `none` asserts that the as-run procedure matches the cited
+  registration or protocol, item by item; otherwise enumerate each deviation with a one-line
+  impact note, for example `n=812 not n=1000 (power recomputed: 0.83)`.
+
+`Protocol-Deviations:` qualifies a `Pre-Registration:` or `Protocol:` footer; without one it has
+nothing to be compared against and is omitted. A `sci.measured` or `sci.supported` commit that
+cites a `Pre-Registration:` or `Protocol:` SHOULD carry it, because those statuses then mean
+"true as registered", not merely "measured". A deviation that changes the conclusion is not a
+fidelity note; it is a breaking change (`!` plus `Invalidates:`), as elsewhere in this profile.
+
 ## Provenance and uncertainty footers
 
 - `Dataset: <id|doi> [sha256:...]`, `Raw-Data: <uri> sha256:...`
 - `Protocol: <id>`, `Method: <one line>`, `Pre-Registration: <registry url>`
+- `Protocol-Deviations: none | <log>`: see [Protocol fidelity](#protocol-fidelity).
 - `Sample-Size: n=...`, `Replicates: biological=... technical=...`
 - `Effect-Size: ...`, `CI: 95% [..., ...]`, `P-Value: ...`
 - `Code: git:<sha>`, `Environment: <container sha256>`, `Seed: ...`, `Hardware: ...`, `Metric: ...`
@@ -78,6 +97,8 @@ Sample-Size: n=1000
 Seed: 0..4
 Hardware: M4 (MPS)
 Effect-Size: ΔMSE −0.41 (K=8 vs K=1)
+Pre-Registration: osf.io/abcd1
+Protocol-Deviations: none
 UNREPLICATED: single machine, 5 seeds; needs an independent run
 Closes: conjecture:tensor-rank-helps
 ```

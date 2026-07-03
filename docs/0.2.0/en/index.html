@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Conventional Knowledge Commits</title>
+<meta name="description" content="Structured commits for mathematical proofs and scientific findings: the two axes of knowledge change.">
+<link rel="icon" href="../../assets/favicon.ico" sizes="16x16 32x32 48x48">
+<link rel="icon" type="image/png" sizes="96x96" href="../../assets/favicon.png">
+<link rel="apple-touch-icon" href="../../assets/apple-touch-icon.png">
+<link rel="canonical" href="https://conventional-knowledge-commits.org/0.2.0/en/">
+<meta property="og:site_name" content="Conventional Knowledge Commits">
+<meta property="og:title" content="Conventional Knowledge Commits">
+<meta property="og:description" content="Structured commits for mathematical proofs and scientific findings: the two axes of knowledge change.">
+<meta property="og:url" content="https://conventional-knowledge-commits.org/0.2.0/en/">
+<meta property="og:image" content="https://conventional-knowledge-commits.org/assets/og/home.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://conventional-knowledge-commits.org/assets/og/home.png">
+<meta name="theme-color" content="#f7f4ee">
+<link rel="stylesheet" href="../../assets/ckc.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Conventional Knowledge Commits","url":"https://conventional-knowledge-commits.org/0.2.0/en/","description":"Structured commits for mathematical proofs and scientific findings: the two axes of knowledge change.","inLanguage":"en"}</script>
+</head>
+<body>
+<nav class="nav"><div class="wrap">
+<a class="home" href="index.html"><img class="brand" src="../../assets/logo.png" width="384" height="343" alt="">CKC</a><span class="sp"></span><a href="spec.html">Spec</a><div class="menu"><button class="menu-trigger" type="button" aria-haspopup="true" aria-expanded="false">Profiles</button><div class="menu-panel"><a href="proof-profile.html"><b>Proof</b><span>mathematics &amp; formal proving</span></a><a href="science-profile.html"><b>Science</b><span>empirical research</span></a></div></div>
+<div class="menu"><button class="menu-trigger" type="button" aria-haspopup="true" aria-expanded="false">ClaimGraph</button><div class="menu-panel"><a href="claimgraph.html"><b>ClaimGraph</b><span>dependency graph of claims</span></a><a href="identifiers.html"><b>Identifiers</b><span>stable names the graph references</span></a><a href="https://claimgraph.conventional-knowledge-commits.org/"><b>Live graph ↗</b><span>see it on real data</span></a></div></div>
+<div class="menu"><button class="menu-trigger" type="button" aria-haspopup="true" aria-expanded="false">Examples</button><div class="menu-panel"><a href="examples.html"><b>Examples</b><span>worked commits, both profiles</span></a><a href="case-study.html"><b>Case study</b><span>the axiom that passed every gate</span></a></div></div>
+<div class="menu"><button class="menu-trigger" type="button" aria-haspopup="true" aria-expanded="false">Tooling</button><div class="menu-panel"><a href="tooling.html"><b>Tooling</b><span>hooks, configs, CI</span></a><a href="https://github.com/hotherio/ckc-tools"><b>Pre-commit hooks ↗</b><span>ckc-tools repository</span></a><a href="../../skill/SKILL.md"><b>Community skill</b><span>tool-agnostic SKILL.md, hosted here</span></a><a href="https://github.com/hotherio/ckc-tools/tree/main/skills/conventional-knowledge-commits"><b>Agent skill ↗</b><span>write CKC with AI assistants</span></a></div></div><a href="faq.html">FAQ</a><span class="navsep"></span>
+<div class="menu sel"><button class="menu-trigger" type="button" aria-haspopup="true" aria-expanded="false">v0.2.0</button><div class="menu-panel"><a class="cur" href="../../0.2.0/en/index.html"><b>v0.2.0</b><span>current</span></a><a href="../../0.1.0/en/index.html"><b>v0.1.0</b><span></span></a></div></div>
+<div class="menu sel"><button class="menu-trigger" type="button" aria-haspopup="true" aria-expanded="false">EN</button><div class="menu-panel"><a class="cur" href="../en/index.html"><b>English</b><span>en</span></a></div></div>
+<span class="navsep"></span>
+<a class="ext" href="https://www.conventionalcommits.org/en/v1.0.0/" title="Conventional Commits 1.0.0">CC ↗</a>
+<a class="gh" href="https://github.com/hotherio/conventional-knowledge-commits" aria-label="GitHub repository" title="GitHub repository"><svg viewBox="0 0 16 16" width="17" height="17" aria-hidden="true"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82a7.6 7.6 0 0 1 2-.27c.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg></a>
+</div></nav>
+
+<header>
+  <div class="wrap head">
+    <img class="hero-logo" src="../../assets/logo.png" width="384" height="343" alt="Conventional Knowledge Commits logo">
+    <div class="badge">CKC v0.2.0, a superset of
+      <a href="https://www.conventionalcommits.org/en/v1.0.0/">Conventional Commits 1.0.0</a></div>
+    <h1>Conventional Knowledge Commits</h1>
+    <p class="lede">A specification for adding human- and machine-readable meaning to commits that
+      record <b>mathematical proofs</b> and <b>scientific findings</b>.</p>
+    <div class="super">structured commits for claims, proofs, and evidence</div>
+    <div class="cta">
+      <a class="btn primary" href="#summary">Quick Summary</a>
+      <a class="btn" href="spec.html">Full Specification</a>
+      <a class="btn" href="https://github.com/hotherio/conventional-knowledge-commits/blob/main/CONTRIBUTING.md">Contribute</a>
+    </div>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <img src="../../assets/two-axes.svg" alt="Two axes of knowledge change: dependency impact (horizontal) versus epistemic status (vertical), with example commits plotted.">
+    <div class="cap">The core idea, two orthogonal axes, plotted with example commits.</div>
+  </div>
+</section>
+
+<section id="summary">
+  <div class="wrap">
+    <h2>The one idea: two axes</h2>
+    <p class="muted">Changing code raises one question that really matters: <b>does it break what
+      depends on it?</b> Changing knowledge raises a second, independent one: <b>how sure are we it's
+      true?</b> CKC tracks these as two separate axes. Keeping them apart is the whole design.</p>
+    <table class="axes two">
+      <tr>
+        <th></th>
+        <th>Does it break what builds on it?<span class="sub">impact · axis 1</span></th>
+        <th>How sure are we it's true?<span class="sub">status · axis 2</span></th>
+      </tr>
+      <tr><td>in plain terms</td>
+          <td>if this turns out wrong, what else falls with it?</td>
+          <td>is it a guess, proven, or machine-checked?</td></tr>
+      <tr><td>written in the commit</td>
+          <td>the <code>type</code> and a <code>!</code> mark</td>
+          <td>a <code>Status:</code> line at the bottom</td></tr>
+      <tr><td>can it change later?</td>
+          <td><b>no</b>, it records what happened</td>
+          <td><b>yes</b>, a later commit can raise or lower it</td></tr>
+      <tr><td>for example</td>
+          <td><code>refute!</code>, <code>retract!</code>, <code>formalize</code></td>
+          <td><code>conjectured → proved → machine-checked</code></td></tr>
+    </table>
+    <p class="muted">Why two and not one? Code is either compatible or it isn't, so one axis covers it.
+      Knowledge moves on both at once, and they move independently, so you can't fold them into a
+      single number.</p>
+    <p class="muted">Because they're separate, you never rewrite the past to update the present. Resolve
+      a question that was left open and that's a <b>new</b> commit nudging its status from
+      <b>open</b> to <b>verified</b>. The earlier record stays intact. One result can carry both
+      signals at once: well established, yet still flagged as resting on an assumption.</p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>Why use it</h2>
+    <div class="cols">
+      <ul class="muted">
+        <li>The commit log is an honest record of what is proved, assumed, open, or disproved, with no
+            separate status document to keep.</li>
+        <li>The relation footers form a <a href="claimgraph.html">ClaimGraph</a>. A refutation flags
+            the results that now depend on something false; closing a gap promotes the results above it.</li>
+      </ul>
+      <ul class="muted">
+        <li>Negative results have a place: counterexamples, null results, and failed replications are
+            normal commit types.</li>
+        <li>Provenance travels with the work, and there is nothing new to install: a CKC commit is a
+            Conventional Commit, so existing tooling keeps working.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>Grammar</h2>
+    <p class="muted">Unchanged from Conventional Commits. Every CKC commit is a valid one.</p>
+<pre class="grammar">&lt;type&gt;[~][(scope)][!]: &lt;description&gt;
+
+[body]
+
+[footers]            <span class="cm"># git-trailer key: value, repeatable; relations and provenance</span></pre>
+    <p class="muted" style="margin-top:12px"><code>!</code> or <code>BREAKING CHANGE:</code> means it
+      invalidates dependents (axis 1). <code>~</code> is an optional at-a-glance flag for a
+      trusted-base caveat; the footer is the record.</p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>Profiles and types</h2>
+    <p class="muted">A <b>profile</b> is a domain vocabulary on top of the shared core. CKC ships two:
+      <b>proof</b> for mathematics and formal proving (Lean and Mathlib are the reference; Rocq, Coq,
+      Isabelle, and Agda work too), and <b>science</b> for empirical work. The type you choose implies
+      the profile. Full detail: <a href="spec.html">the spec</a>.</p>
+    <h3>shared <span class="tag">core</span></h3>
+    <div class="pills">
+      <span class="pill s-shared"><b>conjecture</b></span><span class="pill s-shared"><b>lit</b></span>
+      <span class="pill s-shared"><b>review</b></span><span class="pill s-shared"><b>refute</b> !</span>
+      <span class="pill s-shared"><b>retract</b> !</span><span class="pill s-shared"><b>expose</b></span>
+      <span class="pill s-shared"><b>meta</b></span>
+    </div>
+    <div class="cols" style="margin-top:18px">
+      <div>
+        <h3>proof <span class="tag">mathematics</span></h3>
+        <div class="pills">
+          <span class="pill s-proof"><b>state</b></span><span class="pill s-proof"><b>proof</b></span>
+          <span class="pill s-proof"><b>formalize</b></span><span class="pill s-proof"><b>axiomatize</b></span>
+          <span class="pill s-proof"><b>strengthen</b></span><span class="pill s-proof"><b>generalize</b></span>
+          <span class="pill s-proof"><b>weaken</b> !</span><span class="pill s-proof"><b>port</b></span>
+        </div>
+      </div>
+      <div>
+        <h3>science <span class="tag">empirical</span></h3>
+        <div class="pills">
+          <span class="pill s-sci"><b>experiment</b></span><span class="pill s-sci"><b>result</b></span>
+          <span class="pill s-sci"><b>replicate</b></span><span class="pill s-sci"><b>null</b></span>
+          <span class="pill s-sci"><b>data</b></span><span class="pill s-sci"><b>protocol</b></span>
+          <span class="pill s-sci"><b>analysis</b></span><span class="pill s-sci"><b>repro-fix</b></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>Status and footers</h2>
+    <p class="muted">Each result carries footers. A quiet <b>status</b> says how settled it is right now
+      (axis 2). A loud <b>marker</b> warns anything built on it about what it leans on (axis 1), the way
+      a breaking change warns dependents in software.</p>
+    <div class="cols">
+      <div>
+        <h3>How settled is it?<span class="tag">axis 2</span></h3>
+        <p class="muted" style="font-size:14px">A <code>Status:</code> line that climbs as the work
+          gets firmer. It is checked against ground truth, never just asserted.</p>
+        <table class="status">
+          <tr><td><span class="dot ok"></span><code>math.machine-checked</code></td><td class="lean">proof: fully verified, no gaps</td></tr>
+          <tr><td><span class="dot warn"></span><code>math.axiomatised</code></td><td class="lean">proof: verified, but leans on a cited axiom</td></tr>
+          <tr><td><span class="dot bad"></span><code>math.open</code></td><td class="lean">proof: still has an unproven gap</td></tr>
+          <tr><td><span class="dot ok"></span><code>sci.replicated</code></td><td class="lean">science: measured, then reproduced</td></tr>
+          <tr><td><span class="dot bad"></span><code>sci.falsified</code></td><td class="lean">science: tested, came out false</td></tr>
+        </table>
+      </div>
+      <div>
+        <h3>What does it lean on?<span class="tag">axis 1, loud</span></h3>
+        <p class="muted" style="font-size:14px">An uppercase warning that travels to everything
+          downstream, so a reader sees the caveat without digging:</p>
+        <table class="status">
+          <tr><td><code class="lo">AXIOM:</code></td><td class="lean">it rests on an assumption stated as an axiom</td></tr>
+          <tr><td><code class="lo">OPEN:</code></td><td class="lean">it still has an unproven gap</td></tr>
+          <tr><td><code class="lo">ASSUMES:</code></td><td class="lean">science: it rests on an untested assumption</td></tr>
+          <tr><td><code class="lo">UNREPLICATED:</code></td><td class="lean">science: it has been run only once</td></tr>
+        </table>
+      </div>
+    </div>
+    <p class="muted" style="font-size:14px;margin-top:18px">A third kind of footer wires results into
+      the <a href="claimgraph.html">ClaimGraph</a>: <code>Depends-On</code>, <code>Proves</code>,
+      <code>Refutes</code>, <code>Closes</code>, <code>Supersedes</code>.</p>
+    <p class="muted" style="font-size:14px;margin-top:10px">And a fourth keeps transcriptions honest.
+      The kernel checks a statement as written, never that it matches the source it cites, so a
+      citation-truth status must anchor the exact statement it transcribes:
+      <code>Source-Ref</code>, with <code>Refutation-Attempt</code> and
+      <code>Protocol-Deviations</code> as the evidence. <a href="case-study.html">Why this exists.</a></p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>Examples</h2>
+    <div class="gallery">
+<pre class="proof"><span class="k">formalize</span>(thm): close the d-fold separable factorization
+<span class="ft">Lean:</span> Sep.factorization
+<span class="ft">Status:</span> math.machine-checked
+<span class="ft">Axioms:</span> propext, Classical.choice, Quot.sound
+<span class="ft">Closes:</span> conjecture:master-formula</pre>
+
+<pre class="axiom"><span class="k">axiomatize~</span>(lemma): cite the logarithmic rank bound
+<span class="ft">Lean:</span> Approx.rankBound
+<span class="ft">Status:</span> math.axiomatised
+<span class="lo">AXIOM:</span> Approx.rankBound (rank K = O(log 1/ε))
+<span class="ft">Source-Ref:</span> Braess &amp; Hackbusch 2005, Thm 3.1
+<span class="ft">Cites:</span> Braess &amp; Hackbusch 2005</pre>
+
+<pre class="break"><span class="k">refute</span>(claim)!: a counterexample blocks naive factorization
+<span class="ft">Disproves:</span> conjecture:naive-separable
+<span class="ft">Status:</span> math.disproved
+<span class="lo">BREAKING CHANGE:</span> conjecture:naive-separable withdrawn;
+the compensation result depends on it.</pre>
+
+<pre class="sci"><span class="k">experiment</span>(non-additive): rank K=1 vs K&gt;1 on hard targets
+<span class="ft">Status:</span> sci.measured
+<span class="ft">Metric:</span> MSE   <span class="ft">Seed:</span> 0..4   <span class="ft">Hardware:</span> 1 GPU
+<span class="lo">UNREPLICATED:</span> single machine, 5 seeds
+<span class="ft">Closes:</span> conjecture:rank-helps</pre>
+    </div>
+    <p class="muted" style="margin-top:14px;font-size:14px">More on the <a href="examples.html">examples page</a>.</p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>The payoff: the ClaimGraph</h2>
+    <p class="muted">The relation footers form a dependency graph of claims. From it, tooling can:</p>
+    <ul class="muted">
+      <li>propagate a <b>refutation</b> to its dependents and mark them <i>in question</i> (the blast radius);</li>
+      <li><b>promote</b> dependents when a gap closes, and compute each result's <i>effective status</i>
+          as the minimum over its dependencies, the way a cited axiom surfaces downstream;</li>
+      <li>derive an honest <b>status report</b> and, if you want one, a Semantic Versioning (SemVer)
+          <b>release version</b> for a paper or formalized library.</li>
+    </ul>
+    <div class="cta" style="justify-content:flex-start;margin-top:20px">
+      <a class="btn primary" href="https://claimgraph.conventional-knowledge-commits.org/">See the live graph →</a>
+      <a class="btn" href="claimgraph.html">The ClaimGraph page</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="links">
+      <a href="spec.html">Specification</a>
+      <a href="proof-profile.html">Proof profile</a>
+      <a href="science-profile.html">Science profile</a>
+      <a href="identifiers.html">Identifiers</a>
+      <a href="faq.html">FAQ</a>
+      <a href="../../llms.txt">llms.txt</a>
+      <a href="https://github.com/hotherio/conventional-knowledge-commits">GitHub</a>
+    </div>
+    Extends <a href="https://www.conventionalcommits.org/en/v1.0.0/">Conventional Commits 1.0.0</a>.
+    Relatives: <a href="https://nanopub.net/">nanopublications</a>,
+    <a href="https://www.w3.org/TR/prov-overview/">W3C PROV</a>.
+    Spec licensed <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>.
+  </div>
+</footer>
+<script src="../../assets/nav.js" defer></script>
+</body>
+</html>

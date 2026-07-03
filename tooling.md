@@ -26,18 +26,23 @@ for the work.
 
 ## For AI agents
 
-A skill teaches coding assistants to write and validate CKC commits, so the convention is followed
-without being restated each time.
+Three artifacts teach agents to write and validate CKC commits, so the convention is followed
+without being restated each time. From reference to procedure to tooling:
 
+- [`llms.txt`](https://conventional-knowledge-commits.org/llms.txt), the condensed machine-readable
+  spec at the site root. The reference every other artifact points to.
+- The [community skill](https://conventional-knowledge-commits.org/skill/SKILL.md), a tool-agnostic
+  `SKILL.md` hosted on this site (CC BY 4.0). It carries the grammar, both status ladders, the
+  authoring procedure, and the statement-fidelity discipline (rule 14), with no assumption about
+  which proof assistant, lab, or validator you use. Drop it into any repository or agent that reads
+  skills.
 - The `conventional-knowledge-commits` skill, a [Claude Code](https://www.claude.com/product/claude-code)
   plugin shipped in [hotherio/ckc-tools](https://github.com/hotherio/ckc-tools) and invoked as
-  `/ckc:conventional-knowledge-commits`. It triggers when an agent writes or validates a knowledge
-  commit, and carries the grammar, an authoring procedure, the honesty rules, and the `ckc-lint` and
-  `claimgraph` commands. It reads the vocabulary from `vocab.json` and this site's `llms.txt`, so it
-  stays in step with the spec. Add ckc-tools as a plugin to use it.
-- A portable [`AGENTS.md`](https://github.com/hotherio/ckc-tools/blob/main/AGENTS.md), carrying the
-  same rules for the agents that read that convention (Cursor, Codex, Aider, Continue). Vendor it into
-  any CKC repository; it points to `llms.txt` for the full reference.
+  `/ckc:conventional-knowledge-commits`, plus a portable
+  [`AGENTS.md`](https://github.com/hotherio/ckc-tools/blob/main/AGENTS.md) for the agents that read
+  that convention (Cursor, Codex, Aider, Continue). These are tooling-integrated: they carry the
+  `ckc-lint`, `ckc-axiom-check`, and `claimgraph` commands and read the vocabulary from
+  `vocab.json`, so they stay in step with the spec.
 
 ## Profiles
 
@@ -129,6 +134,11 @@ on a commit that claims `math.machine-checked` or `math.axiomatised` and names `
 and it rejects only a genuine contradiction (the kernel reports a `sorryAx` or a cited axiom while
 the commit claims `machine-checked`). It needs Lean, a built project, and `axiom-report` on `PATH`
 (or `$CKC_AXIOM_REPORT`); when it cannot determine a declaration's status it skips.
+
+Since ckc-tools v0.3.0 the hook also enforces rule 14: a `math.axiomatised` commit is rejected
+unless it carries `Source-Ref:` and `Refutation-Attempt:` footers, and `ckc-lint` warns on the
+same gap in repositories that do not run the hook. The earlier token spelling `Paper-Ref:` is
+accepted as a deprecated alias for one release.
 
 See [hotherio/ckc-tools](https://github.com/hotherio/ckc-tools) for the full readme and the
 single-source vocabulary (`vocab.json`) shared by the Python validator and the commitlint config.

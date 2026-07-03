@@ -38,11 +38,21 @@ check is `#print axioms` in Lean, `Print Assumptions` in Rocq and Coq, `thm_deps
 the `--safe` flag with no postulates in Agda. The proof profile lists the mapping.
 
 ### How is this kept honest if nothing enforces it?
-Version 0.1.0 is convention-only, like Conventional Commits itself. The proof profile is honest by
+CKC is convention-first, like Conventional Commits itself. The proof profile is honest by
 construction in one respect: the `Status:` and `Axioms:` footers are meant to be the literal output
-of the assistant's assumption check. A later, opt-in checker can compare those footers against the
+of the assistant's assumption check. An opt-in checker can compare those footers against the
 kernel and reject a commit that claims `machine-checked` while a `sorry` or a non-standard axiom is
-present. The convention is built for that; it just does not require it.
+present (ckc-tools ships one). And v0.2.0 adds the layer the kernel cannot reach: transcription
+fidelity, because a perfectly kernel-honest commit can still transcribe its source wrongly.
+
+### The kernel already checks everything. Why do I need `Source-Ref:`?
+The kernel checks the statement as written; it has no opinion on whether that statement is the one
+the source proved. A transcribed axiom that silently drops one of the paper's hypotheses is
+kernel-honest and status-honest and still false: in one audited formalization, nearly every cited
+axiom failed exactly this way, one refutable in three lines from a missing `μ ≠ ν`, and every gate
+passed. `Source-Ref:` pins the verbatim locus so comparing the statements is a diff, not an
+archaeology project, and `Refutation-Attempt:` records that someone tried to break the statement
+as written. The [case study](case-study.md) walks through the incident.
 
 ### What is the relationship to SemVer?
 Semantic Versioning (SemVer) is the single decision Conventional Commits serves. CKC's equivalent is

@@ -42,8 +42,40 @@ The target library has no elliptic-Green's exponential-sum theory, so posit it a
 Lean: IGL.expSumRank_logBound
 Status: math.axiomatised
 AXIOM: IGL.expSumRank_logBound (separable rank K = O(log 1/ε), dimension-independent)
+Source-Ref: Braess & Hackbusch 2005, Numer. Math., Thm 3.1
 Cites: Braess & Hackbusch 2005, Numer. Math.
 ```
+
+### Cite an axiom with its fidelity anchors
+```
+axiomatize~(cheb-interp): cite the Chebyshev interpolation error bound
+
+The target library has no multivariate Chebyshev interpolation theory, so posit the bound as a
+citation. The source requires f analytic in the Bernstein ellipse E_ρ, ρ > 1; both hypotheses kept.
+
+Lean: IGL.chebInterpError
+Status: math.axiomatised
+AXIOM: IGL.chebInterpError (sup-norm error ≤ C·ρ^(−n), f analytic in E_ρ, ρ > 1)
+Source-Ref: Trefethen 2013, Approximation Theory and Approximation Practice, Thm 8.2
+Refutation-Attempt: none-found: ρ → 1 collapse, merely-continuous f, n = 0
+Fidelity-Reviewed: aq, 2026-07-03
+Cites: Trefethen 2013, Approximation Theory and Approximation Practice
+```
+
+### The same axiom without its anchors (and what goes wrong)
+```
+axiomatize~(cheb-interp): cite the Chebyshev interpolation error bound
+
+Lean: IGL.chebInterpError
+Status: math.axiomatised
+AXIOM: IGL.chebInterpError (sup-norm error ≤ C·ρ^(−n) for continuous f)
+Cites: Trefethen 2013
+```
+This commit validates under v0.1.0: a known type, a status that matches the `AXIOM:` footer, a real
+citation. But the transcription dropped the analyticity hypothesis, so the axiom claims a geometric
+rate for every continuous function, which is false, and no kernel gate can see it, because the
+kernel checks the statement as written, not the statement Trefethen proved. Rule 14 makes the
+missing `Source-Ref:` a violation; see [the case study](case-study.md) for a real instance.
 
 ### A clean proof that inherits a caveat through a dependency
 ```
@@ -108,6 +140,8 @@ Sample-Size: n=1000
 Seed: 0..4
 Hardware: M4 (MPS)
 Effect-Size: ΔMSE −0.41 (K=8 vs K=1)
+Pre-Registration: osf.io/abcd1
+Protocol-Deviations: none
 UNREPLICATED: single machine, 5 seeds; needs an independent run
 Closes: conjecture:tensor-rank-helps
 ```
