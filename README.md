@@ -5,10 +5,10 @@
 **A specification for adding human- and machine-readable meaning to commits that record
 mathematical proofs and scientific findings.**
 
-CKC&nbsp;v0.1.0, a strict superset of [**Conventional Commits&nbsp;1.0.0**](https://www.conventionalcommits.org/en/v1.0.0/)
+CKC&nbsp;v0.2.0, a strict superset of [**Conventional Commits&nbsp;1.0.0**](https://www.conventionalcommits.org/en/v1.0.0/)
 
 [Website](https://conventional-knowledge-commits.org/) ·
-[Specification](spec/v0.1.0.md) ·
+[Specification](spec/v0.2.0.md) ·
 [Examples](EXAMPLES.md) ·
 [FAQ](FAQ.md)
 
@@ -100,7 +100,7 @@ More in [Examples](EXAMPLES.md).
 
 ## Documents
 
-- [Specification](spec/v0.1.0.md), the grammar and the numbered rules
+- [Specification](spec/v0.2.0.md), the grammar and the numbered rules
 - [Proof profile](spec/proof-profile.md), mathematics and formal proving
 - [Science profile](spec/science-profile.md), empirical discovery
 - [ClaimGraph](claimgraph.md), the dependency graph CKC builds

@@ -1,4 +1,4 @@
-# Conventional Knowledge Commits (CKC) v0.1.0
+# Conventional Knowledge Commits (CKC) v0.2.0
 
 > CKC is a convention for commit messages that record knowledge work: mathematical claims and
 > proofs, and empirical scientific findings. It is a strict superset of Conventional Commits 1.0.0
@@ -80,6 +80,10 @@ axis 1 only if it also invalidates an existing dependent.
   `Verified-By`, `Proof-Hash`, `Cites`, `Phase`, `Gate`.
 - science provenance: `Dataset`, `Protocol`, `Method`, `Sample-Size`, `Effect-Size`, `CI`,
   `P-Value`, `Seed`, `Hardware`, `Metric`, `Pre-Registration`.
+- fidelity: `Source-Ref: <work, locus>` (the exact source statement a citation-truth status is
+  answerable to: theorem/equation/page, or registry section), `Refutation-Attempt: <artifact> |
+  none-found: <attacks tried>` (proof), `Protocol-Deviations: none | <log>` (science),
+  `Fidelity-Reviewed: <reviewer, date>` (optional sign-off).
 
 ## The ClaimGraph
 
@@ -107,18 +111,24 @@ example runs at https://claimgraph.conventional-knowledge-commits.org/.
 - For a formalized result, the `Axioms:` footer should be the literal assumption-check output. Do not
   claim `machine-checked` while a `sorry` or a non-standard axiom is present.
 - Status changes by adding a new commit, never by editing an old one.
+- A status meaning "true by citation" (`math.axiomatised`; `sci.measured`/`sci.supported` citing a
+  `Pre-Registration:` or `Protocol:`) must carry `Source-Ref: <work, locus>`, precise enough to
+  compare the statement with its source. The kernel checks the statement as written; it cannot see
+  a transcription error.
 
 ## Full documents
 
-- Specification: https://conventional-knowledge-commits.org/0.1.0/en/spec.html
-- Proof profile: https://conventional-knowledge-commits.org/0.1.0/en/proof-profile.html
-- Science profile: https://conventional-knowledge-commits.org/0.1.0/en/science-profile.html
-- ClaimGraph: https://conventional-knowledge-commits.org/0.1.0/en/claimgraph.html
-- Identifiers: https://conventional-knowledge-commits.org/0.1.0/en/identifiers.html
-- Examples: https://conventional-knowledge-commits.org/0.1.0/en/examples.html
-- Tooling: https://conventional-knowledge-commits.org/0.1.0/en/tooling.html
+- Specification: https://conventional-knowledge-commits.org/0.2.0/en/spec.html
+- Proof profile: https://conventional-knowledge-commits.org/0.2.0/en/proof-profile.html
+- Science profile: https://conventional-knowledge-commits.org/0.2.0/en/science-profile.html
+- ClaimGraph: https://conventional-knowledge-commits.org/0.2.0/en/claimgraph.html
+- Identifiers: https://conventional-knowledge-commits.org/0.2.0/en/identifiers.html
+- Examples: https://conventional-knowledge-commits.org/0.2.0/en/examples.html
+- Case study: https://conventional-knowledge-commits.org/0.2.0/en/case-study.html
+- Tooling: https://conventional-knowledge-commits.org/0.2.0/en/tooling.html
 - Spec repository: https://github.com/hotherio/conventional-knowledge-commits
 - Hooks and configs (ckc-tools): https://github.com/hotherio/ckc-tools
+- Community skill (tool-agnostic, hosted here): https://conventional-knowledge-commits.org/skill/SKILL.md
 - Agent skill (ckc-tools): https://github.com/hotherio/ckc-tools/tree/main/skills/conventional-knowledge-commits
 - Portable AGENTS.md for any agent: https://github.com/hotherio/ckc-tools/blob/main/AGENTS.md
 - Live ClaimGraph viewer: https://claimgraph.conventional-knowledge-commits.org/

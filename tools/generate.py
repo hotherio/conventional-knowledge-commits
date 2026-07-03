@@ -31,9 +31,9 @@ SITE = "https://conventional-knowledge-commits.org"   # official canonical origi
 SITE_NAME = "Conventional Knowledge Commits"
 DESCRIPTION = ("Structured commits for mathematical proofs and scientific findings: "
                "the two axes of knowledge change.")
-VERSION = "0.1.0"          # current/latest version (the one the root redirects to)
+VERSION = "0.2.0"          # current/latest version (the one the root redirects to)
 LANG_CODE = "en"           # default language
-VERSIONS = [("0.1.0", "current")]   # (label, sublabel) shown in the version selector, latest first
+VERSIONS = [("0.2.0", "current"), ("0.1.0", "")]   # (label, sublabel) shown in the version selector, latest first
 LANGS = [("en", "English")]         # (code, name) shown in the language selector
 OUT = os.path.join(DOCS, VERSION, LANG_CODE)
 
@@ -54,12 +54,13 @@ ASSET = "../../"   # from a /<version>/<language>/ page to the site root (where 
 
 # src markdown, output filename, <title> (before " · CKC"), extra <main> class
 PAGES = [
-    ("spec/v0.1.0.md",          "spec.html",            "Specification v0.1.0", ""),
+    ("spec/v0.2.0.md",          "spec.html",            "Specification v0.2.0", ""),
     ("spec/proof-profile.md",   "proof-profile.html",   "Proof profile",        ""),
     ("spec/science-profile.md", "science-profile.html", "Science profile",      ""),
     ("claimgraph.md",           "claimgraph.html",      "The ClaimGraph",       ""),
     ("identifiers.md",          "identifiers.html",     "Stable identifiers",   ""),
     ("EXAMPLES.md",             "examples.html",        "Examples",             ""),
+    ("case-study.md",           "case-study.html",      "Case study",           ""),
     ("tooling.md",              "tooling.html",         "Tooling",              ""),
     ("FAQ.md",                  "faq.html",             "FAQ",                  "faq"),
 ]
@@ -73,6 +74,7 @@ DESCRIPTIONS = {
     "claimgraph": "The ClaimGraph: a dependency graph of knowledge claims built from CKC commit footers, with effective status and blast radius.",
     "identifiers": "Stable identifiers for CKC claims: proof-assistant names and a curated registry, so a claim survives a rewrite of its wording.",
     "examples": "Worked examples of Conventional Knowledge Commits for mathematical proofs and scientific findings.",
+    "case-study": "Case study: a false axiom that passed every kernel gate, and the transcription-fidelity rule it motivated.",
     "tooling": "Tooling for Conventional Knowledge Commits: pre-commit hooks, configs, and CI that coexist with Conventional Commits.",
     "faq": "Frequently asked questions about Conventional Knowledge Commits.",
 }
@@ -99,6 +101,8 @@ MD_CONFIG = {
 # rewrite intra-doc .md links (any path prefix) to the flat .html page names
 LINK_REWRITES = [
     (re.compile(r'href="[^"]*v0\.1\.0\.md"'),        'href="spec.html"'),
+    (re.compile(r'href="[^"]*v0\.2\.0\.md"'),        'href="spec.html"'),
+    (re.compile(r'href="[^"]*case-study\.md"'),     'href="case-study.html"'),
     (re.compile(r'href="[^"]*proof-profile\.md"'),   'href="proof-profile.html"'),
     (re.compile(r'href="[^"]*science-profile\.md"'), 'href="science-profile.html"'),
     (re.compile(r'href="[^"]*claimgraph\.md"'),      'href="claimgraph.html"'),
@@ -188,6 +192,11 @@ def main():
     shutil.copyfile(os.path.join(ROOT, "llms.txt"), os.path.join(DOCS, "llms.txt"))
     print("  copied docs/llms.txt")
 
+    # the community skill: tool-agnostic SKILL.md, kept at a stable site path
+    os.makedirs(os.path.join(DOCS, "skill"), exist_ok=True)
+    shutil.copyfile(os.path.join(ROOT, "skill", "SKILL.md"), os.path.join(DOCS, "skill", "SKILL.md"))
+    print("  copied docs/skill/SKILL.md")
+
     # redirect stubs
     def redirect(out_path, target, canon):
         write(os.path.join(DOCS, out_path), redirect_tpl.render(target=target, canon=canon))
@@ -199,6 +208,11 @@ def main():
     # legacy: the ClaimGraph page was renamed from impact-graph.html
     redirect(os.path.join(VERSION, LANG_CODE, "impact-graph.html"), "claimgraph.html",
              "{}/{}/{}/claimgraph.html".format(SITE, VERSION, LANG_CODE))
+    # pages that exist only from 0.2.0: give older version dirs a redirect so the
+    # version selector never links into a void
+    redirect(os.path.join("0.1.0", LANG_CODE, "case-study.html"),
+             "../../{}/{}/case-study.html".format(VERSION, LANG_CODE),
+             "{}/{}/{}/case-study.html".format(SITE, VERSION, LANG_CODE))
 
     # SEO artifacts
     urls = [landing_canonical] + ["{}/{}/{}/{}".format(SITE, VERSION, LANG_CODE, out)

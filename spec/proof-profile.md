@@ -5,6 +5,14 @@ assistant (Lean 4 and Mathlib in the reference implementation), where the truste
 result is either kernel-checked, depends on a cited axiom, or has an open `sorry`. `#print axioms`
 is the ground truth, and CKC commits report it rather than asserting a status by hand.
 
+CKC keeps a commit honest in two ways: **kernel-honest**, the trusted base is what the assistant's
+assumption check reports, and **status-honest**, the footers repeat that report literally. There is
+a third layer the first two cannot reach: **transcription-honest**. A claim transcribed from an
+external source is only as good as the transcription, and the kernel checks the statement as
+written, never that it matches the source. An axiom that silently drops one of the paper's
+hypotheses passes every kernel gate while asserting something the paper never said; the fidelity
+footers exist to make that comparison auditable (see [Statement fidelity](#statement-fidelity)).
+
 ## Proof assistants
 
 The profile is not specific to Lean. It works with any proof assistant that can name a declaration
@@ -41,9 +49,11 @@ footer carries whatever the system's assumption check prints.
 | `port` | move an informal proof into the proof assistant | additive |
 
 Note on `axiomatize`: it is additive on the dependency-impact axis, because it introduces a new
-object. On the status axis it is a trusted-base event, so it MUST carry an `AXIOM:` footer and sets
-`Status: math.axiomatised`. It becomes a breaking change only if it replaces a previously proved
-result with an assumed one.
+object. On the status axis it is a trusted-base event twice over: it widens the trusted base and it
+transcribes. It MUST carry an `AXIOM:` footer and a `Source-Ref:` footer and sets
+`Status: math.axiomatised`; it SHOULD carry a `Refutation-Attempt:` (see
+[Statement fidelity](#statement-fidelity)). It becomes a breaking change only if it replaces a
+previously proved result with an assumed one.
 
 ## Status, bound to `#print axioms`
 
@@ -68,6 +78,38 @@ prevent.
 - `AXIOM: <Name> (<what it is, why cited>)`: a cited or added axiom widens the trusted base.
 - `OPEN: <what is unproven>`: a remaining `sorry`, `admit`, or `sorryAx`.
 
+## Statement fidelity
+
+Kernel honesty has a blind spot: the kernel checks the statement as written, not the statement the
+source proved. A cited axiom that silently drops one of the paper's hypotheses survives every gate.
+The commit is honestly labelled, the `AXIOM:` footer is present, `#print axioms` agrees, and the
+statement is false (a missing `μ ≠ ν` can make an axiom refutable in three lines). Transcription is
+a trusted-base event of its own, so it gets its own checks and footers. See
+[the case study](../case-study.md) for a real instance.
+
+Three checks, before the axiom lands:
+
+1. **Hypothesis parity.** Put the formal statement next to the verbatim source text and account for
+   every hypothesis: present, or its absence argued in the body. Type-correct is not parity.
+2. **Adversarial instantiation.** Try to refute the statement as written with degenerate instances
+   (equal measures, dimension one, the empty and the trivial case). A dropped hypothesis usually
+   falls to the first one.
+3. **Model adequacy.** The formal class must be able to express what the source's proof uses. If
+   the paper's argument needs a measure-dependent flow, a linear flow type cannot host it, however
+   cleanly each statement typechecks.
+
+The footers:
+
+- `Source-Ref: <work, locus>`: the verbatim statement the transcription is answerable to (theorem,
+  equation, or page).
+- `Refutation-Attempt: <artifact> | none-found: <attacks tried>`: the attempt to break the
+  statement as written, or the attacks that failed to.
+- `Fidelity-Reviewed: <reviewer, date>`: OPTIONAL human sign-off that the parity check was done.
+
+When a draft axiom was refuted and then repaired, keep the disproof of the refuted draft compiling
+as a must-fail regression, so re-loosening the statement breaks the build instead of quietly
+reviving the bad transcription. Reference practice, not a requirement.
+
 ## Provenance footers
 
 - `Lean: <Fully.Qualified.Name>[, ...]`: the declaration(s) this commit touches, which is the stable id.
@@ -77,6 +119,9 @@ prevent.
 - `Verified-By: <assistant and library version>`, for example `Lean 4.30.0; Mathlib v4.30.0`.
 - `Proof-Hash: sha256:...`: an optional content hash of the proof artifact.
 - `Cites: <doi|arXiv|ref>`: for `axiomatize` and `lit`, where the cited fact comes from.
+- `Source-Ref: <work, locus>`, `Refutation-Attempt: <artifact> | none-found: <attacks tried>`,
+  `Fidelity-Reviewed: <reviewer, date>`: the fidelity footers; see
+  [Statement fidelity](#statement-fidelity).
 - `Phase: <A..H>`, `Gate: <...>`: an optional link to a research pipeline ledger.
 
 ## Identity
@@ -112,6 +157,7 @@ The target library has no elliptic-Green's exponential-sum theory, so posit it a
 Lean: IGL.expSumRank_logBound
 Status: math.axiomatised
 AXIOM: IGL.expSumRank_logBound (separable rank K = O(log 1/ε), dimension-independent)
+Source-Ref: Braess & Hackbusch 2005, Numer. Math., Thm 3.1
 Cites: Braess & Hackbusch 2005, Numer. Math.
 ```
 

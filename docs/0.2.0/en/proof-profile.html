@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Proof profile · CKC</title>
+<meta name="description" content="The CKC proof profile: commit types and statuses for mathematics and formal proving (Lean, Rocq, Isabelle, Agda).">
+<link rel="icon" href="../../assets/favicon.ico" sizes="16x16 32x32 48x48">
+<link rel="icon" type="image/png" sizes="96x96" href="../../assets/favicon.png">
+<link rel="apple-touch-icon" href="../../assets/apple-touch-icon.png">
+<link rel="canonical" href="https://conventional-knowledge-commits.org/0.2.0/en/proof-profile.html">
+<meta property="og:site_name" content="Conventional Knowledge Commits">
+<meta property="og:title" content="Proof profile · CKC">
+<meta property="og:description" content="The CKC proof profile: commit types and statuses for mathematics and formal proving (Lean, Rocq, Isabelle, Agda).">
+<meta property="og:url" content="https://conventional-knowledge-commits.org/0.2.0/en/proof-profile.html">
+<meta property="og:image" content="https://conventional-knowledge-commits.org/assets/og/proof-profile.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://conventional-knowledge-commits.org/assets/og/proof-profile.png">
+<link rel="stylesheet" href="../../assets/ckc.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"Proof profile · CKC","url":"https://conventional-knowledge-commits.org/0.2.0/en/proof-profile.html","isPartOf":{"@type":"WebSite","name":"Conventional Knowledge Commits","url":"https://conventional-knowledge-commits.org/0.2.0/en/"},"inLanguage":"en","license":"https://creativecommons.org/licenses/by/4.0/"}</script>
+</head>
+<body>
+<nav class="nav"><div class="wrap">
+<a class="home" href="index.html"><img class="brand" src="../../assets/logo.png" width="384" height="343" alt="">CKC</a><span class="sp"></span><a href="spec.html">Spec</a><div class="menu here"><button class="menu-trigger" type="button" aria-haspopup="true" aria-expanded="false">Profiles</button><div class="menu-panel"><a href="proof-profile.html"><b>Proof</b><span>mathematics &amp; formal proving</span></a><a href="science-profile.html"><b>Science</b><span>empirical research</span></a></div></div>
+<div class="menu"><button class="menu-trigger" type="button" aria-haspopup="true" aria-expanded="false">ClaimGraph</button><div class="menu-panel"><a href="claimgraph.html"><b>ClaimGraph</b><span>dependency graph of claims</span></a><a href="identifiers.html"><b>Identifiers</b><span>stable names the graph references</span></a><a href="https://claimgraph.conventional-knowledge-commits.org/"><b>Live graph ↗</b><span>see it on real data</span></a></div></div>
+<div class="menu"><button class="menu-trigger" type="button" aria-haspopup="true" aria-expanded="false">Examples</button><div class="menu-panel"><a href="examples.html"><b>Examples</b><span>worked commits, both profiles</span></a><a href="case-study.html"><b>Case study</b><span>the axiom that passed every gate</span></a></div></div>
+<div class="menu"><button class="menu-trigger" type="button" aria-haspopup="true" aria-expanded="false">Tooling</button><div class="menu-panel"><a href="tooling.html"><b>Tooling</b><span>hooks, configs, CI</span></a><a href="https://github.com/hotherio/ckc-tools"><b>Pre-commit hooks ↗</b><span>ckc-tools repository</span></a><a href="../../skill/SKILL.md"><b>Community skill</b><span>tool-agnostic SKILL.md, hosted here</span></a><a href="https://github.com/hotherio/ckc-tools/tree/main/skills/conventional-knowledge-commits"><b>Agent skill ↗</b><span>write CKC with AI assistants</span></a></div></div><a href="faq.html">FAQ</a><span class="navsep"></span>
+<div class="menu sel"><button class="menu-trigger" type="button" aria-haspopup="true" aria-expanded="false">v0.2.0</button><div class="menu-panel"><a class="cur" href="../../0.2.0/en/proof-profile.html"><b>v0.2.0</b><span>current</span></a><a href="../../0.1.0/en/proof-profile.html"><b>v0.1.0</b><span></span></a></div></div>
+<div class="menu sel"><button class="menu-trigger" type="button" aria-haspopup="true" aria-expanded="false">EN</button><div class="menu-panel"><a class="cur" href="../en/proof-profile.html"><b>English</b><span>en</span></a></div></div>
+<span class="navsep"></span>
+<a class="ext" href="https://www.conventionalcommits.org/en/v1.0.0/" title="Conventional Commits 1.0.0">CC ↗</a>
+<a class="gh" href="https://github.com/hotherio/conventional-knowledge-commits" aria-label="GitHub repository" title="GitHub repository"><svg viewBox="0 0 16 16" width="17" height="17" aria-hidden="true"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82a7.6 7.6 0 0 1 2-.27c.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg></a>
+</div></nav>
+<main class="doc"><div class="wrap">
+<h1 id="ckc-the-proof-profile">CKC: the <code>proof</code> profile</h1>
+<p>The <code>proof</code> profile is for mathematics and formal proving. It is designed to couple to a proof
+assistant (Lean 4 and Mathlib in the reference implementation), where the trusted base is precise: a
+result is either kernel-checked, depends on a cited axiom, or has an open <code>sorry</code>. <code>#print axioms</code>
+is the ground truth, and CKC commits report it rather than asserting a status by hand.</p>
+<p>CKC keeps a commit honest in two ways: <strong>kernel-honest</strong>, the trusted base is what the assistant's
+assumption check reports, and <strong>status-honest</strong>, the footers repeat that report literally. There is
+a third layer the first two cannot reach: <strong>transcription-honest</strong>. A claim transcribed from an
+external source is only as good as the transcription, and the kernel checks the statement as
+written, never that it matches the source. An axiom that silently drops one of the paper's
+hypotheses passes every kernel gate while asserting something the paper never said; the fidelity
+footers exist to make that comparison auditable (see <a href="#statement-fidelity">Statement fidelity</a>).</p>
+<h2 id="proof-assistants">Proof assistants</h2>
+<p>The profile is not specific to Lean. It works with any proof assistant that can name a declaration
+and report the assumptions a proof depends on. Lean is the reference because its <code>#print axioms</code> makes
+the trusted base explicit, but the same three states (machine-checked, depends on a cited axiom, has
+an open hole) exist in every system. Use the <code>Verified-By:</code> footer to name the assistant and version,
+and prefix the formal name with the system in <code>Formal-Statement:</code>.</p>
+<table>
+<thead>
+<tr>
+<th>Assistant</th>
+<th>Stable name</th>
+<th>Trusted-base check</th>
+<th>"Machine-checked" footers</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Lean 4 / Mathlib</td>
+<td><code>Ns.thm</code></td>
+<td><code>#print axioms</code></td>
+<td><code>Formal-Statement: lean:Ns.thm</code> · <code>Verified-By: Lean 4.30.0</code></td>
+</tr>
+<tr>
+<td>Rocq / Coq</td>
+<td><code>Module.thm</code></td>
+<td><code>Print Assumptions thm</code></td>
+<td><code>Formal-Statement: rocq:Module.thm</code> · <code>Verified-By: Rocq 9.0</code></td>
+</tr>
+<tr>
+<td>Isabelle/HOL</td>
+<td><code>Theory.thm</code></td>
+<td><code>thm_deps</code> / <code>unused_thms</code></td>
+<td><code>Formal-Statement: isabelle:Theory.thm</code></td>
+</tr>
+<tr>
+<td>Agda</td>
+<td><code>Module.name</code></td>
+<td><code>--safe</code> flag, no postulates</td>
+<td><code>Formal-Statement: agda:Module.name</code></td>
+</tr>
+</tbody>
+</table>
+<p>The status mapping is the same everywhere: a clean trusted base is <code>math.machine-checked</code>, a cited
+axiom or <code>Axiom</code>/<code>Parameter</code>/<code>postulate</code>/<code>sorry</code> is <code>math.axiomatised</code> or <code>math.open</code>. The <code>Axioms:</code>
+footer carries whatever the system's assumption check prints.</p>
+<h2 id="types">Types</h2>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Use it when you</th>
+<th>Typical impact</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>state</code></td>
+<td>add a definition or the formal statement of a result, with no proof yet</td>
+<td>additive</td>
+</tr>
+<tr>
+<td><code>conjecture</code></td>
+<td>assert a statement you believe but do not prove</td>
+<td>additive</td>
+</tr>
+<tr>
+<td><code>proof</code></td>
+<td>give or complete an informal (paper) proof</td>
+<td>additive</td>
+</tr>
+<tr>
+<td><code>formalize</code></td>
+<td>write or advance a machine-checkable proof: stubs, tactics, closing goals</td>
+<td>additive</td>
+</tr>
+<tr>
+<td><code>axiomatize</code></td>
+<td>deliberately posit a cited axiom (theory absent from the library)</td>
+<td>additive, see note</td>
+</tr>
+<tr>
+<td><code>strengthen</code></td>
+<td>weaken hypotheses or strengthen the conclusion; the old form still follows</td>
+<td>additive</td>
+</tr>
+<tr>
+<td><code>generalize</code></td>
+<td>subsume a special case under a more general result</td>
+<td>additive</td>
+</tr>
+<tr>
+<td><code>weaken</code></td>
+<td>strengthen hypotheses or narrow the conclusion</td>
+<td>usually breaking, <code>!</code></td>
+</tr>
+<tr>
+<td><code>refute</code></td>
+<td>give a counterexample or disproof of a prior claim</td>
+<td>breaking, <code>!</code></td>
+</tr>
+<tr>
+<td><code>retract</code></td>
+<td>withdraw a previously asserted result or proof</td>
+<td>breaking, <code>!</code></td>
+</tr>
+<tr>
+<td><code>port</code></td>
+<td>move an informal proof into the proof assistant</td>
+<td>additive</td>
+</tr>
+</tbody>
+</table>
+<p>Note on <code>axiomatize</code>: it is additive on the dependency-impact axis, because it introduces a new
+object. On the status axis it is a trusted-base event twice over: it widens the trusted base and it
+transcribes. It MUST carry an <code>AXIOM:</code> footer and a <code>Source-Ref:</code> footer and sets
+<code>Status: math.axiomatised</code>; it SHOULD carry a <code>Refutation-Attempt:</code> (see
+<a href="#statement-fidelity">Statement fidelity</a>). It becomes a breaking change only if it replaces a
+previously proved result with an assumed one.</p>
+<h2 id="status-bound-to-print-axioms">Status, bound to <code>#print axioms</code></h2>
+<p><code>Status:</code> values use the <code>math.*</code> namespace:</p>
+<table>
+<thead>
+<tr>
+<th><code>Status:</code></th>
+<th>Meaning</th>
+<th>Ground truth (<code>#print axioms</code>)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>math.conjectured</code></td>
+<td>asserted, unproven</td>
+<td>none</td>
+</tr>
+<tr>
+<td><code>math.proved-informal</code></td>
+<td>paper proof, not formalized</td>
+<td>none</td>
+</tr>
+<tr>
+<td><code>math.open</code></td>
+<td>formalized with a remaining gap</td>
+<td>depends on <code>sorryAx</code></td>
+</tr>
+<tr>
+<td><code>math.axiomatised</code></td>
+<td>formalized assuming a cited axiom</td>
+<td>depends on a cited or added <code>axiom</code></td>
+</tr>
+<tr>
+<td><code>math.machine-checked</code></td>
+<td>kernel-checked, no gaps, no added axioms</td>
+<td>clean: only <code>propext</code>, <code>Classical.choice</code>, <code>Quot.sound</code></td>
+</tr>
+<tr>
+<td><code>math.disproved</code></td>
+<td>shown false by a counterexample or disproof</td>
+<td>none</td>
+</tr>
+</tbody>
+</table>
+<p>A commit claiming <code>math.machine-checked</code> SHOULD include the actual <code>Axioms:</code> line, and that line
+SHOULD show only the standard three. Claiming <code>machine-checked</code> while the kernel reports a <code>sorryAx</code>
+or a non-standard axiom is a CKC violation. That dishonesty is the thing the convention exists to
+prevent.</p>
+<h2 id="trusted-base-footers">Trusted-base footers</h2>
+<ul>
+<li><code>AXIOM: &lt;Name&gt; (&lt;what it is, why cited&gt;)</code>: a cited or added axiom widens the trusted base.</li>
+<li><code>OPEN: &lt;what is unproven&gt;</code>: a remaining <code>sorry</code>, <code>admit</code>, or <code>sorryAx</code>.</li>
+</ul>
+<h2 id="statement-fidelity">Statement fidelity</h2>
+<p>Kernel honesty has a blind spot: the kernel checks the statement as written, not the statement the
+source proved. A cited axiom that silently drops one of the paper's hypotheses survives every gate.
+The commit is honestly labelled, the <code>AXIOM:</code> footer is present, <code>#print axioms</code> agrees, and the
+statement is false (a missing <code>μ ≠ ν</code> can make an axiom refutable in three lines). Transcription is
+a trusted-base event of its own, so it gets its own checks and footers. See
+<a href="case-study.html">the case study</a> for a real instance.</p>
+<p>Three checks, before the axiom lands:</p>
+<ol>
+<li><strong>Hypothesis parity.</strong> Put the formal statement next to the verbatim source text and account for
+   every hypothesis: present, or its absence argued in the body. Type-correct is not parity.</li>
+<li><strong>Adversarial instantiation.</strong> Try to refute the statement as written with degenerate instances
+   (equal measures, dimension one, the empty and the trivial case). A dropped hypothesis usually
+   falls to the first one.</li>
+<li><strong>Model adequacy.</strong> The formal class must be able to express what the source's proof uses. If
+   the paper's argument needs a measure-dependent flow, a linear flow type cannot host it, however
+   cleanly each statement typechecks.</li>
+</ol>
+<p>The footers:</p>
+<ul>
+<li><code>Source-Ref: &lt;work, locus&gt;</code>: the verbatim statement the transcription is answerable to (theorem,
+  equation, or page).</li>
+<li><code>Refutation-Attempt: &lt;artifact&gt; | none-found: &lt;attacks tried&gt;</code>: the attempt to break the
+  statement as written, or the attacks that failed to.</li>
+<li><code>Fidelity-Reviewed: &lt;reviewer, date&gt;</code>: OPTIONAL human sign-off that the parity check was done.</li>
+</ul>
+<p>When a draft axiom was refuted and then repaired, keep the disproof of the refuted draft compiling
+as a must-fail regression, so re-loosening the statement breaks the build instead of quietly
+reviving the bad transcription. Reference practice, not a requirement.</p>
+<h2 id="provenance-footers">Provenance footers</h2>
+<ul>
+<li><code>Lean: &lt;Fully.Qualified.Name&gt;[, ...]</code>: the declaration(s) this commit touches, which is the stable id.</li>
+<li><code>Formal-Statement: lean:&lt;FQN&gt;</code>: an alternative spelling that binds a claim id to its Lean name.</li>
+<li><code>Axioms: &lt;name&gt;[, ...]</code>: the literal <code>#print axioms</code> result (<code>propext, Classical.choice, Quot.sound</code>
+  for a clean result).</li>
+<li><code>Verified-By: &lt;assistant and library version&gt;</code>, for example <code>Lean 4.30.0; Mathlib v4.30.0</code>.</li>
+<li><code>Proof-Hash: sha256:...</code>: an optional content hash of the proof artifact.</li>
+<li><code>Cites: &lt;doi|arXiv|ref&gt;</code>: for <code>axiomatize</code> and <code>lit</code>, where the cited fact comes from.</li>
+<li><code>Source-Ref: &lt;work, locus&gt;</code>, <code>Refutation-Attempt: &lt;artifact&gt; | none-found: &lt;attacks tried&gt;</code>,
+  <code>Fidelity-Reviewed: &lt;reviewer, date&gt;</code>: the fidelity footers; see
+  <a href="#statement-fidelity">Statement fidelity</a>.</li>
+<li><code>Phase: &lt;A..H&gt;</code>, <code>Gate: &lt;...&gt;</code>: an optional link to a research pipeline ledger.</li>
+</ul>
+<h2 id="identity">Identity</h2>
+<p>The stable identifier of a formal result is its Lean fully-qualified name, optionally with a
+blueprint label such as <code>thm:master-formula</code>. These survive a rewrite of the prose and are what
+<code>Depends-On:</code>, <code>Proves:</code>, and <code>Refutes:</code> reference. See <a href="identifiers.html">Identifiers</a>.</p>
+<h2 id="examples">Examples</h2>
+<pre class="highlight"><code>state(green-kernel): define the elliptic Green's kernel operator
+
+Lean: IGL.greensKernel
+Status: math.conjectured</code></pre>
+<pre class="highlight"><code>formalize(fubini): close the d-fold separable factorization
+
+Lean: IGL.fubini_dfold, IGL.fubini_factorization
+Status: math.machine-checked
+Axioms: propext, Classical.choice, Quot.sound
+Verified-By: Lean 4.30.0; Mathlib v4.30.0
+Closes: conjecture:master-formula</code></pre>
+<pre class="highlight"><code>axiomatize~(exp-sum): cite the logarithmic exponential-sum rank bound
+
+The target library has no elliptic-Green's exponential-sum theory, so posit it as a citation.
+
+Lean: IGL.expSumRank_logBound
+Status: math.axiomatised
+AXIOM: IGL.expSumRank_logBound (separable rank K = O(log 1/ε), dimension-independent)
+Source-Ref: Braess &amp; Hackbusch 2005, Numer. Math., Thm 3.1
+Cites: Braess &amp; Hackbusch 2005, Numer. Math.</code></pre>
+<pre class="highlight"><code>refute(separability)!: a counterexample blocks naive separable factorization
+
+Disproves: conjecture:naive-separable
+Status: math.disproved
+BREAKING CHANGE: conjecture:naive-separable is withdrawn; the compensation result depends on it.</code></pre>
+</div></main>
+<footer><div class="wrap">Part of <a href="index.html">Conventional Knowledge Commits</a> · extends <a href="https://www.conventionalcommits.org/en/v1.0.0/">Conventional Commits 1.0.0</a> · spec licensed <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>.</div></footer>
+<script src="../../assets/nav.js" defer></script>
+</body>
+</html>

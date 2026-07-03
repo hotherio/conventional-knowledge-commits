@@ -6,7 +6,7 @@
 <header>
   <div class="wrap head">
     <img class="hero-logo" src="{{ ASSET }}assets/logo.png" width="384" height="343" alt="Conventional Knowledge Commits logo">
-    <div class="badge">CKC v0.1.0, a superset of
+    <div class="badge">CKC v0.2.0, a superset of
       <a href="https://www.conventionalcommits.org/en/v1.0.0/">Conventional Commits 1.0.0</a></div>
     <h1>Conventional Knowledge Commits</h1>
     <p class="lede">A specification for adding human- and machine-readable meaning to commits that
@@ -168,6 +168,11 @@
     <p class="muted" style="font-size:14px;margin-top:18px">A third kind of footer wires results into
       the <a href="claimgraph.html">ClaimGraph</a>: <code>Depends-On</code>, <code>Proves</code>,
       <code>Refutes</code>, <code>Closes</code>, <code>Supersedes</code>.</p>
+    <p class="muted" style="font-size:14px;margin-top:10px">And a fourth keeps transcriptions honest.
+      The kernel checks a statement as written, never that it matches the source it cites, so a
+      citation-truth status must anchor the exact statement it transcribes:
+      <code>Source-Ref</code>, with <code>Refutation-Attempt</code> and
+      <code>Protocol-Deviations</code> as the evidence. <a href="case-study.html">Why this exists.</a></p>
   </div>
 </section>
 
@@ -185,6 +190,7 @@
 <span class="ft">Lean:</span> Approx.rankBound
 <span class="ft">Status:</span> math.axiomatised
 <span class="lo">AXIOM:</span> Approx.rankBound (rank K = O(log 1/ε))
+<span class="ft">Source-Ref:</span> Braess &amp; Hackbusch 2005, Thm 3.1
 <span class="ft">Cites:</span> Braess &amp; Hackbusch 2005</pre>
 
 <pre class="break"><span class="k">refute</span>(claim)!: a counterexample blocks naive factorization

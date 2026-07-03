@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Case study · CKC</title>
+<meta name="description" content="Case study: a false axiom that passed every kernel gate, and the transcription-fidelity rule it motivated.">
+<link rel="icon" href="../../assets/favicon.ico" sizes="16x16 32x32 48x48">
+<link rel="icon" type="image/png" sizes="96x96" href="../../assets/favicon.png">
+<link rel="apple-touch-icon" href="../../assets/apple-touch-icon.png">
+<link rel="canonical" href="https://conventional-knowledge-commits.org/0.2.0/en/case-study.html">
+<meta property="og:site_name" content="Conventional Knowledge Commits">
+<meta property="og:title" content="Case study · CKC">
+<meta property="og:description" content="Case study: a false axiom that passed every kernel gate, and the transcription-fidelity rule it motivated.">
+<meta property="og:url" content="https://conventional-knowledge-commits.org/0.2.0/en/case-study.html">
+<meta property="og:image" content="https://conventional-knowledge-commits.org/assets/og/case-study.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://conventional-knowledge-commits.org/assets/og/case-study.png">
+<link rel="stylesheet" href="../../assets/ckc.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"Case study · CKC","url":"https://conventional-knowledge-commits.org/0.2.0/en/case-study.html","isPartOf":{"@type":"WebSite","name":"Conventional Knowledge Commits","url":"https://conventional-knowledge-commits.org/0.2.0/en/"},"inLanguage":"en","license":"https://creativecommons.org/licenses/by/4.0/"}</script>
+</head>
+<body>
+<nav class="nav"><div class="wrap">
+<a class="home" href="index.html"><img class="brand" src="../../assets/logo.png" width="384" height="343" alt="">CKC</a><span class="sp"></span><a href="spec.html">Spec</a><div class="menu"><button class="menu-trigger" type="button" aria-haspopup="true" aria-expanded="false">Profiles</button><div class="menu-panel"><a href="proof-profile.html"><b>Proof</b><span>mathematics &amp; formal proving</span></a><a href="science-profile.html"><b>Science</b><span>empirical research</span></a></div></div>
+<div class="menu"><button class="menu-trigger" type="button" aria-haspopup="true" aria-expanded="false">ClaimGraph</button><div class="menu-panel"><a href="claimgraph.html"><b>ClaimGraph</b><span>dependency graph of claims</span></a><a href="identifiers.html"><b>Identifiers</b><span>stable names the graph references</span></a><a href="https://claimgraph.conventional-knowledge-commits.org/"><b>Live graph ↗</b><span>see it on real data</span></a></div></div>
+<div class="menu here"><button class="menu-trigger" type="button" aria-haspopup="true" aria-expanded="false">Examples</button><div class="menu-panel"><a href="examples.html"><b>Examples</b><span>worked commits, both profiles</span></a><a href="case-study.html"><b>Case study</b><span>the axiom that passed every gate</span></a></div></div>
+<div class="menu"><button class="menu-trigger" type="button" aria-haspopup="true" aria-expanded="false">Tooling</button><div class="menu-panel"><a href="tooling.html"><b>Tooling</b><span>hooks, configs, CI</span></a><a href="https://github.com/hotherio/ckc-tools"><b>Pre-commit hooks ↗</b><span>ckc-tools repository</span></a><a href="../../skill/SKILL.md"><b>Community skill</b><span>tool-agnostic SKILL.md, hosted here</span></a><a href="https://github.com/hotherio/ckc-tools/tree/main/skills/conventional-knowledge-commits"><b>Agent skill ↗</b><span>write CKC with AI assistants</span></a></div></div><a href="faq.html">FAQ</a><span class="navsep"></span>
+<div class="menu sel"><button class="menu-trigger" type="button" aria-haspopup="true" aria-expanded="false">v0.2.0</button><div class="menu-panel"><a class="cur" href="../../0.2.0/en/case-study.html"><b>v0.2.0</b><span>current</span></a><a href="../../0.1.0/en/case-study.html"><b>v0.1.0</b><span></span></a></div></div>
+<div class="menu sel"><button class="menu-trigger" type="button" aria-haspopup="true" aria-expanded="false">EN</button><div class="menu-panel"><a class="cur" href="../en/case-study.html"><b>English</b><span>en</span></a></div></div>
+<span class="navsep"></span>
+<a class="ext" href="https://www.conventionalcommits.org/en/v1.0.0/" title="Conventional Commits 1.0.0">CC ↗</a>
+<a class="gh" href="https://github.com/hotherio/conventional-knowledge-commits" aria-label="GitHub repository" title="GitHub repository"><svg viewBox="0 0 16 16" width="17" height="17" aria-hidden="true"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82a7.6 7.6 0 0 1 2-.27c.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg></a>
+</div></nav>
+<main class="doc"><div class="wrap">
+<h1 id="case-study-the-axiom-that-passed-every-gate">Case study: the axiom that passed every gate</h1>
+<p>This page walks through a real incident, in a public repository, that motivated rule 14
+(transcription fidelity) and the fidelity footers. Everything below is verifiable:
+<a href="https://github.com/aquemy/measure-to-measure-transformers">aquemy/measure-to-measure-transformers</a>
+is a Lean 4 formalization of a published optimal-control paper
+(<a href="https://arxiv.org/abs/2411.04551">arXiv:2411.04551</a>, measure-to-measure interpolation using
+Transformers), tracked with CKC end to end. The repository's own post-mortem lives in its
+<a href="https://github.com/aquemy/measure-to-measure-transformers/blob/main/RESEARCH.md">RESEARCH.md</a>
+(findings F11 to F16) and
+<a href="https://github.com/aquemy/measure-to-measure-transformers/blob/main/ERRATA.md">ERRATA.md</a>.</p>
+<h2 id="the-setup">The setup</h2>
+<p>The project ran every honesty gate CKC and its tooling offer. Each commit was validated by
+<code>ckc-lint</code>. The build had to pass. A sweep rejected any <code>sorry</code>, <code>admit</code>, or <code>native_decide</code>. An
+<code>axiom-report</code> ran <code>#print axioms</code> on every blueprint node. A ClaimGraph audit failed the build if
+a node claimed proved while the kernel disagreed, and a reconcile pass failed it if a committed
+status drifted from the kernel. By kernel-honesty and status-honesty standards, this repository was
+airtight.</p>
+<p>Because the paper needs mathematics the target library does not have (optimal transport,
+continuity-equation flows), the deep prerequisites were deliberately posited as labelled axioms:
+<code>axiomatize</code> commits, <code>Status: math.axiomatised</code>, one <code>AXIOM:</code> footer each, a citation to the paper
+section. Exactly the honest posture the proof profile prescribes.</p>
+<h2 id="the-entry">The entry</h2>
+<p>The axioms landed on one evening, in commits whose footers were, by v0.1.0 standards, impeccable:</p>
+<pre class="highlight"><code>formalize~(statements): close the open mid-level statements as labeled axioms
+
+Status: math.axiomatised
+AXIOM: prop_2_1, prop_2_2, lemma_3_2, lemma_3_3, lemma_3_4_part1, lemma_3_4_part2,
+  prop_4_1, prop_4_2, lemma_5_1, lemma_5_4, lemma_B_2, cluster_to_point
+  (continuity-equation / LaSalle / optimal-transport facts absent from Mathlib)
+Closes: ...twelve claims...
+Depends-On: ...the flow-algebra axioms...</code></pre>
+<p>No <code>Verified-By:</code>. No source anchor. The body asserted "no axiom is unsound" after a fidelity
+review of two of the twelve stubs. The other ten went in as they were: type-correct transcriptions
+of the paper's statements, with hypotheses silently missing.</p>
+<h2 id="the-survival">The survival</h2>
+<p>Nothing caught it, for 135 commits over two and a half days. Every gate passed, and each was blind
+for a precise reason:</p>
+<ul>
+<li>The kernel checks the statement as written. A false statement is a perfectly well-typed axiom.</li>
+<li>The <code>#print axioms</code> report and the ClaimGraph audit key on what proved nodes rest on. A false
+  axiom that no proved theorem consumes yet, an orphan, appears in no footprint.</li>
+<li><code>ckc-lint</code> saw a known type, a valid status, an uppercase <code>AXIOM:</code> footer. All true.</li>
+<li>The citation named the paper, and the paper's mathematics is sound. The transcription was not.</li>
+</ul>
+<p>Every fidelity bug found earlier in the project had been caught incidentally, when a downstream
+proof happened to need the missing hypothesis. The bugs in axioms nothing consumed yet were
+invisible.</p>
+<h2 id="the-audit">The audit</h2>
+<p>A dedicated statement-fidelity audit then compared every axiom against the paper's verbatim text
+and attacked each statement as written. Of twelve axioms, eleven were false as stated:</p>
+<ul>
+<li><strong>F11.</strong> Lemma 3.4 was transcribed without the paper's hypothesis that the two measures are
+  <em>different</em>. Instantiating both measures to the same one derives <code>False</code> in three lines. The
+  disproof was machine-checked.</li>
+<li><strong>F12.</strong> Several axioms quantified over every measure where the paper says probability measures
+  on the sphere. Instantiating one with the Lebesgue measure of the whole space refutes it; another
+  fell to a target point off the sphere.</li>
+<li><strong>F14.</strong> The deepest one. The formal model of the dynamics was a measure-independent flow, a
+  linear continuity equation, while the paper's central mechanism is measure-dependent attention.
+  The paper itself proves (its eq. 1.7) that the linear kind cannot do the job. No per-statement
+  patch fixes a model-class error; the model had to be rebuilt.</li>
+</ul>
+<p>The audit also surfaced two statement-level erratum candidates in the source paper itself,
+documented factually in the repository's ERRATA.md.</p>
+<h2 id="the-repair">The repair</h2>
+<p>The hypotheses were restored, and the repair was made structural rather than a one-off:</p>
+<ul>
+<li>Each refuted draft's disproof was committed as a kernel-checked theorem (<code>old statement implies
+  False</code>), permanently in the build.</li>
+<li>Next to each, a short must-fail file tries to derive the refuted old statement from the current
+  axiom. A gate asserts it fails to compile. If anyone ever re-loosens the axiom to the shape
+  already proved false, the file compiles and the gate fails loudly.</li>
+<li>Non-vacuity witnesses instantiate every axiom's hypotheses with concrete data, so an
+  over-corrected, unsatisfiable axiom breaks the build too.</li>
+<li>The commit hook now rejects a <code>math.axiomatised</code> commit that lacks a <code>Source-Ref:</code> and a
+  <code>Refutation-Attempt:</code> footer.</li>
+</ul>
+<h2 id="the-lesson">The lesson</h2>
+<p>A commit can be honest three ways, and the first two do not imply the third:</p>
+<ol>
+<li><strong>Kernel-honest</strong>: the trusted base is what the assumption check reports.</li>
+<li><strong>Status-honest</strong>: the footers repeat that report literally.</li>
+<li><strong>Transcription-honest</strong>: the statement is the one the cited source actually made.</li>
+</ol>
+<p>v0.1.0 enforced the first two. This incident is why v0.2.0 adds the third: rule 14 makes the
+source anchor mandatory for citation-truth statuses, so comparing a transcription with its source
+is a diff, not an archaeology project, and the fidelity evidence footers record that someone tried
+to break the statement as written before trusting it. The
+<a href="proof-profile.html">proof profile</a> spells out the three checks; the
+<a href="science-profile.html">science profile</a> carries the same idea as protocol fidelity.</p>
+</div></main>
+<footer><div class="wrap">Part of <a href="index.html">Conventional Knowledge Commits</a> · extends <a href="https://www.conventionalcommits.org/en/v1.0.0/">Conventional Commits 1.0.0</a> · spec licensed <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>.</div></footer>
+<script src="../../assets/nav.js" defer></script>
+</body>
+</html>
